@@ -1,11 +1,12 @@
 export type TokenStore = 'vuex' | 'localStorage' | 'sessionStorage' | 'cookie';
 export type Redirect = { path: string; };
 export type Method = 'GET' | 'POST';
-export type BasicRedirectData = { url: string; method: Method; enabled?: boolean; };
+export type BasicRedirectData = { url: string; method: Method; };
+export type BasicRedirectEnabledData = { url: string; method: Method; enabled?: boolean;  };
 export type RedirectData = BasicRedirectData & { redirect?: string; };
 export type LoginRedirectData = RedirectData & { fetchUser?: boolean };
 export type RequestRedirectData = RedirectData & { makeRequest?: boolean };
-export type RefreshData = BasicRedirectData & { interval: number };
+export type FetchData = BasicRedirectEnabledData & { interval?: number };
 export type OAuthData = {
   url: string;
   params: {
@@ -19,21 +20,20 @@ export type AuthUser = { [key: string]: any };
 
 export interface VueAuthOptions {
   authMeta?: string;
-  vuexStoreSpace?: string;
   rolesVar?: string;
   tokenDefaultName?: string;
   userDefaultName?: string;
   tokenStore?: TokenStore[];
+  vuexStoreSpace?: string;
+  headerTokenReplace?: string;
 
   authRedirect?: Redirect;
-  forbiddenRedirect?: Redirect;
-  notFoundRedirect?: Redirect;
 
   registerData?: RedirectData;
   loginData?: LoginRedirectData;
   logoutData?: RequestRedirectData;
-  fetchData?: BasicRedirectData;
-  refreshData?: RefreshData;
+  fetchData?: FetchData;
+  // refreshData?: RefreshData;
 
   facebookData?: RedirectData;
   googleData?: RedirectData;

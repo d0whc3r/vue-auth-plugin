@@ -1,19 +1,26 @@
-import { Route, VueRouter } from 'vue-router/types/router';
-import { VueConstructor } from 'vue';
+import { RawLocation, Route, VueRouter } from 'vue-router/types/router';
 import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
+import AuthStoreManager from '@/lib/auth-vue-store-manager';
 
 export default class AuthVueRouter {
   private router: VueRouter;
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
+  constructor(private Vue: any, private options: VueAuthOptions, private storeManager: AuthStoreManager) {
+    if (!this.Vue.router) {
+      throw Error('vue-router is a required dependency');
+    }
     this.router = Vue.router as VueRouter;
     this.configureRouter();
+  }
+
+  public push(to: RawLocation | string) {
+    this.router.push(to);
   }
 
   private configureRouter() {
     this.router.beforeEach((to, from, next) => {
       if (this.haveMeta(to)) {
-        const token = this.store.getters[`${this.options.vuexStoreSpace}/getToken`];
+        const token = this.storeManager.getToken();
         if (token) {
           next();
         } else {

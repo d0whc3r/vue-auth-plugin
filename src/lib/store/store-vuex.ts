@@ -1,14 +1,16 @@
-import { VueConstructor } from 'vue/types/vue';
 import { Store } from 'vuex';
 import { AuthUser, VueAuthOptions } from '@/interfaces/VueAuthOptions';
 import { VueAuthStore } from '@/interfaces/VueAuthStore';
 
 export class StoreVuex implements VueAuthStore {
-  private readonly store: Store;
+  private readonly store: Store<any>;
   private readonly module: string;
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
-    this.store = Vue.store as Store;
+  constructor(private Vue: any, private options: VueAuthOptions) {
+    if (!this.Vue.store) {
+      throw Error('vuex is a required dependency');
+    }
+    this.store = Vue.store as Store<any>;
     this.module = this.options.vuexStoreSpace;
     this.createVueAuthStore();
   }
@@ -34,6 +36,7 @@ export class StoreVuex implements VueAuthStore {
   }
 
   private createVueAuthStore() {
+    const { rolesVar } = this.options;
     const module = {
       state: {
         token: null,
@@ -43,15 +46,15 @@ export class StoreVuex implements VueAuthStore {
         SET_TOKEN(state, token: string) {
           state.token = token;
         },
-        SET_USER(state, user) {
+        SET_USER(state, user: AuthUser) {
           state.user = user;
         },
       },
       actions: {
-        setToken({ commit }, token) {
+        setToken({ commit }, token: string) {
           commit('SET_TOKEN', token);
         },
-        setUser({ commit }, user) {
+        setUser({ commit }, user: AuthUser) {
           commit('SET_USER', user);
         },
       },
@@ -63,7 +66,7 @@ export class StoreVuex implements VueAuthStore {
           return state.user;
         },
         getRoles(state): string[] {
-          return state.user[this.options.rolesVar];
+          return state.user[rolesVar];
         },
       },
     };
