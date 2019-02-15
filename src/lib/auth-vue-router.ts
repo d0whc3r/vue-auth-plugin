@@ -1,6 +1,5 @@
 import { Route, VueRouter } from 'vue-router/types/router';
 import { VueConstructor } from 'vue';
-import { Store } from 'vuex';
 import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
 
 export default class AuthVueRouter {

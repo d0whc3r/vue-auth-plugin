@@ -15,15 +15,15 @@ export type OAuthData = {
   }
 };
 
+export type AuthUser = { [key: string]: any };
+
 export interface VueAuthOptions {
   authMeta?: string;
   vuexStoreSpace?: string;
   rolesVar?: string;
-  // tokenImpersonateName?: string;
   tokenDefaultName?: string;
+  userDefaultName?: string;
   tokenStore?: TokenStore[];
-
-// Objects
 
   authRedirect?: Redirect;
   forbiddenRedirect?: Redirect;
@@ -32,11 +32,8 @@ export interface VueAuthOptions {
   registerData?: RedirectData;
   loginData?: LoginRedirectData;
   logoutData?: RequestRedirectData;
-  oauth1Data?: BasicRedirectData;
   fetchData?: BasicRedirectData;
   refreshData?: RefreshData;
-  // impersonateData?: RedirectData;
-  // unimpersonateData?: RequestRedirectData;
 
   facebookData?: RedirectData;
   googleData?: RedirectData;

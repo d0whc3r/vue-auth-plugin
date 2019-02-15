@@ -9,8 +9,8 @@ export default class Auth {
     authMeta: 'auth',
     vuexStoreSpace: 'vue-auth',
     rolesVar: 'roles',
-    // tokenImpersonateName: 'impersonate_auth_token',
     tokenDefaultName: 'default_auth_token',
+    userDefaultName: 'default_auth_user',
     tokenStore: ['vuex', 'localStorage', 'cookie'],
 
     authRedirect: { path: '/login' },
@@ -20,11 +20,8 @@ export default class Auth {
     registerData: { url: 'auth/register', method: 'POST', redirect: '/login' },
     loginData: { url: 'auth/login', method: 'POST', redirect: '/', fetchUser: true },
     logoutData: { url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: false },
-    oauth1Data: { url: 'auth/login', method: 'POST' },
     fetchData: { url: 'auth/user', method: 'GET', enabled: true },
     refreshData: { url: 'auth/refresh', method: 'GET', enabled: true, interval: 30 },
-    // impersonateData: { url: 'auth/impersonate', method: 'POST', redirect: '/' },
-    // unimpersonateData: { url: 'auth/unimpersonate', method: 'POST', redirect: '/admin', makeRequest: false },
 
     facebookData: { url: 'auth/facebook', method: 'POST', redirect: '/' },
     googleData: { url: 'auth/google', method: 'POST', redirect: '/' },
