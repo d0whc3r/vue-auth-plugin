@@ -1,4 +1,4 @@
-export type TokenStore = 'vuex' | 'localStorage' | 'cookie';
+export type TokenStore = 'vuex' | 'localStorage' | 'sessionStorage' | 'cookie';
 export type Redirect = { path: string; };
 export type Method = 'GET' | 'POST';
 export type BasicRedirectData = { url: string; method: Method; enabled?: boolean; };

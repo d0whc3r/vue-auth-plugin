@@ -3,7 +3,7 @@ import { AuthUser, VueAuthOptions } from '@/interfaces/VueAuthOptions';
 import { VueConstructor } from 'vue';
 
 export default class StoreLocalstorage implements VueAuthStore {
-  private store: Storage;
+  public store: Storage;
 
   constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
     this.store = window.localStorage;
