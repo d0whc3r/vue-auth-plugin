@@ -1,6 +1,6 @@
 {
   "name": "@d0whc3r/vue-auth-plugin",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
@@ -56,7 +56,8 @@
     "dist/vue-auth-plugin.umd.min.js",
     "dist/vue-auth-plugin.umd.js",
     "dist/vue-auth-plugin.esm.js",
-    "src"
+    "src",
+    "types"
   ],
   "jsdelivr": "dist/vue-auth-plugin.umd.min.js",
   "main": "dist/vue-auth-plugin.common.js",
