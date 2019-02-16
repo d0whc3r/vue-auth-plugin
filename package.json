@@ -1,6 +1,6 @@
 {
-  "name": "vue-auth-plugin",
-  "version": "0.1.13",
+  "name": "@d0whc3r/vue-auth-plugin",
+  "version": "0.1.16",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
@@ -23,14 +23,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "js-cookie": "2.2.0",
     "vue-router": "3.0.2"
   },
   "devDependencies": {
     "@types/express": "4.16.1",
     "@types/express-jwt": "0.0.41",
     "@types/jest": "24.0.5",
-    "@types/js-cookie": "2.2.1",
     "@types/jsonwebtoken": "8.3.0",
     "@vue/cli-plugin-babel": "3.4.0",
     "@vue/cli-plugin-typescript": "3.4.0",
