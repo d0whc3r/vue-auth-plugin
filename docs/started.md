@@ -7,7 +7,7 @@
 
 ```html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-cli-plugin-auth/dist/vue-cli-plugin-auth.js"></script>
+<script src="https://unpkg.com/vue-auth-plugin/dist/vue-auth-plugin.js"></script>
 
 <div id="#app">
   <!-- NOTE: here the outputs -->
@@ -17,11 +17,11 @@
 ## JavaScript
 
 ```javascript
-// If using a module system (e.g. via Vue CLI), import Vue and vue-cli-plugin-auth and then call Vue.use(vue-cli-plugin-auth).
+// If using a module system (e.g. via Vue CLI), import Vue and vue-auth-plugin and then call Vue.use(vue-auth-plugin).
 // import Vue from 'vue'
-// import vue-cli-plugin-auth from '<= repoName '
+// import vue-auth-plugin from '<= repoName '
 // 
-// Vue.use(vue-cli-plugin-auth)
+// Vue.use(vue-auth-plugin)
 
 // NOTE: here the example
 

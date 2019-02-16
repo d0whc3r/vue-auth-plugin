@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   themeConfig: {
-    repo: '/vue-cli-plugin-auth',
+    repo: '/vue-auth-plugin',
     docsDir: 'docs',
     locales: {
       '/': {
@@ -20,7 +20,7 @@ module.exports = {
         nav: [
           {
             text: 'Release Notes',
-            link: 'https://github.com/d0whc3r/vue-cli-plugin-auth/releases',
+            link: 'https://github.com/d0whc3r/vue-auth-plugin/releases',
           }],
         sidebar: [
           '/installation.md',

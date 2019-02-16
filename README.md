@@ -1,4 +1,4 @@
-# vue-cli-plugin-auth
+# vue-auth-plugin
 
 ## Project setup
 ```

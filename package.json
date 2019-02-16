@@ -1,14 +1,14 @@
 {
-  "name": "vue-cli-plugin-auth",
-  "version": "0.1.0",
+  "name": "@d0whc3r/vue-auth-plugin",
+  "version": "0.1.17",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
     "name": "d0whc3r",
-    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth"
+    "url": "https://github.com/d0whc3r/vue-auth-plugin"
   },
   "repository": {
-    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth",
+    "url": "https://github.com/d0whc3r/vue-auth-plugin",
     "type": "git"
   },
   "scripts": {
@@ -23,14 +23,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "js-cookie": "2.2.0",
     "vue-router": "3.0.2"
   },
   "devDependencies": {
     "@types/express": "4.16.1",
     "@types/express-jwt": "0.0.41",
     "@types/jest": "24.0.5",
-    "@types/js-cookie": "2.2.1",
     "@types/jsonwebtoken": "8.3.0",
     "@vue/cli-plugin-babel": "3.4.0",
     "@vue/cli-plugin-typescript": "3.4.0",
@@ -54,16 +52,17 @@
     "vue-template-compiler": "2.6.6"
   },
   "files": [
-    "dist/vue-cli-plugin-auth.common.js",
-    "dist/vue-cli-plugin-auth.umd.min.js",
-    "dist/vue-cli-plugin-auth.umd.js",
-    "dist/vue-cli-plugin-auth.esm.js",
-    "src"
+    "dist/vue-auth-plugin.common.js",
+    "dist/vue-auth-plugin.umd.min.js",
+    "dist/vue-auth-plugin.umd.js",
+    "dist/vue-auth-plugin.esm.js",
+    "src",
+    "types"
   ],
-  "jsdelivr": "dist/vue-cli-plugin-auth.umd.min.js",
-  "main": "dist/vue-cli-plugin-auth.common.js",
-  "module": "dist/vue-cli-plugin-auth.esm.js",
+  "jsdelivr": "dist/vue-auth-plugin.umd.min.js",
+  "main": "dist/vue-auth-plugin.common.js",
+  "module": "dist/vue-auth-plugin.esm.js",
   "sideeffects": false,
   "types": "types/index.d.ts",
-  "unpkg": "dist/vue-cli-plugin-auth.umd.min.js"
+  "unpkg": "dist/vue-auth-plugin.umd.min.js"
 }
