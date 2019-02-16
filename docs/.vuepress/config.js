@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   themeConfig: {
-    repo: '/vue-cli-plugin-auth',
+    repo: '/vue-cli-plugin-auth-jwt',
     docsDir: 'docs',
     locales: {
       '/': {

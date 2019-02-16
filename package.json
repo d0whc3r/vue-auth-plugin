@@ -1,5 +1,5 @@
 {
-  "name": "vue-cli-plugin-auth",
+  "name": "vue-cli-plugin-auth-jwt",
   "version": "0.1.0",
   "license": "MIT",
   "author": {
@@ -54,16 +54,16 @@
     "vue-template-compiler": "2.6.6"
   },
   "files": [
-    "dist/vue-cli-plugin-auth.common.js",
-    "dist/vue-cli-plugin-auth.umd.min.js",
-    "dist/vue-cli-plugin-auth.umd.js",
-    "dist/vue-cli-plugin-auth.esm.js",
+    "dist/vue-cli-plugin-auth-jwt.common.js",
+    "dist/vue-cli-plugin-auth-jwt.umd.min.js",
+    "dist/vue-cli-plugin-auth-jwt.umd.js",
+    "dist/vue-cli-plugin-auth-jwt.esm.js",
     "src"
   ],
-  "jsdelivr": "dist/vue-cli-plugin-auth.umd.min.js",
-  "main": "dist/vue-cli-plugin-auth.common.js",
-  "module": "dist/vue-cli-plugin-auth.esm.js",
+  "jsdelivr": "dist/vue-cli-plugin-auth-jwt.umd.min.js",
+  "main": "dist/vue-cli-plugin-auth-jwt.common.js",
+  "module": "dist/vue-cli-plugin-auth-jwt.esm.js",
   "sideeffects": false,
   "types": "types/index.d.ts",
-  "unpkg": "dist/vue-cli-plugin-auth.umd.min.js"
+  "unpkg": "dist/vue-cli-plugin-auth-jwt.umd.min.js"
 }

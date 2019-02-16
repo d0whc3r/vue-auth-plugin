@@ -7,4 +7,4 @@ Features include:
 - Feature2
 - ...
 
-[Get started](./started/) or play with the [demo](https://github.com/d0whc3r/vue-cli-plugin-auth/tree/dev/demo) (see [`README.md`](https://github.com/d0whc3r/vue-cli-plugin-auth/) to run them).
+[Get started](./started/) or play with the [demo](https://github.com/d0whc3r/vue-cli-plugin-auth-jwt/tree/dev/demo) (see [`README.md`](https://github.com/d0whc3r/vue-cli-plugin-auth-jwt/) to run them).
