@@ -1,13 +1,11 @@
-import { VueConstructor } from 'vue';
-import * as Cookies from 'js-cookie';
 import { VueAuthStore } from '../../interfaces/VueAuthStore';
 import { AuthUser, VueAuthOptions } from '../../interfaces/VueAuthOptions';
 
 export default class StoreCookie implements VueAuthStore {
-  private store: Cookies.CookiesStatic;
+  private store: any;
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
-    this.store = Cookies;
+  constructor(private Vue: any, private options: VueAuthOptions) {
+    this.store = Vue.cookie;
   }
 
   getRoles(): string[] {
@@ -19,22 +17,22 @@ export default class StoreCookie implements VueAuthStore {
   }
 
   getUser(): AuthUser {
-    return this.store.getJSON(this.options.userDefaultName) || {};
+    return JSON.parse(this.store.get(this.options.userDefaultName)) || {};
   }
 
   setToken(token: string): void {
     if (token) {
       this.store.set(this.options.tokenDefaultName, token);
     } else {
-      this.store.remove(this.options.tokenDefaultName);
+      this.store.delete(this.options.tokenDefaultName);
     }
   }
 
   setUser(user: AuthUser): void {
     if (user && Object.keys(user).length) {
-      this.store.set(this.options.userDefaultName, user);
+      this.store.set(this.options.userDefaultName, JSON.stringify(user));
     } else {
-      this.store.remove(this.options.userDefaultName);
+      this.store.delete(this.options.userDefaultName);
     }
   }
 
