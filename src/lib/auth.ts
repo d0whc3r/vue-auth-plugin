@@ -32,7 +32,7 @@ export default class Auth {
     this.http = new AuthVueHttp(this.Vue, this.options, this.storeManager, router);
   }
 
-  login(loginInfo: VueAuthLogin): Promise<AxiosResponse> {
+  login(loginInfo: VueAuthLogin) {
     return this.http.login(loginInfo);
   }
 

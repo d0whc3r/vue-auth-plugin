@@ -21,7 +21,7 @@ export default class AuthVueHttp {
     this.startRefresh();
   }
 
-  logout() {
+  logout(forceRedirect?: boolean) {
     const { url, method, redirect, makeRequest } = this.options.logoutData;
     if (makeRequest) {
       this.http({
@@ -31,8 +31,8 @@ export default class AuthVueHttp {
       });
     }
     this.storeManager.resetAll();
-    if (redirect) {
-      this.router.push(redirect);
+    if (redirect || forceRedirect) {
+      this.router.push(redirect || '/');
     }
   }
 
@@ -70,6 +70,10 @@ export default class AuthVueHttp {
         if (redirect) {
           this.router.push(redirect);
         }
+        return response;
+      })
+      .catch((error) => {
+        console.log('error login', error);
       });
   }
 
