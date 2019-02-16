@@ -4,7 +4,7 @@ import Auth from '@/lib/auth';
 
 declare global {
   interface Window {
-    Vue: VueConstructor
+    Vue: VueConstructor;
   }
 }
 
@@ -15,7 +15,7 @@ const install = (Vue: VueConstructor, options: VueAuthOptions = {} as VueAuthOpt
   Vue.prototype.$auth = new Auth(Vue, options);
 };
 
-const plugin: PluginObject = {
+const plugin: PluginObject<VueAuthOptions> = {
   install,
   version,
 };

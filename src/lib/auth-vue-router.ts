@@ -24,7 +24,7 @@ export default class AuthVueRouter {
         if (token) {
           next();
         } else {
-          next(this.options.authRedirect.path);
+          next(this.options.authRedirect);
         }
       } else {
         next();
@@ -34,7 +34,7 @@ export default class AuthVueRouter {
 
   private haveMeta(to: Route) {
     return !!to.matched
-      .filter((url) => url.path !== this.options.authRedirect.path)
+      .filter((url) => url.path !== this.options.authRedirect)
       .filter((match) => match.meta.hasOwnProperty(this.options.authMeta))
       .filter((meta) => !!meta)
       .length;

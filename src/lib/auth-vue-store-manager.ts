@@ -75,4 +75,16 @@ export default class AuthStoreManager implements VueAuthStore {
     this.setToken(null);
   }
 
+  checkRole(role?: string | string[]): boolean {
+    if (role) {
+      const roles = this.getRoles();
+      if (Array.isArray(role)) {
+        return roles.some((authrole) => role.includes(authrole));
+      } else {
+        return roles.includes(role);
+      }
+    } else {
+      return !!this.getToken();
+    }
+  }
 }
