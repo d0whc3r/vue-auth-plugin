@@ -1,6 +1,6 @@
 import { RawLocation, Route, VueRouter } from 'vue-router/types/router';
-import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
-import AuthStoreManager from '@/lib/auth-vue-store-manager';
+import { VueAuthOptions } from '../interfaces/VueAuthOptions';
+import AuthStoreManager from './auth-vue-store-manager';
 
 export default class AuthVueRouter {
   private router: VueRouter;
@@ -19,12 +19,13 @@ export default class AuthVueRouter {
 
   private configureRouter() {
     this.router.beforeEach((to, from, next) => {
+      const { authRedirect } = this.options;
       if (this.haveMeta(to)) {
         const token = this.storeManager.getToken();
         if (token) {
           next();
         } else {
-          next(this.options.authRedirect);
+          next(authRedirect);
         }
       } else {
         next();
@@ -38,5 +39,9 @@ export default class AuthVueRouter {
       .filter((match) => match.meta.hasOwnProperty(this.options.authMeta))
       .filter((meta) => !!meta)
       .length;
+  }
+
+  private isLogout(to: Route) {
+    return to.path.includes(this.options.logoutData.url);
   }
 }

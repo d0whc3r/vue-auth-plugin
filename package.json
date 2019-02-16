@@ -1,6 +1,16 @@
 {
   "name": "vue-cli-plugin-auth",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "email": "d0whc3r@gmail.com",
+    "name": "d0whc3r",
+    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth"
+  },
+  "repository": {
+    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth",
+    "type": "git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -39,8 +49,7 @@
     "dist/vue-cli-plugin-auth.umd.min.js",
     "dist/vue-cli-plugin-auth.umd.js",
     "dist/vue-cli-plugin-auth.esm.js",
-    "src",
-    "types/index.d.ts"
+    "src"
   ],
   "jsdelivr": "dist/vue-cli-plugin-auth.umd.min.js",
   "main": "dist/vue-cli-plugin-auth.common.js",

@@ -1,4 +1,4 @@
-import { AuthUser } from '@/interfaces/VueAuthOptions';
+import { AuthUser } from './VueAuthOptions';
 
 export interface VueAuthStore {
   getUser(): AuthUser;

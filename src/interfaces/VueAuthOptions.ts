@@ -1,4 +1,5 @@
-export type TokenStore = 'vuex' | 'localStorage' | 'sessionStorage' | 'cookie';
+export type TokenStore = 'localStorage' | 'sessionStorage' | 'cookie';
+export type TokenType = 'Bearer' | 'Basic' | '';
 export type Method = 'GET' | 'POST';
 export type BasicRedirectData = { url: string; method: Method; };
 export type BasicRedirectEnabledData = { url: string; method: Method; enabled?: boolean; };
@@ -15,8 +16,8 @@ export interface VueAuthOptions {
   tokenDefaultName?: string;
   userDefaultName?: string;
   tokenStore?: TokenStore[];
-  vuexStoreSpace?: string;
   headerTokenReplace?: string;
+  tokenType?: TokenType;
 
   authRedirect?: string;
 

@@ -1,8 +1,8 @@
-import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
-import AuthVueRouter from '@/lib/auth-vue-router';
-import AuthStoreManager from '@/lib/auth-vue-store-manager';
-import AuthVueHttp from '@/lib/auth-vue-http';
-import { VueAuthLogin } from '@/interfaces/VueAuthLogin';
+import { VueAuthOptions } from '../interfaces/VueAuthOptions';
+import AuthVueRouter from './auth-vue-router';
+import AuthStoreManager from './auth-vue-store-manager';
+import AuthVueHttp from './auth-vue-http';
+import { VueAuthLogin } from '../interfaces/VueAuthLogin';
 import { AxiosResponse } from 'axios';
 
 export default class Auth {
@@ -11,9 +11,9 @@ export default class Auth {
     rolesVar: 'roles',
     tokenDefaultName: 'default_auth_token',
     userDefaultName: 'default_auth_user',
-    tokenStore: ['vuex', 'localStorage', 'cookie'],
-    vuexStoreSpace: 'vue-auth',
+    tokenStore: ['localStorage', 'cookie'],
     headerTokenReplace: '{auth_token}',
+    tokenType: 'Bearer',
 
     authRedirect: '/login',
 
@@ -21,7 +21,7 @@ export default class Auth {
     logoutData: { url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: false },
     fetchData: { url: 'auth/user', method: 'GET', interval: 30, enabled: true },
   };
-  private options: VueAuthOptions = {};
+  private options = {} as VueAuthOptions;
   private http: AuthVueHttp;
   private storeManager: AuthStoreManager;
 

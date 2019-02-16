@@ -1,12 +1,11 @@
 import { VueConstructor } from 'vue';
-import { AuthUser, VueAuthOptions } from '@/interfaces/VueAuthOptions';
-import { VueAuthStore } from '@/interfaces/VueAuthStore';
-import { StoreVuex } from '@/lib/store/store-vuex';
-import StoreCookie from '@/lib/store/store-cookie';
-import StoreLocalStorage from '@/lib/store/store-local-storage';
-import StoreSessionStorage from '@/lib/store/store-session-storage';
+import { AuthUser, VueAuthOptions } from '../interfaces/VueAuthOptions';
+import { VueAuthStore } from '../interfaces/VueAuthStore';
+import StoreCookie from './store/store-cookie';
+import StoreLocalStorage from './store/store-local-storage';
+import StoreSessionStorage from './store/store-session-storage';
 
-export type StoreType = StoreCookie | StoreSessionStorage | StoreVuex | StoreLocalStorage;
+export type StoreType = StoreCookie | StoreSessionStorage | StoreLocalStorage;
 
 export default class AuthStoreManager implements VueAuthStore {
   private stores: StoreType[];
@@ -29,9 +28,6 @@ export default class AuthStoreManager implements VueAuthStore {
           case 'sessionStorage':
             return new StoreSessionStorage(this.Vue, this.options);
             break;
-          case 'vuex':
-            return new StoreVuex(this.Vue, this.options);
-            break;
           default:
             return new StoreLocalStorage(this.Vue, this.options);
         }
@@ -41,7 +37,7 @@ export default class AuthStoreManager implements VueAuthStore {
   getRoles(): string[] {
     return this.getStores()
       .map((store) => store.getRoles())
-      .filter((roles) => roles.length)[0];
+      .filter((roles) => roles && roles.length)[0];
   }
 
   getToken(): string {
@@ -53,7 +49,7 @@ export default class AuthStoreManager implements VueAuthStore {
   getUser(): AuthUser {
     return this.getStores()
       .map((store) => store.getUser())
-      .filter((user) => !!user)[0];
+      .filter((user) => !!user)[0] || {};
   }
 
   setToken(token: string): void {
@@ -78,6 +74,9 @@ export default class AuthStoreManager implements VueAuthStore {
   checkRole(role?: string | string[]): boolean {
     if (role) {
       const roles = this.getRoles();
+      if (!roles) {
+        return false;
+      }
       if (Array.isArray(role)) {
         return roles.some((authrole) => role.includes(authrole));
       } else {

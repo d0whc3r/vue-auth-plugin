@@ -1,11 +1,11 @@
-import { VueAuthStore } from '@/interfaces/VueAuthStore';
-import { AuthUser, VueAuthOptions } from '@/interfaces/VueAuthOptions';
 import { VueConstructor } from 'vue';
+import { VueAuthStore } from '../../interfaces/VueAuthStore';
+import { AuthUser, VueAuthOptions } from '../../interfaces/VueAuthOptions';
 
 export default class StoreLocalStorage implements VueAuthStore {
   public store: Storage;
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
+  constructor(protected Vue: VueConstructor, protected options: VueAuthOptions) {
     this.store = window.localStorage;
   }
 
@@ -18,15 +18,23 @@ export default class StoreLocalStorage implements VueAuthStore {
   }
 
   getUser(): AuthUser {
-    return JSON.parse(this.store.getItem(this.options.userDefaultName));
+    return JSON.parse(this.store.getItem(this.options.userDefaultName)) || {};
   }
 
   setToken(token: string): void {
-    this.store.setItem(this.options.tokenDefaultName, token);
+    if (token) {
+      this.store.setItem(this.options.tokenDefaultName, token);
+    } else {
+      this.store.removeItem(this.options.tokenDefaultName);
+    }
   }
 
   setUser(user: AuthUser): void {
-    this.store.setItem(this.options.userDefaultName, JSON.stringify(user));
+    if (user && Object.keys(user)) {
+      this.store.setItem(this.options.userDefaultName, JSON.stringify(user));
+    } else {
+      this.store.removeItem(this.options.userDefaultName);
+    }
   }
 
 }

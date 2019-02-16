@@ -1,6 +1,6 @@
 import { PluginObject, VueConstructor } from 'vue';
-import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
-import Auth from '@/lib/auth';
+import { VueAuthOptions } from './interfaces/VueAuthOptions';
+import Auth from './lib/auth';
 
 declare global {
   interface Window {
@@ -20,6 +20,7 @@ const plugin: PluginObject<VueAuthOptions> = {
   version,
 };
 export default plugin;
+export * from './interfaces/VueAuthOptions';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin, {});

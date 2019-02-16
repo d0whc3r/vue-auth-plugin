@@ -1,12 +1,12 @@
-import { VueAuthOptions } from '@/interfaces/VueAuthOptions';
-import AuthStoreManager from '@/lib/auth-vue-store-manager';
 import { AxiosInstance } from 'axios';
-import AuthVueRouter from '@/lib/auth-vue-router';
-import { VueAuthLogin } from '@/interfaces/VueAuthLogin';
+import { VueAuthOptions } from '../interfaces/VueAuthOptions';
+import { VueAuthLogin } from '../interfaces/VueAuthLogin';
+import AuthStoreManager from './auth-vue-store-manager';
+import AuthVueRouter from './auth-vue-router';
 
 export default class AuthVueHttp {
   private http: AxiosInstance;
-  private interval: number;
+  private interval: any;
 
   constructor(
     private Vue: any,
@@ -27,8 +27,10 @@ export default class AuthVueHttp {
       this.http({
         method,
         url,
+        headers: { ...this.getAuthHeader() },
       });
     }
+    this.storeManager.resetAll();
     if (redirect) {
       this.router.push(redirect);
     }
@@ -40,59 +42,70 @@ export default class AuthVueHttp {
       const promise = this.http({
         method,
         url,
+        headers: { ...this.getAuthHeader() },
       });
       promise
         .then(({ data }) => {
-          this.storeManager.setUser(data);
+          this.storeManager.setUser(data.user || data);
         })
-        .catch((error) => error);
+        .catch((error) => {
+          console.error('FETCHDATA ERROR!', error);
+        });
       return promise;
     }
+    return Promise.reject(null);
   }
 
   login(loginInfo: VueAuthLogin) {
     const { method, url, redirect, fetchUser } = this.options.loginData;
-    const promise = this.http({
+    return this.http({
       method,
       url,
       data: loginInfo,
-    });
-    promise
-      .then(({ headers }) => {
+    })
+      .then(async (response) => {
+        const { headers } = response;
         this.extractToken(headers);
         this.startRefresh();
         if (fetchUser) {
-          this.fetchData(true);
+          await this.fetchData(true);
         }
         if (redirect) {
           this.router.push(redirect);
         }
       })
-      .catch((error) => error);
-    return promise;
+      .catch((error) => {
+        console.error('LOGIN error', error);
+      });
   }
 
   private configureHttp() {
     this.http.interceptors.request.use((request) => {
-      Object.keys(request.headers)
-        .forEach((head) => {
-          const value: string = request.headers[head];
-          if (value.includes(this.options.headerTokenReplace)) {
-            request.headers[head] = value.replace(this.options.headerTokenReplace, this.storeManager.getToken());
-          }
-        });
+      console.log('INTERCEPT REQUEST', request);
+      if (request.headers) {
+        Object.keys(request.headers)
+          .forEach((head) => {
+            const value: string = request.headers[head];
+            if (value && typeof value === 'string' && value.includes(this.options.headerTokenReplace)) {
+              request.headers[head] = value.replace(this.options.headerTokenReplace, this.storeManager.getToken());
+            }
+          });
+      }
       return request;
     }, (error) => {
+      console.log('INTERCEPT REQUEST ERROR!', error);
       return Promise.reject(error);
     });
     this.http.interceptors.response.use((response) => {
+      console.log('INTERCEPT RESPONSE', response);
       return response;
     }, (error) => {
+      console.log('INTERCEPT RESPONSE ERROR!', error);
       const status = error && error.response && error.response.status;
       if (status === 401) {
-        this.storeManager.resetAll();
         this.logout();
       }
+      return Promise.reject(error);
     });
   }
 
@@ -107,8 +120,16 @@ export default class AuthVueHttp {
 
   private extractToken(headers: { [head: string]: string }) {
     const { headerToken } = this.options.loginData;
-    const head = headers[headerToken].split(' ');
+    const head = (headers[headerToken.toLowerCase()] || '').split(' ');
     const token = head[1] || head[0];
     this.storeManager.setToken(token.trim());
+  }
+
+  private getAuthHeader() {
+    const { headerToken } = this.options.loginData;
+    const { tokenType, headerTokenReplace } = this.options;
+
+    const token = `${tokenType} ${headerTokenReplace}`.trim();
+    return { [headerToken]: token };
   }
 }

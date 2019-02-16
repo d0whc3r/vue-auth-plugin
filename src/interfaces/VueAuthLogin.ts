@@ -1,5 +1,5 @@
 export type VueAuthLogin = {
-  user: string;
+  username: string;
   password: string;
   [key: string]: any;
 };
