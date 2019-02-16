@@ -1,14 +1,14 @@
 {
-  "name": "vue-cli-plugin-auth-jwt",
+  "name": "vue-auth-plugin",
   "version": "0.1.13",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
     "name": "d0whc3r",
-    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth"
+    "url": "https://github.com/d0whc3r/vue-auth-plugin"
   },
   "repository": {
-    "url": "https://github.com/d0whc3r/vue-cli-plugin-auth",
+    "url": "https://github.com/d0whc3r/vue-auth-plugin",
     "type": "git"
   },
   "scripts": {
@@ -54,16 +54,16 @@
     "vue-template-compiler": "2.6.6"
   },
   "files": [
-    "dist/vue-cli-plugin-auth-jwt.common.js",
-    "dist/vue-cli-plugin-auth-jwt.umd.min.js",
-    "dist/vue-cli-plugin-auth-jwt.umd.js",
-    "dist/vue-cli-plugin-auth-jwt.esm.js",
+    "dist/vue-auth-plugin.common.js",
+    "dist/vue-auth-plugin.umd.min.js",
+    "dist/vue-auth-plugin.umd.js",
+    "dist/vue-auth-plugin.esm.js",
     "src"
   ],
-  "jsdelivr": "dist/vue-cli-plugin-auth-jwt.umd.min.js",
-  "main": "dist/vue-cli-plugin-auth-jwt.common.js",
-  "module": "dist/vue-cli-plugin-auth-jwt.esm.js",
+  "jsdelivr": "dist/vue-auth-plugin.umd.min.js",
+  "main": "dist/vue-auth-plugin.common.js",
+  "module": "dist/vue-auth-plugin.esm.js",
   "sideeffects": false,
   "types": "types/index.d.ts",
-  "unpkg": "dist/vue-cli-plugin-auth-jwt.umd.min.js"
+  "unpkg": "dist/vue-auth-plugin.umd.min.js"
 }
