@@ -47,9 +47,6 @@ export default class AuthVueHttp {
       promise
         .then(({ data }) => {
           this.storeManager.setUser(data.user || data);
-        })
-        .catch((error) => {
-          console.error('FETCHDATA ERROR!', error);
         });
       return promise;
     }
@@ -73,15 +70,11 @@ export default class AuthVueHttp {
         if (redirect) {
           this.router.push(redirect);
         }
-      })
-      .catch((error) => {
-        console.error('LOGIN error', error);
       });
   }
 
   private configureHttp() {
     this.http.interceptors.request.use((request) => {
-      console.log('INTERCEPT REQUEST', request);
       if (request.headers) {
         Object.keys(request.headers)
           .forEach((head) => {
@@ -93,14 +86,11 @@ export default class AuthVueHttp {
       }
       return request;
     }, (error) => {
-      console.log('INTERCEPT REQUEST ERROR!', error);
       return Promise.reject(error);
     });
     this.http.interceptors.response.use((response) => {
-      console.log('INTERCEPT RESPONSE', response);
       return response;
     }, (error) => {
-      console.log('INTERCEPT RESPONSE ERROR!', error);
       const status = error && error.response && error.response.status;
       if (status === 401) {
         this.logout();
