@@ -1,17 +1,24 @@
 import { VueConstructor } from 'vue';
-import { AuthUser, TokenStore, VueAuthOptions, VueAuthStore } from '../interfaces';
+import { AuthUser, TokenStore, VueAuthStore } from '../interfaces';
 import { StoreCookie, StoreLocalStorage, StoreSessionStorage, StoreVuex } from './store';
+import { IVueAuthOptions } from './auth';
 
 export type StoreType = StoreVuex | StoreCookie | StoreSessionStorage | StoreLocalStorage;
 
 export default class AuthStoreManager implements VueAuthStore {
   private stores: StoreType[];
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
+  constructor(private Vue: VueConstructor, private options: IVueAuthOptions) {
     this.setStores();
+    this.options.watch.$watch('user', (value) => {
+      this.setUser(value);
+    });
+    this.options.watch.$watch('token', (value) => {
+      this.setToken(value);
+    });
   }
 
-  public getStores() {
+  public get allStores() {
     return [...this.stores];
   }
 
@@ -20,7 +27,12 @@ export default class AuthStoreManager implements VueAuthStore {
       .map((store: TokenStore) => {
         switch (store) {
           case 'cookie':
-            return new StoreCookie(this.Vue, this.options);
+            const cookieStore = new StoreCookie(this.Vue, this.options);
+            if (cookieStore.enabled) {
+              return cookieStore;
+            } else {
+              return null;
+            }
           case 'sessionStorage':
             return new StoreSessionStorage(this.Vue, this.options);
           case 'vuex':
@@ -28,44 +40,51 @@ export default class AuthStoreManager implements VueAuthStore {
           default:
             return new StoreLocalStorage(this.Vue, this.options);
         }
-      });
+      })
+      .filter((store) => !!store);
   }
 
   public getRoles(): string[] {
-    return this.getStores()
+    return this.allStores
       .map((store) => store.getRoles())
       .filter((roles) => roles && roles.length)[0];
   }
 
   public getToken(): string {
-    return this.getStores()
+    const token = this.allStores
       .map((store) => store.getToken())
       .filter((token) => !!token)[0];
+    return token || this.options.watch.$data.token;
   }
 
   public getUser(): AuthUser {
-    return this.getStores()
+    const user = this.allStores
       .map((store) => store.getUser())
-      .filter((user) => !!user)[0] || {};
+      .filter((user) => !!user)[0];
+    return Object.keys(user).length && user || this.options.watch.$data.user || {};
   }
 
   public setToken(token: string): void {
-    this.getStores()
+    this.allStores
       .forEach((store) => {
         store.setToken(token);
       });
+    this.options.watch.$data.token = token;
   }
 
   public setUser(user: AuthUser): void {
-    this.getStores()
+    this.allStores
       .forEach((store) => {
         store.setUser(user);
       });
+    this.options.watch.$data.user = user;
   }
 
   public resetAll(): void {
     this.setUser(null);
     this.setToken(null);
+    this.options.watch.$data.user = null;
+    this.options.watch.$data.token = null;
   }
 
   public checkRole(role?: string | string[]): boolean {

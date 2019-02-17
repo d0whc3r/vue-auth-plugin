@@ -28,7 +28,13 @@ app.post('/api/authenticate', (req, res) => {
 });
 
 app.get('/api/user', expressJwt({ secret: JWTSecret }), (req, res) => {
-  res.send(req.user);
+  res.send({
+    username: 'demo',
+    firstName: 'User',
+    lastName: 'Test',
+    roles: ['ROLE_ADMIN', 'ROLE_USER'],
+    email: 'demo@demo',
+  });
 });
 
 app.get('/api/check', expressJwt({ secret: JWTSecret }), (req, res) => {

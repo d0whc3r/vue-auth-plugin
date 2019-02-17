@@ -1,7 +1,8 @@
 import { AxiosInstance } from 'axios';
-import { VueAuthLogin, VueAuthOptions } from '../interfaces';
+import { VueAuthLogin } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
+import { IVueAuthOptions } from './auth';
 
 export default class AuthVueHttp {
   private http: AxiosInstance;
@@ -9,7 +10,7 @@ export default class AuthVueHttp {
 
   constructor(
     private Vue: any,
-    private options: VueAuthOptions,
+    private options: IVueAuthOptions,
     private storeManager: AuthStoreManager,
     private router: AuthVueRouter) {
     if (!this.Vue.axios) {
@@ -18,38 +19,6 @@ export default class AuthVueHttp {
     this.http = Vue.axios as AxiosInstance;
     this.configureHttp();
     this.startRefresh();
-  }
-
-  public logout(forceRedirect?: boolean) {
-    const { url, method, redirect, makeRequest } = this.options.logoutData;
-    if (makeRequest) {
-      this.http({
-        method,
-        url,
-        headers: { ...this.getAuthHeader() },
-      });
-    }
-    this.storeManager.resetAll();
-    if (redirect || forceRedirect) {
-      this.router.push(redirect || '/');
-    }
-  }
-
-  public fetchData(force: boolean = false) {
-    const { enabled, method, url } = this.options.fetchData;
-    if (enabled || force) {
-      const promise = this.http({
-        method,
-        url,
-        headers: { ...this.getAuthHeader() },
-      });
-      promise
-        .then(({ data }) => {
-          this.storeManager.setUser(data.user || data);
-        });
-      return promise;
-    }
-    return Promise.reject(null);
   }
 
   public login(loginInfo: VueAuthLogin) {
@@ -70,7 +39,44 @@ export default class AuthVueHttp {
           this.router.push(redirect);
         }
         return response;
+      })
+      .catch((error) => {
+        console.warn('[vue-auth-plugin] Login error', error);
       });
+  }
+
+  public logout(forceRedirect?: boolean) {
+    const { url, method, redirect, makeRequest } = this.options.logoutData;
+    if (makeRequest) {
+      this.http({
+        method,
+        url,
+        headers: { ...this.getAuthHeader() },
+      });
+    }
+    this.storeManager.resetAll();
+    if (redirect || forceRedirect) {
+      this.router.push(redirect || '/');
+    }
+  }
+
+  public fetchData(force: boolean = false) {
+    const { enabled, method, url } = this.options.fetchData;
+    if (enabled || force) {
+      return this.http({
+        method,
+        url,
+        headers: { ...this.getAuthHeader() },
+      })
+        .then(({ data }) => {
+          this.storeManager.setUser(data.user || data);
+          return data;
+        })
+        .catch((error) => {
+          console.warn('[vue-auth-plugin] Fetching user error', error);
+        });
+    }
+    return Promise.resolve(null);
   }
 
   private configureHttp() {

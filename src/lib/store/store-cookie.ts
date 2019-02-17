@@ -1,10 +1,21 @@
 import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
 
 export default class StoreCookie implements VueAuthStore {
-  private store: any;
+  public readonly enabled: boolean;
+  private readonly store: any;
+  private readonly documentCookie;
 
   constructor(private Vue: any, private options: VueAuthOptions) {
-    this.store = Vue.cookie;
+    this.documentCookie = false;
+    this.enabled = true;
+    if (this.Vue.cookie) {
+      this.store = this.Vue.cookie;
+    } else if (typeof document.cookie === 'string') {
+      this.documentCookie = true;
+    } else {
+      console.warn('[vue-auth-plugin]: Cookie store not enabled');
+      this.enabled = false;
+    }
   }
 
   public getRoles(): string[] {
@@ -12,26 +23,61 @@ export default class StoreCookie implements VueAuthStore {
   }
 
   public getToken(): string {
-    return this.store.get(this.options.tokenDefaultName);
+    return this.getCookie(this.options.tokenDefaultName);
   }
 
   public getUser(): AuthUser {
-    return JSON.parse(this.store.get(this.options.userDefaultName)) || {};
+    return this.getCookie(this.options.userDefaultName) || {};
   }
 
   public setToken(token: string): void {
     if (token) {
-      this.store.set(this.options.tokenDefaultName, token);
+      this.setCookie(this.options.tokenDefaultName, token);
     } else {
-      this.store.delete(this.options.tokenDefaultName);
+      this.deleteCookie(this.options.tokenDefaultName);
     }
   }
 
   public setUser(user: AuthUser): void {
     if (user && Object.keys(user).length) {
-      this.store.set(this.options.userDefaultName, JSON.stringify(user));
+      this.setCookie(this.options.userDefaultName, user);
     } else {
-      this.store.delete(this.options.userDefaultName);
+      this.deleteCookie(this.options.userDefaultName);
+    }
+  }
+
+  private getCookie(name) {
+    if (!this.documentCookie) {
+      return JSON.parse(this.store.get(name));
+    } else {
+      const cookiePair = document.cookie.replace(/;\s+/g, ';')
+        .split(';')
+        .map((str) => str.replace(/\s+=\s+/g, '=').split('='))
+        .filter((cookiePair) => cookiePair[0] === name)
+        .pop() || [];
+      const result = cookiePair[1] || null;
+      try {
+        return JSON.parse(result);
+      } catch (_) {
+        return result;
+      }
+    }
+  }
+
+  private setCookie(name, value) {
+    value = JSON.stringify(value);
+    if (!this.documentCookie) {
+      this.store.set(name, value);
+    } else {
+      document.cookie = `${name}=${value}`;
+    }
+  }
+
+  private deleteCookie(name) {
+    if (!this.documentCookie) {
+      this.store.delete(name);
+    } else {
+      document.cookie = `${name}=`;
     }
   }
 

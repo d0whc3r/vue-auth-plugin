@@ -1,5 +1,5 @@
 {
-  "name": "vue-auth-plugin",
+  "name": "@d0whc3r/vue-auth-plugin",
   "version": "0.1.17",
   "license": "MIT",
   "author": {
@@ -50,7 +50,8 @@
     "vue-cli-plugin-p11n": "0.1.2",
     "vue-property-decorator": "7.3.0",
     "vue-template-compiler": "2.6.6",
-    "vuex": "3.1.0"
+    "vuex": "3.1.0",
+    "vuex-class": "0.3.1"
   },
   "files": [
     "dist/vue-auth-plugin.common.js",

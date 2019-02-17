@@ -2,6 +2,11 @@ import { VueAuthLogin, VueAuthOptions } from '../interfaces';
 import AuthVueRouter from './auth-vue-router';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueHttp from './auth-vue-http';
+import { Vue } from 'vue/types/vue';
+
+export interface IVueAuthOptions extends VueAuthOptions {
+  watch: Vue;
+}
 
 export default class Auth {
   private DEFAULT_OPTIONS: VueAuthOptions = {
@@ -20,12 +25,23 @@ export default class Auth {
     logoutData: { url: '/auth/logout', method: 'POST', redirect: '/', makeRequest: false },
     fetchData: { url: '/auth/user', method: 'GET', interval: 30, enabled: true },
   };
-  private options = {} as VueAuthOptions;
+  private options = {} as IVueAuthOptions;
   private http: AuthVueHttp;
   private storeManager: AuthStoreManager;
 
   constructor(private Vue: any, options: VueAuthOptions = {} as VueAuthOptions) {
-    this.options = { ...this.DEFAULT_OPTIONS, ...options };
+    this.options = {
+      ...this.DEFAULT_OPTIONS,
+      ...options,
+      watch: new this.Vue({
+        data() {
+          return {
+            user: null,
+            token: null,
+          };
+        },
+      }),
+    };
     this.storeManager = new AuthStoreManager(this.Vue, this.options);
     const router = new AuthVueRouter(this.Vue, this.options, this.storeManager);
     this.http = new AuthVueHttp(this.Vue, this.options, this.storeManager, router);
@@ -45,6 +61,10 @@ export default class Auth {
 
   public user() {
     return this.storeManager.getUser();
+  }
+
+  public roles() {
+    return this.storeManager.getRoles();
   }
 
   public token() {
