@@ -2,6 +2,19 @@
 
 This is a demo of vue-auth-plugin working
 
+# Run
+
+To run demo you need to download repository and execute demo command
+
+```bash
+git clone https://github.com/d0whc3r/vue-auth-plugin.git
+cd vue-auth-plugin
+yarn install
+yarn demo
+```
+
+This will execute a mockserver and demo will be open in browser
+
 # Components
 
 In this demo a mock server in [mockserver.ts](./mockserver.ts), it is configured with express and express-jwt to run with demo code.
