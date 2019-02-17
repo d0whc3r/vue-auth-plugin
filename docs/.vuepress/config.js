@@ -1,4 +1,5 @@
 module.exports = {
+  base: process.env.BASE_DOCS || '/',
   plugins: [
     require('./plugin.js'),
   ],

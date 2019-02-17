@@ -17,6 +17,7 @@
     "docs": "npm run docs:serve",
     "docs:build": "vue-cli-service docs --mode build",
     "docs:serve": "vue-cli-service docs --mode serve",
+    "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -35,8 +36,10 @@
     "axios": "0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "cors": "2.8.5",
+    "cross-env": "5.2.0",
     "express": "4.16.4",
     "express-jwt": "5.3.1",
+    "gh-pages": "2.0.1",
     "jsonwebtoken": "8.4.0",
     "ts-jest": "23.10.5",
     "ts-node": "8.0.2",
