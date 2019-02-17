@@ -46,7 +46,9 @@ export default class AuthVueHttp {
   }
 
   public logout(forceRedirect?: boolean) {
-    const { url, method, redirect, makeRequest } = this.options.logoutData;
+    const logout = this.options.logoutData && typeof this.options.logoutData === 'object' &&
+    Object.keys(this.options.logoutData).length ? this.options.logoutData : {};
+    const { url, method, redirect, makeRequest } = logout;
     if (makeRequest) {
       this.http({
         method,
@@ -61,8 +63,10 @@ export default class AuthVueHttp {
   }
 
   public fetchData(force: boolean = false) {
-    const { enabled, method, url } = this.options.fetchData;
-    if (enabled || force) {
+    const fetch = this.options.fetchData && typeof this.options.fetchData === 'object' &&
+    Object.keys(this.options.fetchData).length ? this.options.fetchData : {};
+    const { enabled, method, url } = fetch;
+    if ((enabled || force) && url && method) {
       return this.http({
         method,
         url,

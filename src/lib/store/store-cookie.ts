@@ -1,11 +1,12 @@
-import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
+import { AuthUser, VueAuthStore } from '../../interfaces';
+import { IVueAuthOptions } from '../auth';
 
-export default class StoreCookie implements VueAuthStore {
+export default class StoreCookie extends VueAuthStore {
   public readonly enabled: boolean;
-  private readonly store: any;
   private readonly documentCookie;
 
-  constructor(private Vue: any, private options: VueAuthOptions) {
+  constructor(Vue: any, options: IVueAuthOptions) {
+    super(Vue, options);
     this.documentCookie = false;
     this.enabled = true;
     if (this.Vue.cookie) {
@@ -16,6 +17,7 @@ export default class StoreCookie implements VueAuthStore {
       console.warn('[vue-auth-plugin]: Cookie store not enabled');
       this.enabled = false;
     }
+    this.initVue();
   }
 
   public getRoles(): string[] {
@@ -80,5 +82,4 @@ export default class StoreCookie implements VueAuthStore {
       document.cookie = `${name}=`;
     }
   }
-
 }

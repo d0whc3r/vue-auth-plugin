@@ -8,7 +8,7 @@
   @Component
   export default class Logout extends Vue {
     mounted() {
-      this.$auth.logout({ redirect: '/' });
+      this.$auth.logout();
     }
   }
 </script>

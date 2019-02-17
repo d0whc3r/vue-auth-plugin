@@ -1,34 +1,36 @@
-# vue-auth-plugin
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f40b0f7c-b2a8-4cd5-ba62-fe2da3dfa48c/deploy-status)](https://app.netlify.com/sites/vue-auth-plugin/deploys)
 
-## Project setup
+# :key: Vue Auth Plugin
+
+A simple authentication library for Vue.js using typescript
+
+Inspired in [@websanova/vue-auth](https://github.com/websanova/vue-auth)
+
+Pull request and issues are welcome
+
+# Install
+
+```bash
+yarn add @d0whc3r/vue-auth-plugin
 ```
+
+# :notebook: Documentation and Usage
+
+[https://vue-auth-plugin.netlify.com](https://vue-auth-plugin.netlify.com)
+
+## :wrench: Project setup
+
+```bash
+git clone https://github.com/d0whc3r/vue-auth-plugin.git
+cd vue-auth-plugin
 yarn install
+yarn demo
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## :bar_chart: Run unit tests
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
+```bash
 yarn run test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+> Plugin created using [vue-cli 3](https://cli.vuejs.org/) and [p11n plugin](https://github.com/kazupon/vue-cli-plugin-p11n)

@@ -1,11 +1,12 @@
 import { VueConstructor } from 'vue';
-import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
+import { AuthUser, VueAuthStore } from '../../interfaces';
+import { IVueAuthOptions } from '../auth';
 
-export default class StoreLocalStorage implements VueAuthStore {
-  public store: Storage;
-
-  constructor(protected Vue: VueConstructor, protected options: VueAuthOptions) {
+export default class StoreLocalStorage extends VueAuthStore {
+  constructor(Vue: VueConstructor, options: IVueAuthOptions) {
+    super(Vue, options);
     this.store = window.localStorage;
+    this.initVue();
   }
 
   public getRoles(): string[] {
