@@ -8,19 +8,19 @@ export default class StoreLocalStorage implements VueAuthStore {
     this.store = window.localStorage;
   }
 
-  getRoles(): string[] {
+  public getRoles(): string[] {
     return this.getUser()[this.options.rolesVar];
   }
 
-  getToken(): string {
+  public getToken(): string {
     return this.store.getItem(this.options.tokenDefaultName);
   }
 
-  getUser(): AuthUser {
+  public getUser(): AuthUser {
     return JSON.parse(this.store.getItem(this.options.userDefaultName)) || {};
   }
 
-  setToken(token: string): void {
+  public setToken(token: string): void {
     if (token) {
       this.store.setItem(this.options.tokenDefaultName, token);
     } else {
@@ -28,7 +28,7 @@ export default class StoreLocalStorage implements VueAuthStore {
     }
   }
 
-  setUser(user: AuthUser): void {
+  public setUser(user: AuthUser): void {
     if (user && Object.keys(user)) {
       this.store.setItem(this.options.userDefaultName, JSON.stringify(user));
     } else {

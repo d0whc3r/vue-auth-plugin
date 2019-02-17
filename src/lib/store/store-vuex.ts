@@ -1,4 +1,3 @@
-import { VueConstructor } from 'vue/types/vue';
 import { Store } from 'vuex';
 import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
 
@@ -6,7 +5,7 @@ export default class StoreVuex implements VueAuthStore {
   private readonly store: Store<any>;
   private readonly module: string;
 
-  constructor(private Vue: VueConstructor, private options: VueAuthOptions) {
+  constructor(private Vue: any, private options: VueAuthOptions) {
     if (!this.Vue.store) {
       throw Error('vuex is a required dependency if you want to use "vuex" as storage');
     }
@@ -15,24 +14,24 @@ export default class StoreVuex implements VueAuthStore {
     this.createVueAuthStore();
   }
 
-  getRoles(): string[] {
-    return this.store.getters[`${this.module}/getRoles`];
+  public getRoles(): string[] {
+    return this.store.getters.getRoles;
   }
 
-  getToken(): string {
-    return this.store.getters[`${this.module}/getToken`];
+  public getToken(): string {
+    return this.store.getters.getToken;
   }
 
-  getUser(): AuthUser {
-    return this.store.getters[`${this.module}/getUser`];
+  public getUser(): AuthUser {
+    return this.store.getters.getUser;
   }
 
-  setToken(token: string): void {
-    this.store.dispatch(`${this.module}/setToken`, token);
+  public setToken(token: string): void {
+    this.store.dispatch('setToken', token);
   }
 
-  setUser(user: AuthUser): void {
-    this.store.dispatch(`${this.module}/setUser`, user);
+  public setUser(user: AuthUser): void {
+    this.store.dispatch('setUser', user);
   }
 
   private createVueAuthStore() {

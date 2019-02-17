@@ -11,11 +11,11 @@ export default class AuthStoreManager implements VueAuthStore {
     this.setStores();
   }
 
-  getStores() {
+  public getStores() {
     return [...this.stores];
   }
 
-  setStores() {
+  public setStores() {
     this.stores = Object.assign([], this.options.tokenStore)
       .map((store: TokenStore) => {
         switch (store) {
@@ -31,44 +31,44 @@ export default class AuthStoreManager implements VueAuthStore {
       });
   }
 
-  getRoles(): string[] {
+  public getRoles(): string[] {
     return this.getStores()
       .map((store) => store.getRoles())
       .filter((roles) => roles && roles.length)[0];
   }
 
-  getToken(): string {
+  public getToken(): string {
     return this.getStores()
       .map((store) => store.getToken())
       .filter((token) => !!token)[0];
   }
 
-  getUser(): AuthUser {
+  public getUser(): AuthUser {
     return this.getStores()
       .map((store) => store.getUser())
       .filter((user) => !!user)[0] || {};
   }
 
-  setToken(token: string): void {
+  public setToken(token: string): void {
     this.getStores()
       .forEach((store) => {
         store.setToken(token);
       });
   }
 
-  setUser(user: AuthUser): void {
+  public setUser(user: AuthUser): void {
     this.getStores()
       .forEach((store) => {
         store.setUser(user);
       });
   }
 
-  resetAll(): void {
+  public resetAll(): void {
     this.setUser(null);
     this.setToken(null);
   }
 
-  checkRole(role?: string | string[]): boolean {
+  public checkRole(role?: string | string[]): boolean {
     if (role) {
       const roles = this.getRoles();
       if (!roles) {
