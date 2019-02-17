@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { VueAuthOptions } from '../interfaces/VueAuthOptions';
-import { VueAuthLogin } from '../interfaces/VueAuthLogin';
+import { VueAuthLogin, VueAuthOptions } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
 
@@ -21,7 +20,7 @@ export default class AuthVueHttp {
     this.startRefresh();
   }
 
-  logout(forceRedirect?: boolean) {
+  public logout(forceRedirect?: boolean) {
     const { url, method, redirect, makeRequest } = this.options.logoutData;
     if (makeRequest) {
       this.http({
@@ -36,7 +35,7 @@ export default class AuthVueHttp {
     }
   }
 
-  fetchData(force: boolean = false) {
+  public fetchData(force: boolean = false) {
     const { enabled, method, url } = this.options.fetchData;
     if (enabled || force) {
       const promise = this.http({
@@ -53,7 +52,7 @@ export default class AuthVueHttp {
     return Promise.reject(null);
   }
 
-  login(loginInfo: VueAuthLogin) {
+  public login(loginInfo: VueAuthLogin) {
     const { method, url, redirect, fetchUser } = this.options.loginData;
     return this.http({
       method,
@@ -71,9 +70,6 @@ export default class AuthVueHttp {
           this.router.push(redirect);
         }
         return response;
-      })
-      .catch((error) => {
-        console.log('error login', error);
       });
   }
 

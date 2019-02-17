@@ -1,11 +1,12 @@
 import VueAuth from '../src/lib/auth';
+import plugin from '../src';
 
 declare module 'vue/types/vue' {
 
   interface Vue {
-    $auth: VueAuth;
+    readonly $auth: VueAuth;
   }
 }
 
 export * from '../src/interfaces';
-export {  VueAuth };
+export default plugin;
