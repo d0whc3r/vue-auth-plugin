@@ -1,10 +1,11 @@
-# Introduction
+---
+home: true
+actionText: Get Started →
+actionLink: /installation.html
+---
 
-`VueCliPluginAuth` plugin is plugin for [Vue.js](http://vuejs.org).
-Features include:
+<div style="text-align: center">
+  <Bit/>
+</div>
 
-- Feature1
-- Feature2
-- ...
-
-[Get started](./started/) or play with the [demo](https://github.com/d0whc3r/vue-auth-plugin/tree/dev/demo) (see [`README.md`](https://github.com/d0whc3r/vue-auth-plugin/) to run them).
+[Get started](./guide/) or play with the [demo](https://github.com/d0whc3r/vue-auth-plugin/tree/master/demo) (see [`README.md`](https://github.com/d0whc3r/vue-auth-plugin/) to run them).

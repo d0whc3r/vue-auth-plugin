@@ -16,7 +16,7 @@ Include vue-auth-plugin after Vue and it will install itself automatically:
 ## NPM
 
 ```sh
-$ npm install vue-auth-plugin
+$ npm install vue-auth-plugin --save
 ```
 
 ## Yarn
@@ -25,16 +25,20 @@ $ npm install vue-auth-plugin
 $ yarn add vue-auth-plugin
 ```
 
+## Usage
+
 When used with a module system, you must explicitly install the `vue-auth-plugin` via `Vue.use()`:
 
 ```javascript
-import Vue from 'vue'
-import Vueauth from 'vue-auth-plugin'
+import Vue from 'vue';
+import VueAuth from 'vue-auth-plugin';
 
-Vue.use(Vueauth)
+const options = { ... };
+
+Vue.use(VueAuth, options);
 ```
 
-You don't need to do this when using global script tags.
+> Options could be consulted in [Configuration section](./configuration.html)
 
 ## Dev Build
 

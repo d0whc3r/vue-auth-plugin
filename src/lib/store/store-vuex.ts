@@ -1,17 +1,19 @@
 import { Store } from 'vuex';
-import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
+import { AuthUser, VueAuthStore } from '../../interfaces';
+import { IVueAuthOptions } from '../auth';
 
-export default class StoreVuex implements VueAuthStore {
-  private readonly store: Store<any>;
+export default class StoreVuex extends VueAuthStore {
   private readonly module: string;
 
-  constructor(private Vue: any, private options: VueAuthOptions) {
+  constructor(Vue: any, options: IVueAuthOptions) {
+    super(Vue, options);
     if (!this.Vue.store) {
       throw Error('vuex is a required dependency if you want to use "vuex" as storage');
     }
     this.store = this.Vue.store as Store<any>;
     this.module = this.options.vuexStoreSpace;
     this.createVueAuthStore();
+    this.initVue();
   }
 
   public getRoles(): string[] {
@@ -39,8 +41,8 @@ export default class StoreVuex implements VueAuthStore {
     const module = {
       namespaced: true,
       state: {
-        token: null,
-        user: null,
+        token: this.options.Vue.$data.token,
+        user: this.options.Vue.$data.user,
       },
       mutations: {
         SET_TOKEN(state, token: string) {

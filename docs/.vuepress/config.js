@@ -5,12 +5,12 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'VueCliPluginAuth',
-      description: 'VueCliPluginAuth for Vue.js',
+      title: 'Vue Auth plugin',
+      description: 'Vue Auth plugin for Vue.js',
     },
   },
   themeConfig: {
-    repo: '/vue-auth-plugin',
+    repo: 'd0whc3r/vue-auth-plugin',
     docsDir: 'docs',
     locales: {
       '/': {
@@ -23,9 +23,15 @@ module.exports = {
             link: 'https://github.com/d0whc3r/vue-auth-plugin/releases',
           }],
         sidebar: [
-          '/installation.md',
-          '/started.md',
-        ],
+          '/installation',
+          {
+            title: 'Guide',
+            collapsable: false,
+            children: [
+              '/guide/',
+              '/guide/methods',
+            ],
+          }],
       },
     },
   },

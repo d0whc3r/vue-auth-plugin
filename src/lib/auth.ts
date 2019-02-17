@@ -5,7 +5,7 @@ import AuthVueHttp from './auth-vue-http';
 import { Vue } from 'vue/types/vue';
 
 export interface IVueAuthOptions extends VueAuthOptions {
-  watch: Vue;
+  Vue: Vue;
 }
 
 export default class Auth {
@@ -21,9 +21,25 @@ export default class Auth {
 
     authRedirect: '/login',
 
-    loginData: { url: '/auth/login', method: 'POST', redirect: '/', headerToken: 'Authorization', fetchUser: true },
-    logoutData: { url: '/auth/logout', method: 'POST', redirect: '/', makeRequest: false },
-    fetchData: { url: '/auth/user', method: 'GET', interval: 30, enabled: true },
+    loginData: {
+      url: '/auth/login',
+      method: 'POST',
+      redirect: '/',
+      headerToken: 'Authorization',
+      fetchUser: false,
+    },
+    logoutData: {
+      url: '/auth/logout',
+      method: 'POST',
+      redirect: '/',
+      makeRequest: false,
+    },
+    fetchData: {
+      url: '/auth/user',
+      method: 'GET',
+      interval: 30,
+      enabled: false,
+    },
   };
   private options = {} as IVueAuthOptions;
   private http: AuthVueHttp;
@@ -33,7 +49,7 @@ export default class Auth {
     this.options = {
       ...this.DEFAULT_OPTIONS,
       ...options,
-      watch: new this.Vue({
+      Vue: new this.Vue({
         data() {
           return {
             user: null,
