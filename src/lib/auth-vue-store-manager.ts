@@ -10,9 +10,15 @@ export default class AuthStoreManager implements VueAuthStore {
 
   constructor(private Vue: VueConstructor, private options: IVueAuthOptions) {
     this.setStores();
+    this.options.watch.$watch('user', (value) => {
+      this.setUser(value);
+    });
+    this.options.watch.$watch('token', (value) => {
+      this.setToken(value);
+    });
   }
 
-  public getStores() {
+  public get allStores() {
     return [...this.stores];
   }
 
@@ -39,27 +45,27 @@ export default class AuthStoreManager implements VueAuthStore {
   }
 
   public getRoles(): string[] {
-    return this.getStores()
+    return this.allStores
       .map((store) => store.getRoles())
       .filter((roles) => roles && roles.length)[0];
   }
 
   public getToken(): string {
-    const token = this.getStores()
+    const token = this.allStores
       .map((store) => store.getToken())
       .filter((token) => !!token)[0];
     return token || this.options.watch.$data.token;
   }
 
   public getUser(): AuthUser {
-    const user = this.getStores()
+    const user = this.allStores
       .map((store) => store.getUser())
       .filter((user) => !!user)[0];
-    return user || this.options.watch.$data.user || {};
+    return Object.keys(user).length && user || this.options.watch.$data.user || {};
   }
 
   public setToken(token: string): void {
-    this.getStores()
+    this.allStores
       .forEach((store) => {
         store.setToken(token);
       });
@@ -67,7 +73,7 @@ export default class AuthStoreManager implements VueAuthStore {
   }
 
   public setUser(user: AuthUser): void {
-    this.getStores()
+    this.allStores
       .forEach((store) => {
         store.setUser(user);
       });

@@ -1,12 +1,12 @@
 <template>
   <div class="demo">
     <h1>Plugin Demo</h1>
-    <form @submit="submit">
+    <form @submit.prevent="submit">
       <p>
-        <input v-model="username" type="text" placeholder="Login">
+        <input placeholder="Login" type="text" v-model="username">
       </p>
       <p>
-        <input v-model="password" type="password" placeholder="Password">
+        <input placeholder="Password" type="password" v-model="password">
       </p>
       <p>
         <button type="submit">Login</button>

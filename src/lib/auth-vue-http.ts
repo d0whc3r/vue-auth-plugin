@@ -21,38 +21,6 @@ export default class AuthVueHttp {
     this.startRefresh();
   }
 
-  public logout(forceRedirect?: boolean) {
-    const { url, method, redirect, makeRequest } = this.options.logoutData;
-    if (makeRequest) {
-      this.http({
-        method,
-        url,
-        headers: { ...this.getAuthHeader() },
-      });
-    }
-    this.storeManager.resetAll();
-    if (redirect || forceRedirect) {
-      this.router.push(redirect || '/');
-    }
-  }
-
-  public fetchData(force: boolean = false) {
-    const { enabled, method, url } = this.options.fetchData;
-    if (enabled || force) {
-      const promise = this.http({
-        method,
-        url,
-        headers: { ...this.getAuthHeader() },
-      });
-      promise
-        .then(({ data }) => {
-          this.storeManager.setUser(data.user || data);
-        });
-      return promise;
-    }
-    return Promise.reject(null);
-  }
-
   public login(loginInfo: VueAuthLogin) {
     const { method, url, redirect, fetchUser } = this.options.loginData;
     return this.http({
@@ -71,7 +39,44 @@ export default class AuthVueHttp {
           this.router.push(redirect);
         }
         return response;
+      })
+      .catch((error) => {
+        console.warn('[vue-auth-plugin] Login error', error);
       });
+  }
+
+  public logout(forceRedirect?: boolean) {
+    const { url, method, redirect, makeRequest } = this.options.logoutData;
+    if (makeRequest) {
+      this.http({
+        method,
+        url,
+        headers: { ...this.getAuthHeader() },
+      });
+    }
+    this.storeManager.resetAll();
+    if (redirect || forceRedirect) {
+      this.router.push(redirect || '/');
+    }
+  }
+
+  public fetchData(force: boolean = false) {
+    const { enabled, method, url } = this.options.fetchData;
+    if (enabled || force) {
+      return this.http({
+        method,
+        url,
+        headers: { ...this.getAuthHeader() },
+      })
+        .then(({ data }) => {
+          this.storeManager.setUser(data.user || data);
+          return data;
+        })
+        .catch((error) => {
+          console.warn('[vue-auth-plugin] Fetching user error', error);
+        });
+    }
+    return Promise.resolve(null);
   }
 
   private configureHttp() {

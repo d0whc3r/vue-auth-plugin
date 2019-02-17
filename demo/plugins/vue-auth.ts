@@ -7,9 +7,9 @@ import VueAuth from '../../src/index';
 Vue.use(VueAuth, {
   authMeta: 'auth',
   rolesVar: 'roles',
-  tokenDefaultName: 'auth_token',
-  userDefaultName: 'auth_user',
-  tokenStore: ['vuex', 'localStorage'],
+  tokenDefaultName: 'default_auth_token',
+  userDefaultName: 'default_auth_user',
+  tokenStore: ['cookie', 'localStorage', 'vuex'],
   headerTokenReplace: '{auth_token}',
   tokenType: 'Bearer',
   vuexStoreSpace: 'vue-auth',
