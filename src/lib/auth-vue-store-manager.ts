@@ -5,10 +5,11 @@ import { IVueAuthOptions } from './auth';
 
 export type StoreType = StoreVuex | StoreCookie | StoreSessionStorage | StoreLocalStorage;
 
-export default class AuthStoreManager implements VueAuthStore {
+export default class AuthStoreManager extends VueAuthStore {
   private stores: StoreType[];
 
-  constructor(private Vue: VueConstructor, private options: IVueAuthOptions) {
+  constructor(Vue: VueConstructor, options: IVueAuthOptions) {
+    super(Vue, options);
     this.setStores();
     this.options.watch.$watch('user', (value) => {
       this.setUser(value);
