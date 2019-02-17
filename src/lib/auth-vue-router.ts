@@ -1,11 +1,11 @@
 import { RawLocation, Route, VueRouter } from 'vue-router/types/router';
-import { VueAuthOptions } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
+import { IVueAuthOptions } from './auth';
 
 export default class AuthVueRouter {
   private router: VueRouter;
 
-  constructor(private Vue: any, private options: VueAuthOptions, private storeManager: AuthStoreManager) {
+  constructor(private Vue: any, private options: IVueAuthOptions, private storeManager: AuthStoreManager) {
     if (!this.Vue.router) {
       throw Error('vue-router is a required dependency');
     }

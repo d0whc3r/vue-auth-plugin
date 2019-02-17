@@ -5,14 +5,27 @@
     <button @click="checkApi">Check example {{dataResponse}}</button>
     <br>
     <router-link to="/logout">Logout</router-link>
+    <br>
+    <h1>User</h1>
+    <h2>Using $auth</h2>
+    {{ $auth.user() }}
+    <h2>Using Vuex</h2>
+    {{ user }}
+    <h2>Using localStorage</h2>
+    {{ localStorage.getItem('auth_user') }}
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import {namespace} from 'vuex-class';
 
+  const NAuth = namespace('vue-auth');
   @Component
   export default class User extends Vue {
+    @NAuth.Getter('getUser') user: string[];
+    localStorage = window.localStorage;
+
     dataResponse: any = null;
 
     checkApi() {

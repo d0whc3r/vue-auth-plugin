@@ -9,34 +9,35 @@ export default class StoreVuex implements VueAuthStore {
     if (!this.Vue.store) {
       throw Error('vuex is a required dependency if you want to use "vuex" as storage');
     }
-    this.store = Vue.store as Store<any>;
+    this.store = this.Vue.store as Store<any>;
     this.module = this.options.vuexStoreSpace;
     this.createVueAuthStore();
   }
 
   public getRoles(): string[] {
-    return this.store.getters.getRoles;
+    return this.store.getters[`${this.module}/getRoles`];
   }
 
   public getToken(): string {
-    return this.store.getters.getToken;
+    return this.store.getters[`${this.module}/getToken`];
   }
 
   public getUser(): AuthUser {
-    return this.store.getters.getUser;
+    return this.store.getters[`${this.module}/getUser`];
   }
 
   public setToken(token: string): void {
-    this.store.dispatch('setToken', token);
+    this.store.dispatch(`${this.module}/setToken`, token);
   }
 
   public setUser(user: AuthUser): void {
-    this.store.dispatch('setUser', user);
+    this.store.dispatch(`${this.module}/setUser`, user);
   }
 
   private createVueAuthStore() {
     const { rolesVar } = this.options;
     const module = {
+      namespaced: true,
       state: {
         token: null,
         user: null,

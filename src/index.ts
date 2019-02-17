@@ -12,8 +12,13 @@ const version = '__VERSION__';
 
 const install = (Vue: any, options: VueAuthOptions = {} as VueAuthOptions): void => {
 
-  // Vue.prototype.$auth = new Auth(Vue, options);
+  if (plugin.installed) {
+    return;
+  }
+  plugin.installed = true;
 
+  // Vue.prototype.$auth = new Auth(Vue, options);
+  console.log('INSTALL PLUGIN');
   const auth = new Auth(Vue, options);
 
   (Vue as any).$auth = auth;

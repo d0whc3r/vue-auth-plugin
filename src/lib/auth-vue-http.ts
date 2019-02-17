@@ -1,7 +1,8 @@
 import { AxiosInstance } from 'axios';
-import { VueAuthLogin, VueAuthOptions } from '../interfaces';
+import { VueAuthLogin } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
+import { IVueAuthOptions } from './auth';
 
 export default class AuthVueHttp {
   private http: AxiosInstance;
@@ -9,7 +10,7 @@ export default class AuthVueHttp {
 
   constructor(
     private Vue: any,
-    private options: VueAuthOptions,
+    private options: IVueAuthOptions,
     private storeManager: AuthStoreManager,
     private router: AuthVueRouter) {
     if (!this.Vue.axios) {

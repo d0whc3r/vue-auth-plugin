@@ -6,6 +6,10 @@ declare module 'vue/types/vue' {
   interface Vue {
     readonly $auth: VueAuth;
   }
+
+  interface VueConstructor {
+    auth: VueAuth;
+  }
 }
 
 export * from '../src/interfaces';
