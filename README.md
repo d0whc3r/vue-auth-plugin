@@ -8,7 +8,7 @@ Inspired in [@websanova/vue-auth](https://github.com/websanova/vue-auth)
 
 Pull request and issues are welcome
 
-# Install
+# :rocket: Install
 
 ```bash
 yarn add @d0whc3r/vue-auth-plugin
@@ -17,6 +17,8 @@ yarn add @d0whc3r/vue-auth-plugin
 # :notebook: Documentation and Usage
 
 [https://vue-auth-plugin.netlify.com](https://vue-auth-plugin.netlify.com)
+
+[https://d0whc3r.github.io/vue-auth-plugin](https://d0whc3r.github.io/vue-auth-plugin)
 
 ## :wrench: Project setup
 
