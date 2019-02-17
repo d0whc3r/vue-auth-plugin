@@ -1,11 +1,8 @@
 import { VueConstructor } from 'vue';
-import { AuthUser, VueAuthOptions } from '../interfaces/VueAuthOptions';
-import { VueAuthStore } from '../interfaces/VueAuthStore';
-import StoreCookie from './store/store-cookie';
-import StoreLocalStorage from './store/store-local-storage';
-import StoreSessionStorage from './store/store-session-storage';
+import { AuthUser, TokenStore, VueAuthOptions, VueAuthStore } from '../interfaces';
+import { StoreCookie, StoreLocalStorage, StoreSessionStorage, StoreVuex } from './store';
 
-export type StoreType = StoreCookie | StoreSessionStorage | StoreLocalStorage;
+export type StoreType = StoreVuex | StoreCookie | StoreSessionStorage | StoreLocalStorage;
 
 export default class AuthStoreManager implements VueAuthStore {
   private stores: StoreType[];
@@ -20,14 +17,14 @@ export default class AuthStoreManager implements VueAuthStore {
 
   setStores() {
     this.stores = Object.assign([], this.options.tokenStore)
-      .map((store) => {
+      .map((store: TokenStore) => {
         switch (store) {
           case 'cookie':
             return new StoreCookie(this.Vue, this.options);
-            break;
           case 'sessionStorage':
             return new StoreSessionStorage(this.Vue, this.options);
-            break;
+          case 'vuex':
+            return new StoreVuex(this.Vue, this.options);
           default:
             return new StoreLocalStorage(this.Vue, this.options);
         }

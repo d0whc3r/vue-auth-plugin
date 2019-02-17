@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue';
-import { VueAuthOptions } from '../../interfaces/VueAuthOptions';
+import { VueAuthOptions } from '../../interfaces';
 import StoreLocalStorage from '../../lib/store/store-local-storage';
 
 export default class StoreSessionStorage extends StoreLocalStorage {

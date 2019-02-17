@@ -1,5 +1,5 @@
 import { RawLocation, Route, VueRouter } from 'vue-router/types/router';
-import { VueAuthOptions } from '../interfaces/VueAuthOptions';
+import { VueAuthOptions } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 
 export default class AuthVueRouter {

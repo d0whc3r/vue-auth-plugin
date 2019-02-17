@@ -1,5 +1,4 @@
-import { VueAuthStore } from '../../interfaces/VueAuthStore';
-import { AuthUser, VueAuthOptions } from '../../interfaces/VueAuthOptions';
+import { AuthUser, VueAuthOptions, VueAuthStore } from '../../interfaces';
 
 export default class StoreCookie implements VueAuthStore {
   private store: any;

@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { VueAuthOptions } from '../interfaces/VueAuthOptions';
-import { VueAuthLogin } from '../interfaces/VueAuthLogin';
+import { VueAuthLogin, VueAuthOptions } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
 
