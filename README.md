@@ -3,7 +3,7 @@
 
 # :key: Vue Auth Plugin
 
-A simple authentication library for Vue.js using typescript
+A simple authentication and authorization library for Vue.js using typescript
 
 Inspired in [@websanova/vue-auth](https://github.com/websanova/vue-auth)
 
