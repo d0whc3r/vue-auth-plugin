@@ -38,7 +38,7 @@ const options = { ... };
 Vue.use(VueAuth, options);
 ```
 
-> Options could be consulted in [Configuration section](./configuration.html)
+> Options could be consulted in [Options section](./guide/)
 
 ## Dev Build
 
