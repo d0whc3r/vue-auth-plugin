@@ -43,7 +43,7 @@
     "jsonwebtoken": "8.5.0",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.2",
-    "typescript": "3.3.3",
+    "typescript": "3.3.3333",
     "vue": "2.6.6",
     "vue-axios": "2.1.4",
     "vue-class-component": "7.0.1",
