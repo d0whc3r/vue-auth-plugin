@@ -8,6 +8,17 @@
     "url": "https://github.com/d0whc3r"
   },
   "repository": "https://github.com/d0whc3r/vue-auth-plugin",
+  "keywords": [
+    "vue",
+    "vue plugin",
+    "auth",
+    "authorization",
+    "autentication",
+    "login",
+    "roles",
+    "vuejs",
+    "vue2"
+  ],
   "scripts": {
     "mockserver": "node -r ts-node/register ./demo/mockserver.ts",
     "serve": "vue-cli-service serve",
@@ -34,6 +45,7 @@
     "@vue/cli-service": "3.4.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "axios": "0.18.0",
+    "axios-mock-adapter": "1.16.0",
     "babel-core": "7.0.0-bridge.0",
     "cors": "2.8.5",
     "cross-env": "5.2.0",
