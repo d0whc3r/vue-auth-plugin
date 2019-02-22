@@ -30,7 +30,7 @@
     "docs:serve": "vue-cli-service docs --mode serve",
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "test": "vue-cli-service test:unit",
-    "coveralls": "yarn test --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "test:coveralls": "yarn test --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "vue-router": "3.0.2"
