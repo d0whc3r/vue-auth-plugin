@@ -68,6 +68,12 @@ describe('Functions', () => {
     });
     it('Login result', () => {
       expect(localVue.$auth.check()).toBeTruthy();
+      const existingRole = sampleUser[options.rolesVar][0];
+      const unExistingRole = existingRole + 'xx';
+      expect(localVue.$auth.check(existingRole)).toBeTruthy();
+      expect(localVue.$auth.check(unExistingRole)).toBeFalsy();
+      expect(localVue.$auth.check([existingRole, unExistingRole])).toBeTruthy();
+      expect(localVue.$auth.check([unExistingRole, existingRole])).toBeTruthy();
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toEqual(sampleUser);
       expect(localVue.$auth.roles()).toEqual(sampleUser.roles);
@@ -105,6 +111,7 @@ describe('Functions', () => {
         await localVue.$auth.logout();
         expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
         expect(localVue.$auth.check()).toBeFalsy();
+        expect(localVue.$auth.check(sampleUser[options.rolesVar][0])).toBeFalsy();
         expect(localVue.$auth.token()).toBeNull();
         expect(localVue.$auth.user()).toBeNull();
       });

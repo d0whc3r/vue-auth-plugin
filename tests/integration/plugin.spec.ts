@@ -1,6 +1,5 @@
 import plugin from '../../src/index';
 import { prepareVue } from '../helper/prepare';
-import MockAdapter from 'axios-mock-adapter';
 
 let localVue;
 

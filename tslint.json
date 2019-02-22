@@ -23,6 +23,7 @@
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
     "interface-over-type-literal": false,
-    "no-console": [true, "log"]
+    "no-console": [true, "log"],
+    "no-shadowed-variable": false
   }
 }

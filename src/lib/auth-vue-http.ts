@@ -5,7 +5,7 @@ import AuthVueRouter from './auth-vue-router';
 import { IVueAuthOptions } from './auth';
 
 export default class AuthVueHttp {
-  private http: AxiosInstance;
+  private readonly http: AxiosInstance;
   private interval: any;
 
   constructor(
@@ -14,7 +14,7 @@ export default class AuthVueHttp {
     private storeManager: AuthStoreManager,
     private router: AuthVueRouter) {
     if (!this.Vue.axios) {
-      throw Error('vue-axios is a required dependency');
+      throw Error('[vue-auth-plugin] vue-axios is a required dependency');
     }
     this.http = Vue.axios as AxiosInstance;
     this.configureHttp();
@@ -41,7 +41,7 @@ export default class AuthVueHttp {
         return response;
       })
       .catch((error) => {
-        console.warn('[vue-auth-plugin] Login error', error);
+        console.warn('[vue-auth-plugin] Login error', error.message);
       });
   }
 
@@ -77,7 +77,7 @@ export default class AuthVueHttp {
           return data;
         })
         .catch((error) => {
-          console.warn('[vue-auth-plugin] Fetching user error', error);
+          console.warn('[vue-auth-plugin] Fetching user error', error.message);
         });
     }
     return Promise.resolve(null);
