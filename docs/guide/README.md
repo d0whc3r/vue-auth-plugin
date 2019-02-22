@@ -24,7 +24,7 @@ const options = {
   logoutData: {
     url: '/auth/logout',
     method: 'POST',
-    redirect: '/',
+    redirect: '/login',
     makeRequest: false,
   },
   fetchData: {

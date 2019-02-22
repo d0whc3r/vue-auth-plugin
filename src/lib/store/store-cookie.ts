@@ -29,7 +29,7 @@ export default class StoreCookie extends VueAuthStore {
   }
 
   public getUser(): AuthUser {
-    return this.getCookie(this.options.userDefaultName) || {};
+    return this.getCookie(this.options.userDefaultName);
   }
 
   public setToken(token: string): void {

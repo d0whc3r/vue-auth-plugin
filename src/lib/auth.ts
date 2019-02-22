@@ -31,7 +31,7 @@ export default class Auth {
     logoutData: {
       url: '/auth/logout',
       method: 'POST',
-      redirect: '/',
+      redirect: '/login',
       makeRequest: false,
     },
     fetchData: {

@@ -1,6 +1,9 @@
 [![@d0whc3r/vue-auth-plugin Dev Token](https://badge.devtoken.rocks/@d0whc3r/vue-auth-plugin)](https://devtoken.rocks/package/@d0whc3r/vue-auth-plugin)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f40b0f7c-b2a8-4cd5-ba62-fe2da3dfa48c/deploy-status)](https://app.netlify.com/sites/vue-auth-plugin/deploys)
 [![Build Status](https://travis-ci.com/d0whc3r/vue-auth-plugin.svg?branch=master)](https://travis-ci.com/d0whc3r/vue-auth-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/d0whc3r/vue-auth-plugin/badge.svg?branch=master)](https://coveralls.io/github/d0whc3r/vue-auth-plugin?branch=master)
+[![dependencies](https://img.shields.io/david/d0whc3r/vue-auth-plugin.svg)]()
+[![npm version](https://img.shields.io/npm/v/@d0whc3r%2Fvue-auth-plugin.svg)](https://www.npmjs.com/package/@d0whc3r/vue-auth-plugin)
 
 # :key: Vue Auth Plugin
 

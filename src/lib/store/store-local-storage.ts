@@ -18,7 +18,7 @@ export default class StoreLocalStorage extends VueAuthStore {
   }
 
   public getUser(): AuthUser {
-    return JSON.parse(this.store.getItem(this.options.userDefaultName)) || {};
+    return JSON.parse(this.store.getItem(this.options.userDefaultName));
   }
 
   public setToken(token: string): void {
