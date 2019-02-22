@@ -4,11 +4,20 @@ node_js:
 script:
   - yarn test:coveralls
   - yarn docs:build
+  - sonar-scanner \
+    -Dsonar.projectKey=d0whc3r_vue-auth-plugin \
+    -Dsonar.organization=d0whc3r-github \
+    -Dsonar.sources=. \
+    -Dsonar.host.url=https://sonarcloud.io \
+    -Dsonar.login=$SONAR_TOKEN
 deploy:
   provider: pages
   skip-cleanup: true
   local_dir: docs/.vuepress/dist
-  github-token: $GITHUB_TOKEN # a token generated on github allowing travis to push code on you repository
+  github-token: $GITHUB_TOKEN
   keep-history: true
   on:
     branch: master
+addons:
+  sonarcloud:
+    organization: "d0whc3r-github"
