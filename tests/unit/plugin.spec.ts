@@ -44,17 +44,18 @@ describe('Plugin', () => {
     beforeEach(async () => {
       localVue.use(plugin, options);
       const mock = new MockAdapter(localVue.axios);
+      const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(200,
           { response: true },
-          { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` });
+          loginHeaders);
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(200, sampleUser);
       await localVue.$auth.login({ username: 'test', password: 'test' });
     });
-    it('Login result token', () => {
+    it('Login result', () => {
       expect(localVue.$auth.check()).toBeTruthy();
-      expect(localVue.$auth.token()).toBe(sampleToken);
+      expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toEqual(sampleUser);
     });
   });
