@@ -8,6 +8,17 @@
     "url": "https://github.com/d0whc3r"
   },
   "repository": "https://github.com/d0whc3r/vue-auth-plugin",
+  "keywords": [
+    "vue",
+    "vue plugin",
+    "auth",
+    "authorization",
+    "autentication",
+    "login",
+    "roles",
+    "vuejs",
+    "vue2"
+  ],
   "scripts": {
     "mockserver": "node -r ts-node/register ./demo/mockserver.ts",
     "serve": "vue-cli-service serve",
@@ -18,7 +29,8 @@
     "docs:build": "vue-cli-service docs --mode build",
     "docs:serve": "vue-cli-service docs --mode serve",
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "vue-cli-service test:unit",
+    "test:coveralls": "yarn test --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "vue-router": "3.0.2"
@@ -34,8 +46,10 @@
     "@vue/cli-service": "3.4.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "axios": "0.18.0",
+    "axios-mock-adapter": "1.16.0",
     "babel-core": "7.0.0-bridge.0",
     "cors": "2.8.5",
+    "coveralls": "3.0.2",
     "cross-env": "5.2.0",
     "express": "4.16.4",
     "express-jwt": "5.3.1",
@@ -49,6 +63,7 @@
     "vue-class-component": "7.0.1",
     "vue-cli-plugin-p11n": "0.1.4",
     "vue-property-decorator": "7.3.0",
+    "vue-server-renderer": "2.6.7",
     "vue-template-compiler": "2.6.7",
     "vuex": "3.1.0",
     "vuex-class": "0.3.1"
