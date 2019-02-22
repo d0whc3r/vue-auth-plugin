@@ -10,7 +10,8 @@ export default class StoreLocalStorage extends VueAuthStore {
   }
 
   public getRoles(): string[] {
-    return this.getUser()[this.options.rolesVar];
+    const user = this.getUser();
+    return user && user[this.options.rolesVar];
   }
 
   public getToken(): string {

@@ -8,7 +8,7 @@ export default class StoreVuex extends VueAuthStore {
   constructor(Vue: any, options: IVueAuthOptions) {
     super(Vue, options);
     if (!this.Vue.store) {
-      throw Error('vuex is a required dependency if you want to use "vuex" as storage');
+      throw Error('[vue-auth-plugin] vuex is a required dependency if you want to use "vuex" as storage');
     }
     this.store = this.Vue.store as Store<any>;
     this.module = this.options.vuexStoreSpace;
@@ -68,7 +68,8 @@ export default class StoreVuex extends VueAuthStore {
           return state.user;
         },
         getRoles(state): string[] {
-          return (state.user || {})[rolesVar];
+          const user = state.user;
+          return user && user[rolesVar];
         },
       },
     };

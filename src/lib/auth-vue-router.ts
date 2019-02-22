@@ -7,7 +7,7 @@ export default class AuthVueRouter {
 
   constructor(private Vue: any, private options: IVueAuthOptions, private storeManager: AuthStoreManager) {
     if (!this.Vue.router) {
-      throw Error('vue-router is a required dependency');
+      throw Error('[vue-auth-plugin] vue-router is a required dependency');
     }
     this.router = Vue.router as VueRouter;
     this.configureRouter();
