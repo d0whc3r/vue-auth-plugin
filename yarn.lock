@@ -10445,10 +10445,10 @@ vue-class-component@^6.2.0:
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-6.3.2.tgz#e6037e84d1df2af3bde4f455e50ca1b9eec02be6"
   integrity sha512-cH208IoM+jgZyEf/g7mnFyofwPDJTM/QvBNhYMjqGB8fCsRyTf68rH2ISw/G20tJv+5mIThQ3upKwoL4jLTr1A==
 
-vue-cli-plugin-p11n@0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-p11n/-/vue-cli-plugin-p11n-0.1.3.tgz#ee7c4de1ef24b97f8c2b1124da2f924a5d9edde6"
-  integrity sha512-pGa+mFNae+wKyPNyn8wbElBFYLRul9PR6rFE1V+/M623YwaCG9Tu/hF8bbecXoQNBlqXtPTcBfT99Hicp1vRXw==
+vue-cli-plugin-p11n@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/vue-cli-plugin-p11n/-/vue-cli-plugin-p11n-0.1.4.tgz#a04e26e0afa2c7a0eabfb23d1ed63e27262f9d1b"
+  integrity sha512-tD6akQoB23AwgVmQRSXMW34jX2D3tTzA/4peh/3MOdnltCO024PrTJ/3Fd1G6ArgKI3XGiJmJdYtVOqrg1baOQ==
   dependencies:
     chalk "^2.4.2"
     debug "^4.1.1"
