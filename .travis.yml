@@ -6,7 +6,6 @@ script:
   - yarn docs:build
   - sonar-scanner \
     -Dsonar.projectKey=d0whc3r_vue-auth-plugin \
-    -Dsonar.organization=d0whc3r-github \
     -Dsonar.sources=. \
     -Dsonar.host.url=https://sonarcloud.io \
     -Dsonar.login=$SONAR_TOKEN
