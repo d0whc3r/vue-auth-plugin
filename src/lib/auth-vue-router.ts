@@ -23,12 +23,13 @@ export default class AuthVueRouter {
   private configureRouter() {
     this.router.beforeEach((to, from, next) => {
       const { authRedirect } = this.options;
-      if (this.haveMeta(to)) {
-        const token = this.storeManager.getToken();
-        if (token) {
+      const routes = this.metaRoutes(to);
+      if (routes && routes.length) {
+        if (this.isAuthorized(routes)) {
           next();
         } else {
-          next(authRedirect);
+          const nextPath = from.fullPath !== to.fullPath ? from.fullPath : authRedirect;
+          next(nextPath);
         }
       } else {
         next();
@@ -36,15 +37,24 @@ export default class AuthVueRouter {
     });
   }
 
-  private haveMeta(to: Route) {
-    return !!to.matched
-      .filter((url) => url.path !== this.options.authRedirect)
-      .filter((match) => match.meta.hasOwnProperty(this.options.authMeta))
-      .filter((meta) => !!meta)
-      .length;
+  private isAuthorized(routes) {
+    const token = this.storeManager.getToken();
+    let isAuth = false;
+    routes.forEach((route) => {
+      const auth = route.meta[this.options.authMeta];
+      if (typeof auth === 'boolean') {
+        isAuth = !!token;
+      } else if (typeof auth === 'string' || Array.isArray(auth)) {
+        isAuth = this.storeManager.checkRole(auth);
+      }
+    });
+    return isAuth;
   }
 
-  private isLogout(to: Route) {
-    return to.path.includes(this.options.logoutData.url);
+  private metaRoutes(to: Route) {
+    return to.matched
+      .filter((url) => url.path !== this.options.authRedirect)
+      .filter((match) => this.options.authMeta && match.meta.hasOwnProperty(this.options.authMeta))
+      .filter((meta) => !!meta);
   }
 }
