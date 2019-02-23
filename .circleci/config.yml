@@ -3,13 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+docker:
+  - image: circleci/node:10
+working_directory: ~/repo
 jobs:
   build:
-    docker:
-      - image: circleci/node:10
-
-    working_directory: ~/repo
-
     steps:
       - checkout
 
@@ -27,9 +25,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
   test:
-    docker:
-      - image: circleci/node:10
-      - run: yarn test:coveralls
+    - run: yarn test:coveralls
+  sonarbranch:
+    - run: yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CIRCLE_BRANCH} -Dsonar.branch.target=master
+  sonar:
+    - run: yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+  docs:
+    - run: yarn docs:deploy
 
 workflows:
   version: 2
@@ -39,3 +41,21 @@ workflows:
       - test
         requires:
           - build
+      - sonarbranch
+        requires:
+          - test
+        filters:
+          branches:
+            ignore: master
+      - sonar
+        requires:
+          - test
+        filters:
+          branches:
+            only: master
+      - docs
+        requires:
+          - test
+        filters:
+          branches:
+            only: master
