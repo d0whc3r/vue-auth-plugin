@@ -31,8 +31,8 @@
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "test": "vue-cli-service test:unit",
     "test:coverage": "yarn test --coverage",
-    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
-    "prepublish": "yarn build"
+    "test:codecovs": "yarn test:coverage && codecov -f coverage/*.json",
+    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "vue-router": "3.0.2"
@@ -50,6 +50,7 @@
     "axios": "0.18.0",
     "axios-mock-adapter": "1.16.0",
     "babel-core": "7.0.0-bridge.0",
+    "codecov": "3.2.0",
     "cors": "2.8.5",
     "coveralls": "3.0.3",
     "cross-env": "5.2.0",
