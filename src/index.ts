@@ -17,10 +17,9 @@ const install = (Vue: any, options: VueAuthOptions = {} as VueAuthOptions): void
   }
   plugin.installed = true;
 
-  // Vue.prototype.$auth = new Auth(Vue, options);
   const auth = new Auth(Vue, options);
 
-  (Vue as any).$auth = auth;
+  Vue.$auth = auth;
 
   Object.defineProperties(Vue.prototype, {
     $auth: {

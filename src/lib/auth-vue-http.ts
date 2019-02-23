@@ -9,10 +9,10 @@ export default class AuthVueHttp {
   private interval: any;
 
   constructor(
-    private Vue: any,
-    private options: IVueAuthOptions,
-    private storeManager: AuthStoreManager,
-    private router: AuthVueRouter) {
+    private readonly Vue: any,
+    private readonly options: IVueAuthOptions,
+    private readonly storeManager: AuthStoreManager,
+    private readonly router: AuthVueRouter) {
     if (!this.Vue.axios) {
       throw Error('[vue-auth-plugin] vue-axios is a required dependency');
     }
@@ -45,7 +45,7 @@ export default class AuthVueHttp {
       });
   }
 
-  public logout(forceRedirect?: boolean) {
+  public logout(forceRedirect = false) {
     const logout = this.options.logoutData && typeof this.options.logoutData === 'object' &&
     Object.keys(this.options.logoutData).length ? this.options.logoutData : {};
     const { url, method, redirect, makeRequest } = logout;
@@ -62,7 +62,7 @@ export default class AuthVueHttp {
     }
   }
 
-  public fetchData(force: boolean = false) {
+  public fetchData(force = false) {
     const fetch = this.options.fetchData && typeof this.options.fetchData === 'object' &&
     Object.keys(this.options.fetchData).length ? this.options.fetchData : {};
     const { enabled, method, url } = fetch;

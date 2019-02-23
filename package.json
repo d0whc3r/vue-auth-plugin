@@ -30,7 +30,8 @@
     "docs:serve": "vue-cli-service docs --mode serve",
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "test": "vue-cli-service test:unit",
-    "test:coveralls": "yarn test --coverage && cat ./coverage/lcov.info | coveralls"
+    "test:coverage": "yarn test --coverage",
+    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "vue-router": "3.0.2"
@@ -54,7 +55,10 @@
     "express": "4.16.4",
     "express-jwt": "5.3.1",
     "gh-pages": "2.0.1",
+    "jest-junit": "6.3.0",
+    "jest-sonar-reporter": "2.0.0",
     "jsonwebtoken": "8.5.0",
+    "sonar-scanner": "3.1.0",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.2",
     "typescript": "3.3.3333",
@@ -81,5 +85,13 @@
   "module": "dist/vue-auth-plugin.esm.js",
   "sideeffects": false,
   "types": "types/index.d.ts",
-  "unpkg": "dist/vue-auth-plugin.umd.min.js"
+  "unpkg": "dist/vue-auth-plugin.umd.min.js",
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-report.xml"
+  },
+  "jest-junit": {
+    "outputDirectory": "./coverage",
+    "outputName": "./junit.xml"
+  }
 }

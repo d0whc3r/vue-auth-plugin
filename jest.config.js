@@ -23,9 +23,14 @@ module.exports = {
     '**/__tests__/*.(js|jsx|ts|tsx)',
   ],
   testURL: 'http://localhost/',
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    'src/**/*'
+    'src/**/*.ts',
   ],
+  cache: false,
+  testResultsProcessor: 'jest-sonar-reporter',
+  reporters: ['default', 'jest-junit'],
   globals: {
     'ts-jest': {
       babelConfig: true,
