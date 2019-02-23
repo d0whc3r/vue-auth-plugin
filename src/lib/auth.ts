@@ -9,7 +9,7 @@ export interface IVueAuthOptions extends VueAuthOptions {
 }
 
 export default class Auth {
-  private DEFAULT_OPTIONS: VueAuthOptions = {
+  private readonly DEFAULT_OPTIONS: VueAuthOptions = {
     authMeta: 'auth',
     rolesVar: 'roles',
     tokenDefaultName: 'default_auth_token',
@@ -41,11 +41,11 @@ export default class Auth {
       enabled: false,
     },
   };
-  private options = {} as IVueAuthOptions;
-  private http: AuthVueHttp;
-  private storeManager: AuthStoreManager;
+  private readonly options = {} as IVueAuthOptions;
+  private readonly http: AuthVueHttp;
+  private readonly storeManager: AuthStoreManager;
 
-  constructor(private Vue: any, options: VueAuthOptions = {} as VueAuthOptions) {
+  constructor(private readonly Vue: any, options: VueAuthOptions = {} as VueAuthOptions) {
     this.options = {
       ...this.DEFAULT_OPTIONS,
       ...options,

@@ -1,14 +1,20 @@
 language: node_js
 node_js:
   - "10"
+cache: yarn
 script:
   - yarn test:coveralls
-  - yarn docs:build
+  - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+  - ls coverage
+  - export SONAR_BRANCH="-Dsonar.branch.name=${BRANCH} -Dsonar.branch.target=master"
+  - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
+  - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} ${SONAR_BRANCH}
+  - if [ "${BRANCH}" = "master" ]; then yarn docs:build; fi
 deploy:
   provider: pages
   skip-cleanup: true
   local_dir: docs/.vuepress/dist
-  github-token: $GITHUB_TOKEN # a token generated on github allowing travis to push code on you repository
+  github-token: $GITHUB_TOKEN
   keep-history: true
   on:
     branch: master

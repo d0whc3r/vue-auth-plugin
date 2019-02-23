@@ -9,6 +9,8 @@ docs/.vuepress/dist
 .env.local
 .env.*.local
 
+.scannerwork
+
 # related test files
 /tests/e2e/reports
 /tests/e2e/videos
