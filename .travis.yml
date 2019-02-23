@@ -3,12 +3,8 @@ node_js:
   - "10"
 cache: yarn
 script:
-  - yarn test:coveralls
-  - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-  - export SONAR_BRANCH="-Dsonar.branch.name=${BRANCH} -Dsonar.branch.target=master"
-  - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
-  - yarn sonar-scanner -X -Dsonar.login=${SONAR_TOKEN} ${SONAR_BRANCH}
-  - if [ "${BRANCH}" = "master" ]; then yarn docs:build; fi
+  - yarn test
+  - yarn docs:build
 deploy:
   provider: pages
   skip-cleanup: true
