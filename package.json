@@ -1,6 +1,6 @@
 {
   "name": "@d0whc3r/vue-auth-plugin",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
@@ -32,7 +32,8 @@
     "test": "vue-cli-service test:unit",
     "test:coverage": "yarn test --coverage",
     "test:codecovs": "yarn test:coverage && codecov -f coverage/*.json",
-    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls"
+    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "vue-router": "3.0.2"
@@ -60,6 +61,7 @@
     "jest-junit": "6.3.0",
     "jest-sonar-reporter": "2.0.0",
     "jsonwebtoken": "8.5.0",
+    "semantic-release": "^15.13.3",
     "sonar-scanner": "3.1.0",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.2",
