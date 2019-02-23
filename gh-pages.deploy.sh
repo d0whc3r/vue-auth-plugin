@@ -2,7 +2,7 @@
 yarn docs:build
 git clone git@github.com:d0whc3r/vue-auth-plugin.git gh-pages
 cd gh-pages
-rm *
+rm -fr *
 cp -r ../docs/.vuepress/dist/* .
 git config user.email "codeship@email"
 git config user.name "codeship"
