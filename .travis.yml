@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "10"
+cache: yarn
 script:
   - yarn test:coveralls
   - export SONAR_BRANCH="-Dsonar.branch.name=$TRAVIS_BRANCH -Dsonar.branch.target=master"
