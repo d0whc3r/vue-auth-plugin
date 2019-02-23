@@ -40,7 +40,7 @@ describe('Plugin', () => {
   });
   it('Error in login', async () => {
     localVue.router.push('/');
-    expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
+    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
     const mock = new MockAdapter(localVue.axios);
     mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
       .reply(500, { response: 'error' });
@@ -51,7 +51,7 @@ describe('Plugin', () => {
       expect(e).toBeDefined();
     }
     localVue.router.push('/');
-    expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
+    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
   });
   describe('Fetch user error', () => {
     const sampleToken = '123456abcdef123456789';
@@ -99,7 +99,7 @@ describe('Plugin', () => {
       expect(localVue.$auth.token()).toBeNull();
       expect(localVue.$auth.user()).toBeNull();
       localVue.router.push('/');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
+      expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
     });
   });
 });

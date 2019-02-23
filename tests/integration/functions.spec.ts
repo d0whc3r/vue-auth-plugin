@@ -78,6 +78,8 @@ describe('Functions', () => {
       expect(localVue.$auth.user()).toEqual(sampleUser);
       expect(localVue.$auth.roles()).toEqual(sampleUser.roles);
       expect(localVue.router.history.getCurrentLocation()).toEqual(options.loginData.redirect);
+      localVue.router.push('/');
+      expect(localVue.router.history.getCurrentLocation()).toEqual('/');
     });
     it('Info in localStorage', () => {
       expect(localStorage.getItem(options.tokenDefaultName)).toEqual(sampleToken);

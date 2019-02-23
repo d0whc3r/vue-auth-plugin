@@ -1,3 +1,8 @@
+<style scoped>
+  div.links a {
+    margin-left: 1rem;
+  }
+</style>
 <template>
   <div>
     This is only visible for logged users
@@ -5,6 +10,14 @@
     <button @click="checkApi">Check example {{dataResponse}}</button>
     <br>
     <router-link to="/logout">Logout</router-link>
+    <br>
+    <br>
+    <div class="links">
+      <router-link to="/">/</router-link>
+      <router-link to="/user">/user</router-link>
+      <router-link to="/admin">/admin</router-link>
+      <router-link to="/admin/auth">/admin/auth</router-link>
+    </div>
     <br>
     <h1>Token</h1>
     <h2>Using $auth</h2>
