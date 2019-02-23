@@ -4,10 +4,13 @@ node_js:
 cache: yarn
 script:
   - yarn test:coveralls
+  - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+  - echo "BRANCH - ${BRANCH}"
   - export SONAR_BRANCH="-Dsonar.branch.name=$TRAVIS_BRANCH -Dsonar.branch.target=master"
-  - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
-  - yarn sonar-scanner -Dsonar.login=$SONAR_TOKEN $SONAR_BRANCH
-  - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" = "master" ]; then yarn docs:build; fi
+  - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
+  - echo "SONAR ${SONAR_BRANCH}"
+  - yarn sonar-scanner "-Dsonar.login=${SONAR_TOKEN} ${SONAR_BRANCH}"
+  - if [ "${BRANCH}" = "master" ]; then yarn docs:build; fi
 deploy:
   provider: pages
   skip-cleanup: true
