@@ -5,6 +5,8 @@ cache: yarn
 script:
   - yarn test:codecovs
   - yarn docs:build
+  - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+  - if [ "${BRANCH}" = "master" ]; then yarn semantic-release; fi
 deploy:
   provider: pages
   skip-cleanup: true
@@ -13,17 +15,3 @@ deploy:
   keep-history: true
   on:
     branch: master
-jobs:
-  include:
-    # Define the release stage that runs semantic-release
-    - stage: release
-      node_js: lts/*
-      # Advanced: optionally overwrite your default `script` step to skip the tests
-      # script: skip
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - yarn semantic-release
-        on:
-          branch: master
