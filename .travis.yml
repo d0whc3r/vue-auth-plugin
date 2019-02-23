@@ -5,11 +5,10 @@ cache: yarn
 script:
   - yarn test:coveralls
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-  - echo "BRANCH - ${BRANCH}"
+  - ls coverage
   - export SONAR_BRANCH="-Dsonar.branch.name=${BRANCH} -Dsonar.branch.target=master"
   - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
-  - echo "SONAR ${SONAR_BRANCH}"
-  - yarn sonar-scanner "-Dsonar.login=${SONAR_TOKEN} ${SONAR_BRANCH}"
+  - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} ${SONAR_BRANCH}
   - if [ "${BRANCH}" = "master" ]; then yarn docs:build; fi
 deploy:
   provider: pages
