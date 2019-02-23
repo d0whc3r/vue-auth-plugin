@@ -4,9 +4,9 @@ node_js:
 script:
   - yarn test:coveralls
   - export SONAR_BRANCH="-Dsonar.branch.name=$TRAVIS_BRANCH -Dsonar.branch.target=master"
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then export SONAR_BRANCH=""; fi
+  - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" = "master" ]; then export SONAR_BRANCH=""; fi
   - yarn sonar-scanner -Dsonar.login=$SONAR_TOKEN $SONAR_BRANCH
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then yarn docs:build; fi
+  - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" = "master" ]; then yarn docs:build; fi
 deploy:
   provider: pages
   skip-cleanup: true
