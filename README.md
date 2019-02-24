@@ -46,3 +46,11 @@ yarn run test:unit
 ```
 
 > Plugin created using [vue-cli 3](https://cli.vuejs.org/) and [p11n plugin](https://github.com/kazupon/vue-cli-plugin-p11n)
+
+# :copyright: License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+# :bookmark: Keywords
+
+`vue`, `vue plugin`, `auth`, `authorization`, `autentication`, `login`, `roles`, `vuejs`, `vue2`
