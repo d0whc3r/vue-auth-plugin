@@ -42,7 +42,7 @@ yarn demo
 ## :bar_chart: Run unit tests
 
 ```bash
-yarn run test:unit
+yarn run test
 ```
 
 > Plugin created using [vue-cli 3](https://cli.vuejs.org/) and [p11n plugin](https://github.com/kazupon/vue-cli-plugin-p11n)
