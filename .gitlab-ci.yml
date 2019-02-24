@@ -1,0 +1,83 @@
+image: node:10
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules
+
+stages:
+  - install
+  - test
+  - analysis
+  - docs
+  - publish
+
+install-deps:
+  stage: install
+  script:
+    - yarn install
+
+tests:
+  stage: test
+  script:
+    - yarn test
+
+sonarqube-reports-master:
+  stage: analysis
+  only:
+    - master
+  script:
+    - yarn test:coverage
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+
+sonarqube-reports-branch:
+  stage: analysis
+  except:
+    - master
+  script:
+    - yarn test:coverage
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master
+
+documentation:
+  stage: docs
+  only:
+    - master
+  script:
+    - yarn docs:build
+    - yarn gh-pages -d docs/.vuepress/dist -r https://${GITHUB_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+
+publish-npm-path:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version patch
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
+
+publish-npm-minor:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version minor
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
+
+publish-npm-major:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version major
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
