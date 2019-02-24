@@ -42,7 +42,7 @@ sonarqube-reports-branch:
   except:
     - master
   script:
-    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master
 
 documentation:
   stage: docs
