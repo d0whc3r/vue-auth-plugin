@@ -4,6 +4,7 @@ public
 dist/
 coverage
 docs/.vuepress/dist
+.npmrc
 
 # local env files
 .env.local
