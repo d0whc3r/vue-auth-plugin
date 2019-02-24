@@ -1,6 +1,6 @@
 [![@d0whc3r/vue-auth-plugin Dev Token](https://badge.devtoken.rocks/@d0whc3r/vue-auth-plugin)](https://devtoken.rocks/package/@d0whc3r/vue-auth-plugin)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f40b0f7c-b2a8-4cd5-ba62-fe2da3dfa48c/deploy-status)](https://app.netlify.com/sites/vue-auth-plugin/deploys)
-[![pipeline status](https://gitlab.com/d0whc3r/vue-auth-plugin/badges/master/pipeline.svg)](https://gitlab.com/d0whc3r/vue-auth-plugin/commits/master)
+[![pipeline status](https://gitlab.com/d0whc3r/vue-auth-plugin/badges/master/pipeline.svg)](https://github.com/d0whc3r/vue-auth-plugin)
 [![codecov](https://codecov.io/gh/d0whc3r/vue-auth-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/d0whc3r/vue-auth-plugin)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)

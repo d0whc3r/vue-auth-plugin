@@ -20,18 +20,19 @@ install-deps:
 tests:
   stage: test
   script:
-    - yarn test:codecovs
+    - yarn test:codecovs -t ${CODECOVS_TOKEN}
+  coverage: '/All files\s*\|\s*([\d.]+)/'
   artifacts:
     paths:
       - coverage
 
 sonarqube-reports-master:
   stage: analysis
-  image: newtmitch/sonar-scanner
+  image: timbru31/java-node
   only:
     - master
   script:
-    - sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN}
 
 sonarqube-reports-branch:
   stage: analysis
