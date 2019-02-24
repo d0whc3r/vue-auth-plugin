@@ -33,7 +33,7 @@
     "test:coverage": "yarn test --coverage",
     "test:codecovs": "yarn test:coverage && codecov -f coverage/*.json",
     "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
-    "semantic-release": "semantic-release"
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "vue-router": "3.0.2"

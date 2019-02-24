@@ -1,0 +1,90 @@
+image: node:10
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules
+    - .yarn-cache
+    - .scannerwork
+    - .sonar
+
+stages:
+  - install
+  - test
+  - analysis
+  - docs
+  - publish
+
+install-deps:
+  stage: install
+  script:
+    - yarn install --cache-folder .yarn-cache
+
+tests:
+  stage: test
+  script:
+    - yarn test:codecovs -t ${CODECOVS_TOKEN}
+  coverage: '/All files\s*\|\s*([\d.]+)/'
+  artifacts:
+    paths:
+      - coverage
+
+sonarqube-reports-master:
+  stage: analysis
+  image: timbru31/java-node
+  only:
+    - master
+  script:
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Duser.home=./
+
+sonarqube-reports-branch:
+  stage: analysis
+  image: timbru31/java-node
+  except:
+    - master
+  script:
+    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master -Duser.home=./
+
+documentation:
+  stage: docs
+  only:
+    - master
+  script:
+    - yarn docs:build
+    - yarn gh-pages -d docs/.vuepress/dist -r https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+
+publish-npm-path:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version patch
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
+
+publish-npm-minor:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version minor
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
+
+publish-npm-major:
+  stage: publish
+  when: manual
+  only:
+    - master
+  script:
+    - npm version major
+    - yarn build
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm publish
+    - yarn semantic-release
