@@ -20,7 +20,7 @@ install-deps:
 tests:
   stage: test
   script:
-    - yarn test
+    - yarn test:codecovs
 
 sonarqube-reports-master:
   stage: analysis
@@ -44,7 +44,7 @@ documentation:
     - master
   script:
     - yarn docs:build
-    - yarn gh-pages -d docs/.vuepress/dist -r https://${GITHUB_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+    - yarn gh-pages -d docs/.vuepress/dist -r https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
 
 publish-npm-path:
   stage: publish
