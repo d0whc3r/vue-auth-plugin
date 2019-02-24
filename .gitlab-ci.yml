@@ -53,7 +53,7 @@ documentation:
     - yarn docs:build
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - yarn gh-pages -d docs/.vuepress/dist
+    - yarn gh-pages -d docs/.vuepress/dist -r https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
 
 publish-npm-patch:
   stage: publish
