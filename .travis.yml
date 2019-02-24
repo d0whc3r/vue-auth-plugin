@@ -19,7 +19,7 @@ script:
   - if [ "${BRANCH}" = "master" ]; then yarn semantic-release; fi
   - export SONAR_BRANCHES="-Dsonar.branch.name=${BRANCH} -Dsonar.branch.target=master"
   - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCHES=""; fi
-  - sonar-scanner ${SONAR_BRANCHES}
+  - yarn sonar-scanner -Dsonar.login=$SONAR_TOKEN $SONAR_BRANCHES
   
 deploy:
   provider: pages
