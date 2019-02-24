@@ -76,6 +76,9 @@ publish-npm-minor:
   only:
     - master
   script:
+    - git config --global user.email "ghpages@gitlab"
+    - git config --global user.name "Gitlab CI"
+    - git remote set-url origin https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
     - npm version minor
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
@@ -88,6 +91,9 @@ publish-npm-major:
   only:
     - master
   script:
+    - git config --global user.email "ghpages@gitlab"
+    - git config --global user.name "Gitlab CI"
+    - git remote set-url origin https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
     - npm version major
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
