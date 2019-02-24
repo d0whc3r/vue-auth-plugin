@@ -1,12 +1,26 @@
 language: node_js
 node_js:
   - "10"
-cache: yarn
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+    - '$HOME/.cache/yarn'
+addons:
+  sonarcloud:
+    organization: "d0whc3r-github"
+    token:
+      secure: "IkJPwgWF+yUOrxJxFUzleVDPestcaU6O/umEBj3OrZ6ZoAXCXF9wYfDZsp0ryvTpWEDIxbQiI3JttzvXuGCeMGQWDsPJQjh5ZyU7Qfzafx+1sAEzDwjimRy4ojX3CWWNt4CQLPGO/UiySRS/hNNLIOv2SXC/4TSMqJC3aCM60K2bgBGm/6PyYqQaBBHkgz+MsjA2SHv4qZKQpbK7YL2QpLwGmJ7jo9vpZYJ/xwXnUIrzaNJFK2VvezcteS/7Ia6R3EddSWgiUIksVvGh8d+DfbgnPSdv5v8ljHhRRmwtIDISio8AiAsWsZ3/3cCF7v70CoWfJG+GJTCScswBNDyrTKJEbOz4ReJtW2sG5IzZDTfowfjCgLAEa9e/NddC9uNqEODMhu3Z+xPk0IK7oKRK/7R/O/5xt6q2s/tuUjFVjZPlZQGIky/yNHvZSFBe1mDa/UgLTL/oSctaIqYX1AL3EwfJ/N+0z9fv3lvLZELnlPWcENhj/v8mG0Z7MSd76+YXHFmoASfcE2A2I/As1SIZNLLR1Ht0y9vgmULO4MsjVO86uXLbNW8+HCtRK1wJm5NdhFlLfbx8vJRD/+OlRAKnHORkjlGx4ErjUWD8D35hZPzQA+oUWnzv7m1UMwxMxeLpASFiaJSeYXOmivFPq26bkGWIZxBgONHcnGgF1JMIXsc="
+install:
+  - yarn install
 script:
   - yarn test:codecovs
   - yarn docs:build
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   - if [ "${BRANCH}" = "master" ]; then yarn semantic-release; fi
+  - export SONAR_BRANCHES="-Dsonar.branch.name=${BRANCH} -Dsonar.branch.target=master"
+  - if [ "${BRANCH}" = "master" ]; then export SONAR_BRANCHES=""; fi
+  - sonar-scanner ${SONAR_BRANCHES}
+  
 deploy:
   provider: pages
   skip-cleanup: true
