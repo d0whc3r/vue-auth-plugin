@@ -4,6 +4,8 @@ cache:
   key: "$CI_BUILD_REF_NAME"
   paths:
     - node_modules
+    - .yarn-cache
+    - .scannerwork
 
 stages:
   - install
@@ -15,7 +17,7 @@ stages:
 install-deps:
   stage: install
   script:
-    - yarn install
+    - yarn install --cache-folder .yarn-cache
 
 tests:
   stage: test
@@ -36,7 +38,7 @@ sonarqube-reports-master:
 
 sonarqube-reports-branch:
   stage: analysis
-  image: newtmitch/sonar-scanner
+  image: timbru31/java-node
   except:
     - master
   script:
