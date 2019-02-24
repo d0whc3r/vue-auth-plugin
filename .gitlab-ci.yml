@@ -21,22 +21,25 @@ tests:
   stage: test
   script:
     - yarn test:codecovs
+  artifacts:
+    paths:
+      - coverage
 
 sonarqube-reports-master:
   stage: analysis
+  image: newtmitch/sonar-scanner
   only:
     - master
   script:
-    - yarn test:coverage
-    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+    - sonar-scanner -Dsonar.login=${SONAR_TOKEN}
 
 sonarqube-reports-branch:
   stage: analysis
+  image: newtmitch/sonar-scanner
   except:
     - master
   script:
-    - yarn test:coverage
-    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master
+    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master
 
 documentation:
   stage: docs
