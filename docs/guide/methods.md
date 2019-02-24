@@ -5,7 +5,7 @@ These are the available methods, inside vue file you could use:
 ## Login
 Login method is used to login to server using information in [loginData](./#logindata) option
 
-```vue
+```vue{18-21}
 <template>
   <div>
       <h1>Login demo</h1>
@@ -38,7 +38,7 @@ Object passed to `$auth.login` method will be the `data` request
 ## Logout
 Logout method is used to clean token and user information, it uses information in [logoutData](./#logoutdata) option
 
-```vue
+```vue{8}
 <template>
   <div>Logging out...</div>
 </template>
@@ -55,7 +55,7 @@ export default {
 ## Check
 Check method is used to check if user is authenticated or check if user have certain role
 
-```vue
+```vue{3-5}
 <template>
   <div>
     <p v-if="$auth.check()">User is logged in</p>
@@ -73,7 +73,7 @@ export default {
 ## User
 User method is used to get user information retrieved using information in [fetchData](./#fetchdata) option
 
-```vue
+```vue{4}
 <template>
   <div>
     <p>User information:</p>
@@ -90,7 +90,7 @@ export default {
 ## Roles
 Roles method is used to get user roles information it uses [rolesVar](./#rolesvar) option to get roles from user object
 
-```vue
+```vue{4}
 <template>
   <div>
     <p>User roles:</p>
@@ -107,7 +107,7 @@ export default {
 ## Token
 Token method is used to get auth token received from login
 
-```vue
+```vue{4}
 <template>
   <div>
     <p>Auth token:</p>
@@ -124,7 +124,7 @@ export default {
 # FetchUser
 FetchUser method is used to force vue-auth-plugin to receive information from user using information in [fetchData](./#fetchdata) option
 
-```vue
+```vue{3}
 <template>
   <div>
     <button @click="$auth.fetchUser()">Get user information</button>

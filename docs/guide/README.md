@@ -17,7 +17,7 @@ const options = {
   loginData: {
     url: '/auth/login',
     method: 'POST',
-    redirect: '/',
+    redirect: '/user',
     headerToken: 'Authorization',
     fetchUser: false,
   },
@@ -41,7 +41,7 @@ const options = {
 
 Key to use in vue-router meta to identify a protected route, example:
 
-```javascript
+```javascript{13-15,21-23,29-31}
 new Router({
   mode: 'history',
   base: '/',
@@ -52,24 +52,41 @@ new Router({
       component: Login,
     },
     {
-      path: '/',
+      path: '/user',
       name: 'user',
       meta: {
         auth: true,
       },
       component: User,
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      meta: {
+        auth: 'ROLE_ADMIN',
+      },
+      component: Admin,
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      meta: {
+        auth: ['ROLE_ADMIN', 'ROLE_OTHER'],
+      },
+      component: Friends,
+    },
   ],
 });
 ```
-In this example `/user` route will be protected with authentication
+In this example `/user` route will be protected with authentication.
+And `/admin` is only accessible by users who have role *ROLE_ADMIN* otherwise, `/friends` is only accessible by users who have role *ROLE_ADMIN* or role *ROLE_OTHER*
 
 ## rolesVar
 `string`
 
 Key in user object to identify roles, it is used in [$auth.roles](./methods.html#roles) method, example of user object:
 
-```javascript
+```javascript{5}
 const user = {
   username: 'demo',
   firstName: 'User',
@@ -98,7 +115,7 @@ Location to save token and user object and only could be:
 - `vuex`: for vuex store, it need to be installed in project en exposed in Vue object
 
 Example of simple store file
-```javascript
+```javascript{8}
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -120,7 +137,7 @@ export default store;
 
 Key to replace in headers for the auth token, example:
 
-```javascript
+```javascript{5}
 this.$http({
   url,
   method,
