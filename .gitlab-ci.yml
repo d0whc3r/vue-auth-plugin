@@ -6,7 +6,7 @@ cache:
     - node_modules
     - .yarn-cache
     - .scannerwork
-    - .sonar
+    - /root/.sonar
 
 stages:
   - install
@@ -14,6 +14,9 @@ stages:
   - analysis
   - docs
   - publish
+
+before_script:
+  - export GH_REPO=https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
 
 install-deps:
   stage: install
@@ -53,7 +56,12 @@ documentation:
     - yarn docs:build
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - yarn gh-pages -d docs/.vuepress/dist -r https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+    - yarn gh-pages -d docs/.vuepress/dist -r ${GH_REPO}
+    - mv docs/.vuepress/dist/ public/
+    artifacts:
+      paths:
+        - public
+      expire_in: 30 days
 
 publish-npm-patch:
   stage: publish
@@ -63,11 +71,12 @@ publish-npm-patch:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
+    - git remote set-url origin ${GH_REPO}
     - npm version patch
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - npm publish
-    - yarn semantic-release
 
 publish-npm-minor:
   stage: publish
@@ -77,11 +86,12 @@ publish-npm-minor:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
+    - git remote set-url origin ${GH_REPO}
     - npm version minor
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - npm publish
-    - yarn semantic-release
 
 publish-npm-major:
   stage: publish
@@ -91,8 +101,9 @@ publish-npm-major:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
+    - git remote set-url origin ${GH_REPO}
     - npm version major
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - npm publish
-    - yarn semantic-release
