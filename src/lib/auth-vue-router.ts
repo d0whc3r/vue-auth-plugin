@@ -28,7 +28,7 @@ export default class AuthVueRouter {
         if (this.isAuthorized(routes)) {
           next();
         } else {
-          const nextPath = from.fullPath !== to.fullPath ? from.fullPath : authRedirect;
+          const nextPath = from.fullPath !== to.fullPath && this.storeManager.check() ? from.fullPath : authRedirect;
           next(nextPath);
         }
       } else {
@@ -45,7 +45,7 @@ export default class AuthVueRouter {
       if (typeof auth === 'boolean') {
         isAuth = !!token;
       } else if (typeof auth === 'string' || Array.isArray(auth)) {
-        isAuth = this.storeManager.checkRole(auth);
+        isAuth = this.storeManager.check(auth);
       }
     });
     return isAuth;

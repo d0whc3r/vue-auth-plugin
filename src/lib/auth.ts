@@ -72,7 +72,7 @@ export default class Auth {
   }
 
   public check(role?: string | string[]): boolean {
-    return this.storeManager.checkRole(role);
+    return this.storeManager.check(role);
   }
 
   public user() {

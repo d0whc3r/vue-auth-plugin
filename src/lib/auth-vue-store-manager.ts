@@ -88,7 +88,7 @@ export default class AuthStoreManager extends VueAuthStore {
     this.options.Vue.$data.token = null;
   }
 
-  public checkRole(role?: string | string[]): boolean {
+  public check(role?: string | string[]): boolean {
     if (role) {
       const roles = this.getRoles();
       if (!roles) {

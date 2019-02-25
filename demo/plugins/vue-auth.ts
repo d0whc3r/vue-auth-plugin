@@ -17,6 +17,6 @@ Vue.use(VueAuth, {
   authRedirect: '/login',
 
   loginData: { url: '/api/authenticate', method: 'POST', redirect: '/', headerToken: 'Authorization', fetchUser: true },
-  logoutData: { redirect: '/' },
+  logoutData: { redirect: '/user' },
   fetchData: { url: '/api/user', method: 'GET', interval: 30, enabled: true },
 });
