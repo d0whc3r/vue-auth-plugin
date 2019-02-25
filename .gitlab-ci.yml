@@ -75,7 +75,6 @@ publish-npm-patch:
     - git config --global user.name "Gitlab CI"
     - git remote add github ${GH_REPO}
     - git remote set-url origin ${GH_REPO}
-    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - yarn version --no-commit-hooks --patch
     - git push github master
     - yarn build
@@ -92,7 +91,6 @@ publish-npm-minor:
     - git config --global user.name "Gitlab CI"
     - git remote add github ${GH_REPO}
     - git remote set-url origin ${GH_REPO}
-    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - yarn version --no-commit-hooks --minor
     - git push github master
     - yarn build
@@ -109,7 +107,6 @@ publish-npm-major:
     - git config --global user.name "Gitlab CI"
     - git remote add github ${GH_REPO}
     - git remote set-url origin ${GH_REPO}
-    - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
     - yarn version --no-commit-hooks --major
     - git push github master
     - yarn build
