@@ -58,10 +58,10 @@ documentation:
     - git config --global user.name "Gitlab CI"
     - yarn gh-pages -d docs/.vuepress/dist -r ${GH_REPO}
     - mv docs/.vuepress/dist/ public/
-    artifacts:
-      paths:
-        - public
-      expire_in: 30 days
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
 
 publish-npm-patch:
   stage: publish
