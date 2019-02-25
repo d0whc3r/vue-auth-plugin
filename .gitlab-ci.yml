@@ -71,8 +71,8 @@ publish-npm-patch:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - git remote set-url origin ${GH_REPO}
-    - npm version patch
+    - git remote add github ${GH_REPO}
+    - yarn version --no-commit-hooks --patch
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
     - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
@@ -86,8 +86,8 @@ publish-npm-minor:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - git remote set-url origin ${GH_REPO}
-    - npm version minor
+    - git remote add github ${GH_REPO}
+    - yarn version --no-commit-hooks --minor
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
     - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare
@@ -101,8 +101,8 @@ publish-npm-major:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - git remote set-url origin ${GH_REPO}
-    - npm version major
+    - git remote add github ${GH_REPO}
+    - yarn version --no-commit-hooks --major
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
     - yarn semantic-release -r ${GH_REPO} --ci --publish --success --prepare

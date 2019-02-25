@@ -17,7 +17,7 @@ Pull requests and issues are welcome
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=security_rating)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=bugs)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)
-[![dependencies](https://img.shields.io/david/d0whc3r/vue-auth-plugin.svg)]()
+![dependencies](https://img.shields.io/david/d0whc3r/vue-auth-plugin.svg)
 [![npm version](https://img.shields.io/npm/v/@d0whc3r%2Fvue-auth-plugin.svg)](https://www.npmjs.com/package/@d0whc3r/vue-auth-plugin)
 
 
