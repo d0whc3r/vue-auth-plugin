@@ -8,16 +8,18 @@
     "url": "https://github.com/d0whc3r"
   },
   "repository": "https://github.com/d0whc3r/vue-auth-plugin",
+  "homepage": "https://d0whc3r.github.io/vue-auth-plugin",
   "keywords": [
     "vue",
-    "vue plugin",
+    "plugin",
     "auth",
     "authorization",
     "autentication",
     "login",
     "roles",
     "vuejs",
-    "vue2"
+    "vue2",
+    "typescript"
   ],
   "scripts": {
     "mockserver": "node -r ts-node/register ./demo/mockserver.ts",
