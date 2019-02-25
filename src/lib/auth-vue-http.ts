@@ -18,7 +18,6 @@ export default class AuthVueHttp {
     }
     this.http = Vue.axios as AxiosInstance;
     this.configureHttp();
-    this.startRefresh();
   }
 
   public login(loginInfo: VueAuthLogin) {
@@ -56,6 +55,9 @@ export default class AuthVueHttp {
         headers: { ...this.getAuthHeader() },
       });
     }
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
     this.storeManager.resetAll();
     if (redirect || forceRedirect) {
       this.router.push(redirect || '/');
@@ -66,7 +68,7 @@ export default class AuthVueHttp {
     const fetch = this.options.fetchData && typeof this.options.fetchData === 'object' &&
     Object.keys(this.options.fetchData).length ? this.options.fetchData : {};
     const { enabled, method, url } = fetch;
-    if ((enabled || force) && url && method) {
+    if ((enabled || force) && url && method && this.storeManager.getToken()) {
       return this.http({
         method,
         url,
