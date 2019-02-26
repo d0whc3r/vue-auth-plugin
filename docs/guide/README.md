@@ -156,9 +156,9 @@ Token type to use when need to fetch user data
 `string`
 
 If `vuex` is used as **tokenStore** this will be the key of namespaced module in vuex, then you could use vuex getters called:
-- \<tokenStore>/getUser
-- \<tokenStore>/getToken
-- \<tokenStore>/getRoles
+- \<vuexStoreSpace>/getUser
+- \<vuexStoreSpace>/getToken
+- \<vuexStoreSpace>/getRoles
 
 ## authRedirect
 `string`
