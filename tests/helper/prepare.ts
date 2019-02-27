@@ -36,6 +36,38 @@ export function addRouter(localVue) {
         component: User,
       },
       {
+        path: '/admin',
+        name: 'admin',
+        meta: {
+          auth: 'ROLE_ADMIN',
+        },
+        component: User,
+      },
+      {
+        path: '/mix',
+        name: 'mix',
+        meta: {
+          auth: ['ROLE_ADMIN', 'ROLE_USER'],
+        },
+        component: User,
+      },
+      {
+        path: '/excluded',
+        name: 'excluded',
+        meta: {
+          auth: 'ROLE_SUPERADMIN',
+        },
+        component: User,
+      },
+      {
+        path: '/excludedarr',
+        name: 'excludedarr',
+        meta: {
+          auth: ['ROLE_SUPERADMIN'],
+        },
+        component: User,
+      },
+      {
         path: '/logout',
         component: Logout,
       },
