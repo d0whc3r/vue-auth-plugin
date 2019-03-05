@@ -27,11 +27,11 @@ $ yarn add vue-auth-plugin
 
 ## Usage
 
-When used with a module system, you must explicitly install the `vue-auth-plugin` via `Vue.use()`:
+When used with a module system, you must explicitly install the plugin via `Vue.use()`:
 
 ```javascript
 import Vue from 'vue';
-import VueAuth from 'vue-auth-plugin';
+import VueAuth from '@d0whc3r/vue-auth-plugin';
 
 const options = { ... };
 
