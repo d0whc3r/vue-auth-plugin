@@ -5327,6 +5327,13 @@ get-stream@^4.0.0:
   dependencies:
     pump "^3.0.0"
 
+get-stream@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-5.0.0.tgz#7d1f137576da207fa83d843f44824a70ef999b5f"
+  integrity sha512-frc9F97ehylll1YI31eJRw5M21M86GCItj5U3S3hOEUa6JG6LtcvRKYDAtV/9E5lVasY8QJSPVsrMg/mbCSP5w==
+  dependencies:
+    pump "^3.0.0"
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
@@ -9078,15 +9085,22 @@ p-locate@^3.0.0:
   dependencies:
     p-limit "^2.0.0"
 
+p-locate@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/p-locate/-/p-locate-4.0.0.tgz#fff5d4a5dc4f89babe7d266f6efc685630038651"
+  integrity sha512-IvOiDT1hbCdrsFKKXs8AGjxouEfn9VVdz/edtT08IDr+RIn2U/o3Xx+Agx455+CkSRdomMs3EN5BgR2Q0LZX0g==
+  dependencies:
+    p-limit "^2.0.0"
+
 p-map@^1.0.0, p-map@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
   integrity sha512-r6zKACMNhjPJMTl8KcFH4li//gkrXWfbD6feV8l6doRHlzljFWGJ2AP6iKaCJXyZmAUMOPtvbW7EXkbWO/pLEA==
 
-p-reduce@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/p-reduce/-/p-reduce-1.0.0.tgz#18c2b0dd936a4690a529f8231f58a0fdb6a47dfa"
-  integrity sha1-GMKw3ZNqRpClKfgjH1ig/bakffo=
+p-reduce@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/p-reduce/-/p-reduce-2.0.0.tgz#365a26916213650711124881a6bdc4e32c2bfe36"
+  integrity sha512-VcNNEqiYIkRCGeUHELY5dUrnQHCRwL6eIH/L9oSbl/PsvyHQXD1ws/MFwuEb+6dgH/URCfROVUqOYL37eHi2kQ==
 
 p-retry@^3.0.0:
   version "3.0.1"
@@ -10948,10 +10962,10 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.5"
 
-semantic-release@15.13.4:
-  version "15.13.4"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.4.tgz#9433582aa3c12dc2213fdc640def0d797b8e3da3"
-  integrity sha512-z7NdRqW084HVlVFaso1aWJKwWly6ZhqtSmCuQNXo5XR2KHWSqQJrRrZiksCga+0lxQgsNaKp3R5xkcpVpC4ZKQ==
+semantic-release@15.13.7:
+  version "15.13.7"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.7.tgz#fd5535efcb4d4cb7b339df5f999da76915b67788"
+  integrity sha512-5O+MulYrnjNOs3F0y5XQoyWqURGsR1w7R5sa/zOktsFHeJ0g1Cb2O4CIpKzkeBxVWXuPXhIuKrAw3dhHbE/gLQ==
   dependencies:
     "@semantic-release/commit-analyzer" "^6.1.0"
     "@semantic-release/error" "^2.2.0"
@@ -10965,15 +10979,15 @@ semantic-release@15.13.4:
     execa "^1.0.0"
     figures "^2.0.0"
     find-versions "^3.0.0"
-    get-stream "^4.0.0"
+    get-stream "^5.0.0"
     git-log-parser "^1.2.0"
     hook-std "^1.1.0"
     hosted-git-info "^2.7.1"
     lodash "^4.17.4"
     marked "^0.6.0"
     marked-terminal "^3.2.0"
-    p-locate "^3.0.0"
-    p-reduce "^1.0.0"
+    p-locate "^4.0.0"
+    p-reduce "^2.0.0"
     read-pkg-up "^4.0.0"
     resolve-from "^4.0.0"
     semver "^5.4.1"
