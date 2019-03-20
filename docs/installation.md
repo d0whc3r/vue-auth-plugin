@@ -2,15 +2,13 @@
 
 ## Direct Download / CDN
 
-https://unpkg.com/vue-auth-plugin/dist/vue-auth-plugin 
-
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/vue-auth-plugin@{{ $version }}/dist/vue-auth-plugin.js
+[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/@d0whc3r/vue-auth-plugin@{{ $version }}/dist/vue-auth-plugin.umd.min.js
  
 Include vue-auth-plugin after Vue and it will install itself automatically:
 
 ```html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-auth-plugin/dist/vue-auth-plugin.js"></script>
+<script src="https://unpkg.com/@d0whc3r/vue-auth-plugin/dist/vue-auth-plugin.umd.min.js"></script>
 ```
 
 ## NPM
