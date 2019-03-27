@@ -1042,10 +1042,10 @@
     babel-loader "^8.0.5"
     webpack ">=4 < 4.29"
 
-"@vue/cli-plugin-typescript@3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-typescript/-/cli-plugin-typescript-3.5.1.tgz#8ff3e7877567eac39c8d3e01ed45dfb1245d308a"
-  integrity sha512-SVKL8twkAELHdyL1SsmmTHsN8vLJI+zj/wAjkVdCXYrO6VH/8nn0/wnd81jXqjesEe8EPA4RCiOLESHh/05hrg==
+"@vue/cli-plugin-typescript@3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-typescript/-/cli-plugin-typescript-3.5.2.tgz#009178b498514af3ccce47cf05fca2e71d4156bd"
+  integrity sha512-emU8WIv/XJlYapqX49YbS89UTiEaKfzvq5PnLSNtmicgUrsZ5Za8WPmf2eovIIkJUdHR7GlrbZItkJ1G+ZL9jA==
   dependencies:
     "@types/webpack-env" "^1.13.6"
     "@vue/cli-shared-utils" "^3.5.1"
@@ -1055,10 +1055,10 @@
     tslint "^5.13.0"
     webpack ">=4 < 4.29"
 
-"@vue/cli-plugin-unit-jest@3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.5.1.tgz#bcd90bac895f44150bb736a0e9a0fef25c51b9fe"
-  integrity sha512-VFnkM3R/Z91IWLZyKh6CLgsWaRJfhWUThkAR13q7ama8WyIFPpKAyJKM0jdsm1Gx2PnBwCm/mrjUpzK4VB0ssA==
+"@vue/cli-plugin-unit-jest@3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.5.2.tgz#8ba1f0efc3c12bd177b5a60e2f277720179a61ed"
+  integrity sha512-vUmEvKN0I1k7LsiQhbRsSjs7E+n99WDOOeAC4OLBLSWUKRYDcpk6LLiKuLMXCp8J7lt1KX15F8n94Gq0W9584g==
   dependencies:
     "@vue/cli-shared-utils" "^3.5.1"
     babel-jest "^23.6.0"
@@ -1068,10 +1068,10 @@
     jest-transform-stub "^2.0.0"
     vue-jest "^3.0.3"
 
-"@vue/cli-service@3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.5.1.tgz#d400ab956569a87f3947e7d6972f35c97de84145"
-  integrity sha512-c3xzj2+yrnyziDvkKBTD1cB2jDBs0E4G5gk21hHzvAwzyNSpMPTqwAaeAfUtKHWSgs1dKxi/gURfIgFGUJPn+Q==
+"@vue/cli-service@3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.5.2.tgz#8f05cb1c8113a060ff3d6258dfd8e733e3e94d38"
+  integrity sha512-uv9AXMM3gHLXDrJJ0uJdh29APvp6ZDHjrbaUYAPTdCg3SXXBajgfTDJJ51pi4XwAL2FVqnrRtE0PF8yf/QC1tg==
   dependencies:
     "@intervolga/optimize-cssnano-plugin" "^1.0.5"
     "@soda/friendly-errors-webpack-plugin" "^1.7.1"
