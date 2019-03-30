@@ -14,13 +14,13 @@ Include vue-auth-plugin after Vue and it will install itself automatically:
 ## NPM
 
 ```sh
-$ npm install vue-auth-plugin --save
+$ npm install @d0whc3r/vue-auth-plugin --save
 ```
 
 ## Yarn
 
 ```sh
-$ yarn add vue-auth-plugin
+$ yarn add @d0whc3r/vue-auth-plugin
 ```
 
 ## Usage
