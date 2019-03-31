@@ -45,7 +45,7 @@
     "@types/express-jwt": "0.0.42",
     "@types/jest": "24.0.11",
     "@types/jsonwebtoken": "8.3.2",
-    "@vue/cli-plugin-babel": "3.5.3",
+    "@vue/cli-plugin-babel": "3.5.4",
     "@vue/cli-plugin-typescript": "3.5.3",
     "@vue/cli-plugin-unit-jest": "3.5.3",
     "@vue/cli-service": "3.5.3",
