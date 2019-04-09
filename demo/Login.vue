@@ -34,7 +34,13 @@
       this.$auth.login({
         username: this.username,
         password: this.password,
-      });
+      })
+        .then((response) => {
+          console.log('SUCCESS', response);
+        })
+        .catch((err) => {
+          console.log('ERROR!', err);
+        });
     }
   }
 </script>
