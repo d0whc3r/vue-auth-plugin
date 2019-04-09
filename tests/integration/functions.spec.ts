@@ -52,14 +52,42 @@ describe('Functions', () => {
       expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
     });
   });
+  describe('Login cases', () => {
+    it('Login error', () => {
+      const mock = new MockAdapter(localVue.axios);
+      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+        .reply(401,
+          { response: false });
+
+      localVue.$auth.login({ username: 'test', password: 'test' })
+        .then(() => {
+          expect(true).toBeFalsy();
+        })
+        .catch((err) => {
+          expect(err).toBeDefined();
+        });
+    });
+    it('Login success', () => {
+      const mock = new MockAdapter(localVue.axios);
+      const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+        .reply(200, { response: true }, loginHeaders);
+
+      localVue.$auth.login({ username: 'test', password: 'test' })
+        .then((response) => {
+          expect(response).toBeDefined();
+        })
+        .catch(() => {
+          expect(true).toBeFalsy();
+        });
+    });
+  });
   describe('Login', () => {
     beforeAll(async () => {
       const mock = new MockAdapter(localVue.axios);
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
-        .reply(200,
-          { response: true },
-          loginHeaders);
+        .reply(200, { response: true }, loginHeaders);
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(200, sampleUser);
       localVue.router.push('/login');

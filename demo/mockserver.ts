@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const cors = require('cors');
@@ -18,13 +19,20 @@ const corsOptions = {
   exposedHeaders: ['Authorization'],
 };
 app.all('*', cors(corsOptions));
+app.use(bodyParser.json());
 
 app.post('/api/authenticate', (req, res) => {
-  res
-    .set('Authorization', `Bearer ${token}`)
-    .send({
-      id_token: token,
-    });
+  const { username, password } = req.body;
+  if (username === 'demo' && password === 'demo') {
+    res
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        id_token: token,
+      });
+  } else {
+    res.statusCode = 401;
+    res.send({ error: 'Not logged' });
+  }
 });
 
 app.get('/api/user', expressJwt({ secret: JWTSecret }), (req, res) => {

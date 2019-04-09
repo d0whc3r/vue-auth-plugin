@@ -22,11 +22,12 @@ export default class AuthVueHttp {
 
   public login(loginInfo: VueAuthLogin) {
     const { method, url, redirect, fetchUser } = this.options.loginData;
-    return this.http({
+    const promise = this.http({
       method,
       url,
       data: loginInfo,
-    })
+    });
+    promise
       .then(async (response) => {
         const { headers } = response;
         this.extractToken(headers);
@@ -42,6 +43,7 @@ export default class AuthVueHttp {
       .catch((error) => {
         console.warn('[vue-auth-plugin] Login error', error.message);
       });
+    return promise;
   }
 
   public logout(forceRedirect = false) {
@@ -69,11 +71,12 @@ export default class AuthVueHttp {
     Object.keys(this.options.fetchData).length ? this.options.fetchData : {};
     const { enabled, method, url } = fetch;
     if ((enabled || force) && url && method && this.storeManager.getToken()) {
-      return this.http({
+      const promise = this.http({
         method,
         url,
         headers: { ...this.getAuthHeader() },
-      })
+      });
+      promise
         .then(({ data }) => {
           this.storeManager.setUser(data.user || data);
           return data;
@@ -81,6 +84,7 @@ export default class AuthVueHttp {
         .catch((error) => {
           console.warn('[vue-auth-plugin] Fetching user error', error.message);
         });
+      return promise;
     }
     return Promise.resolve(null);
   }
@@ -113,7 +117,7 @@ export default class AuthVueHttp {
 
   private startRefresh() {
     const { interval } = this.options.fetchData;
-    if (!this.interval) {
+    if (interval && !this.interval) {
       this.interval = setInterval(() => {
         this.fetchData();
       }, interval * 60 * 1000);

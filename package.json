@@ -1,6 +1,6 @@
 {
   "name": "@d0whc3r/vue-auth-plugin",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "author": {
     "email": "d0whc3r@gmail.com",
@@ -53,6 +53,7 @@
     "axios": "0.18.0",
     "axios-mock-adapter": "1.16.0",
     "babel-core": "7.0.0-bridge.0",
+    "body-parser": "1.18.3",
     "codecov": "3.3.0",
     "cors": "2.8.5",
     "coveralls": "3.0.3",
