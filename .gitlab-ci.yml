@@ -9,61 +9,64 @@ cache:
     - /root/.sonar
 
 stages:
-  - install
-  - test
-  - analysis
-  - docs
+#   - install
+#   - test
+#   - analysis
+#   - docs
   - publish
 
 before_script:
   - export GH_REPO=https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+  - echo "${DEPLOY_KEY}" > ~/.ssh/id_rsa
+after_script:
+  - rm -fr ~/.ssh
 
-install-deps:
-  stage: install
-  script:
-    - yarn install --cache-folder .yarn-cache
-    - yarn build
+# install-deps:
+#   stage: install
+#   script:
+#     - yarn install --cache-folder .yarn-cache
+#     - yarn build
 
-tests:
-  stage: test
-  script:
-    - yarn test:codecovs -t ${CODECOVS_TOKEN}
-  coverage: '/All files\s*\|\s*([\d.]+)/'
-  artifacts:
-    paths:
-      - coverage
-    expire_in: 30 days
+# tests:
+#   stage: test
+#   script:
+#     - yarn test:codecovs -t ${CODECOVS_TOKEN}
+#   coverage: '/All files\s*\|\s*([\d.]+)/'
+#   artifacts:
+#     paths:
+#       - coverage
+#     expire_in: 30 days
 
-sonarqube-reports-master:
-  stage: analysis
-  image: timbru31/java-node
-  only:
-    - master
-  script:
-    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Duser.home=./
+# sonarqube-reports-master:
+#   stage: analysis
+#   image: timbru31/java-node
+#   only:
+#     - master
+#   script:
+#     - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Duser.home=./
 
-sonarqube-reports-branch:
-  stage: analysis
-  image: timbru31/java-node
-  except:
-    - master
-  script:
-    - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master -Duser.home=./
+# sonarqube-reports-branch:
+#   stage: analysis
+#   image: timbru31/java-node
+#   except:
+#     - master
+#   script:
+#     - yarn sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${CI_BUILD_REF_NAME} -Dsonar.branch.target=master -Duser.home=./
 
-documentation:
-  stage: docs
-  only:
-    - master
-  script:
-    - yarn docs:build
-    - git config --global user.email "ghpages@gitlab"
-    - git config --global user.name "Gitlab CI"
-    - yarn gh-pages -d docs/.vuepress/dist -r ${GH_REPO}
-    - mv docs/.vuepress/dist/ public/
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
+# documentation:
+#   stage: docs
+#   only:
+#     - master
+#   script:
+#     - yarn docs:build
+#     - git config --global user.email "ghpages@gitlab"
+#     - git config --global user.name "Gitlab CI"
+#     - yarn gh-pages -d docs/.vuepress/dist -r ${GH_REPO}
+#     - mv docs/.vuepress/dist/ public/
+#   artifacts:
+#     paths:
+#       - public
+#     expire_in: 30 days
 
 publish-npm-patch:
   stage: publish
