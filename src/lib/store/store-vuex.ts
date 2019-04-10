@@ -1,9 +1,14 @@
-import { Store } from 'vuex';
+import { ActionContext, Store } from 'vuex';
 import { AuthUser, VueAuthStore } from '../../interfaces';
 import { IVueAuthOptions } from '../auth';
 
+export type AuthVuexState = {
+  token?: string;
+  user?: AuthUser;
+}
+
 export default class StoreVuex extends VueAuthStore {
-  private readonly module: string;
+  private readonly module?: string;
 
   constructor(Vue: any, options: IVueAuthOptions) {
     super(Vue, options);
@@ -28,11 +33,11 @@ export default class StoreVuex extends VueAuthStore {
     return this.store.getters[`${this.module}/getUser`];
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string | null): void {
     this.store.dispatch(`${this.module}/setToken`, token);
   }
 
-  public setUser(user: AuthUser): void {
+  public setUser(user: AuthUser | null): void {
     this.store.dispatch(`${this.module}/setUser`, user);
   }
 
@@ -43,33 +48,33 @@ export default class StoreVuex extends VueAuthStore {
       state: {
         token: this.options.Vue.$data.token,
         user: this.options.Vue.$data.user,
-      },
+      } as AuthVuexState,
       mutations: {
-        SET_TOKEN(state, token: string) {
+        SET_TOKEN(state: AuthVuexState, token: string) {
           state.token = token;
         },
-        SET_USER(state, user) {
+        SET_USER(state: AuthVuexState, user: AuthUser) {
           state.user = user;
         },
       },
       actions: {
-        setToken({ commit }, token) {
-          commit('SET_TOKEN', token);
+        setToken(actionContext: ActionContext<AuthVuexState, any>, token: string) {
+          actionContext.commit('SET_TOKEN', token);
         },
-        setUser({ commit }, user) {
-          commit('SET_USER', user);
+        setUser(actionContext: ActionContext<AuthVuexState, any>, user: AuthUser) {
+          actionContext.commit('SET_USER', user);
         },
       },
       getters: {
-        getToken(state): string {
+        getToken(state: AuthVuexState): string | undefined {
           return state.token;
         },
-        getUser(state): AuthUser {
+        getUser(state: AuthVuexState): AuthUser | undefined {
           return state.user;
         },
-        getRoles(state): string[] {
+        getRoles(state: AuthVuexState): string[] {
           const user = state.user;
-          return user && user[rolesVar];
+          return user && rolesVar && user[rolesVar];
         },
       },
     };

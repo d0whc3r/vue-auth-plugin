@@ -3,7 +3,7 @@ import { IVueAuthOptions } from '../auth';
 
 export default class StoreCookie extends VueAuthStore {
   public readonly enabled: boolean;
-  private readonly documentCookie;
+  private readonly documentCookie: boolean;
 
   constructor(Vue: any, options: IVueAuthOptions) {
     super(Vue, options);
@@ -12,7 +12,7 @@ export default class StoreCookie extends VueAuthStore {
     try {
       if (this.Vue.cookie) {
         this.store = this.Vue.cookie;
-      } else if (typeof document.cookie === 'string') {
+      } else {
         this.documentCookie = true;
       }
     } catch (_) {
@@ -24,7 +24,7 @@ export default class StoreCookie extends VueAuthStore {
 
   public getRoles(): string[] {
     const user = this.getUser();
-    return user && user[this.options.rolesVar];
+    return user && this.options.rolesVar && user[this.options.rolesVar];
   }
 
   public getToken(): string {
@@ -35,7 +35,7 @@ export default class StoreCookie extends VueAuthStore {
     return this.getCookie(this.options.userDefaultName);
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string | null): void {
     if (token) {
       this.setCookie(this.options.tokenDefaultName, token);
     } else {
@@ -43,7 +43,7 @@ export default class StoreCookie extends VueAuthStore {
     }
   }
 
-  public setUser(user: AuthUser): void {
+  public setUser(user: AuthUser | null): void {
     if (user && Object.keys(user).length) {
       this.setCookie(this.options.userDefaultName, user);
     } else {
@@ -51,8 +51,8 @@ export default class StoreCookie extends VueAuthStore {
     }
   }
 
-  private getCookie(name) {
-    if (!this.enabled) {
+  private getCookie(name?: string) {
+    if (!name || !this.enabled) {
       return;
     }
     let result;
@@ -73,8 +73,8 @@ export default class StoreCookie extends VueAuthStore {
     }
   }
 
-  private setCookie(name, value) {
-    if (!this.enabled) {
+  private setCookie(name: string | undefined, value: any) {
+    if (!name || !this.enabled) {
       return;
     }
     value = JSON.stringify(value);
@@ -85,8 +85,8 @@ export default class StoreCookie extends VueAuthStore {
     }
   }
 
-  private deleteCookie(name) {
-    if (!this.enabled) {
+  private deleteCookie(name: string | undefined) {
+    if (!name || !this.enabled) {
       return;
     }
     if (!this.documentCookie) {

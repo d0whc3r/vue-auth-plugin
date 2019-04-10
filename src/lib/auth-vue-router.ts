@@ -1,4 +1,4 @@
-import { RawLocation, Route, VueRouter } from 'vue-router/types/router';
+import { RawLocation, Route, RouteRecord, VueRouter } from 'vue-router/types/router';
 import AuthStoreManager from './auth-vue-store-manager';
 import { IVueAuthOptions } from './auth';
 
@@ -37,11 +37,11 @@ export default class AuthVueRouter {
     });
   }
 
-  private isAuthorized(routes) {
+  private isAuthorized(routes: RouteRecord[]) {
     const token = this.storeManager.getToken();
     let isAuth = false;
     routes.forEach((route) => {
-      const auth = route.meta[this.options.authMeta];
+      const auth = this.options.authMeta && !!route.meta[this.options.authMeta];
       if (typeof auth === 'boolean') {
         isAuth = !!token;
       } else if (typeof auth === 'string' || Array.isArray(auth)) {
@@ -51,7 +51,7 @@ export default class AuthVueRouter {
     return isAuth;
   }
 
-  private metaRoutes(to: Route) {
+  private metaRoutes(to: Route): RouteRecord[] {
     return to.matched
       .filter((url) => url.path !== this.options.authRedirect)
       .filter((match) => this.options.authMeta && match.meta.hasOwnProperty(this.options.authMeta))

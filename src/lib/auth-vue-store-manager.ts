@@ -6,7 +6,7 @@ import { IVueAuthOptions } from './auth';
 export type StoreType = StoreVuex | StoreCookie | StoreSessionStorage | StoreLocalStorage;
 
 export default class AuthStoreManager extends VueAuthStore {
-  private stores: StoreType[];
+  private stores?: StoreType[];
 
   constructor(Vue: VueConstructor, options: IVueAuthOptions) {
     super(Vue, options);
@@ -20,7 +20,7 @@ export default class AuthStoreManager extends VueAuthStore {
   }
 
   public get allStores() {
-    return [...this.stores];
+    return [...(this.stores || [])];
   }
 
   public setStores() {
@@ -42,7 +42,7 @@ export default class AuthStoreManager extends VueAuthStore {
             return new StoreLocalStorage(this.Vue, this.options);
         }
       })
-      .filter((store) => !!store);
+      .filter((store) => !!store) as StoreType[];
   }
 
   public getRoles(): string[] {
@@ -65,7 +65,7 @@ export default class AuthStoreManager extends VueAuthStore {
     return user || this.options.Vue.$data.user;
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string | null): void {
     this.allStores
       .forEach((store) => {
         store.setToken(token);
@@ -73,7 +73,7 @@ export default class AuthStoreManager extends VueAuthStore {
     this.options.Vue.$data.token = token;
   }
 
-  public setUser(user: AuthUser): void {
+  public setUser(user: AuthUser | null): void {
     this.allStores
       .forEach((store) => {
         store.setUser(user);

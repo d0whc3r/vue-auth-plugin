@@ -21,6 +21,9 @@ export default class AuthVueHttp {
   }
 
   public login(loginInfo: VueAuthLogin) {
+    if (!this.options.loginData) {
+      return;
+    }
     const { method, url, redirect, fetchUser } = this.options.loginData;
     const promise = this.http({
       method,
@@ -96,7 +99,7 @@ export default class AuthVueHttp {
         Object.keys(request.headers)
           .forEach((head) => {
             const value: string = request.headers[head];
-            if (value && typeof value === 'string' && value.includes(this.options.headerTokenReplace)) {
+            if (value && this.options.headerTokenReplace && value.includes(this.options.headerTokenReplace)) {
               request.headers[head] = value.replace(this.options.headerTokenReplace, this.storeManager.getToken());
             }
           });
@@ -116,7 +119,10 @@ export default class AuthVueHttp {
     });
   }
 
-  private startRefresh() {
+  private startRefresh(): void {
+    if (!this.options.fetchData) {
+      return;
+    }
     const { interval } = this.options.fetchData;
     if (interval && !this.interval) {
       this.interval = setInterval(() => {
@@ -126,6 +132,9 @@ export default class AuthVueHttp {
   }
 
   private extractToken(headers: { [head: string]: string }) {
+    if (!this.options.loginData) {
+      return;
+    }
     const { headerToken } = this.options.loginData;
     const head = (headers[headerToken.toLowerCase()] || '').split(' ');
     const token = head[1] || head[0];
@@ -133,6 +142,9 @@ export default class AuthVueHttp {
   }
 
   private getAuthHeader() {
+    if (!this.options.loginData) {
+      return;
+    }
     const { headerToken } = this.options.loginData;
     const { tokenType, headerTokenReplace } = this.options;
 
