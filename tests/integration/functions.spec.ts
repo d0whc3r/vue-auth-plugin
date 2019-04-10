@@ -61,7 +61,7 @@ describe('Functions', () => {
 
       localVue.$auth.login({ username: 'test', password: 'test' })
         .then(() => {
-          expect(true).toBeFalsy();
+          fail('Login is wrong');
         })
         .catch((err) => {
           expect(err).toBeDefined();
@@ -78,7 +78,7 @@ describe('Functions', () => {
           expect(response).toBeDefined();
         })
         .catch(() => {
-          expect(true).toBeFalsy();
+          fail('Login is good');
         });
     });
   });
