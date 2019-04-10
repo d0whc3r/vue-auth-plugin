@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+// @ts-ignore
 import Cookies from 'js-cookie';
 import StoreCookie from '../../../src/lib/store/store-cookie';
 import { Vue, VueConstructor } from 'vue/types/vue';
@@ -38,13 +39,13 @@ describe('Cookie store', () => {
   describe('Using Vue.cookie', () => {
     beforeEach(() => {
       vue.cookie = {
-        get(value) {
+        get(value: string) {
           return Cookies.get(value);
         },
-        set(name, value) {
+        set(name: string, value: any) {
           Cookies.set(name, value);
         },
-        delete(name) {
+        delete(name: string) {
           Cookies.remove(name);
         },
       };
@@ -55,7 +56,8 @@ describe('Cookie store', () => {
       expect(Cookies.get(options.userDefaultName)).toEqual(JSON.stringify(user));
       expect(Cookies.get(options.tokenDefaultName)).toBeUndefined();
       expect(storeCookie.getUser()).toEqual(user);
-      expect(storeCookie.getRoles()).toEqual(user[options.rolesVar]);
+      expect(options.rolesVar).toBeDefined();
+      expect(storeCookie.getRoles()).toEqual(options.rolesVar && user[options.rolesVar]);
     });
     it('Set Token', () => {
       storeCookie.setToken(token);
@@ -87,7 +89,8 @@ describe('Cookie store', () => {
       expect(Cookies.get(options.userDefaultName)).toEqual(JSON.stringify(user));
       expect(Cookies.get(options.tokenDefaultName)).toBeUndefined();
       expect(storeCookie.getUser()).toEqual(user);
-      expect(storeCookie.getRoles()).toEqual(user[options.rolesVar]);
+      expect(options.rolesVar).toBeDefined();
+      expect(storeCookie.getRoles()).toEqual(options.rolesVar && user[options.rolesVar]);
     });
     it('Set Token', () => {
       storeCookie.setToken(token);

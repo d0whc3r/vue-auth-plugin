@@ -1,8 +1,8 @@
-import { prepareVue } from '../helper/prepare';
+import { LocalVueType, prepareVue } from '../helper/prepare';
 import plugin from '../../src';
 import MockAdapter from 'axios-mock-adapter';
 
-let localVue;
+let localVue: LocalVueType;
 
 describe('Plugin', () => {
   const options = {
@@ -34,13 +34,13 @@ describe('Plugin', () => {
   });
   it('Redirects before login', async () => {
     localVue.router.push('/');
-    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+    expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     localVue.router.push('/admin');
-    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+    expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     localVue.router.push('/mix');
-    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+    expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     localVue.router.push('/excluded');
-    expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+    expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
   });
   describe('Logged routes', () => {
     const sampleToken = '123456abcdef123456789';
@@ -55,25 +55,25 @@ describe('Plugin', () => {
     });
     it('Enter url with auth true', () => {
       localVue.router.push('/');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
     });
     it('Enter url with auth as string', () => {
       localVue.router.push('/admin');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/admin');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/admin');
     });
     it('Enter url with auth as array', () => {
       localVue.router.push('/mix');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/mix');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/mix');
     });
     it('Enter url with auth as string and not valid', () => {
       localVue.router.push('/mix');
       localVue.router.push('/excluded');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/mix');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/mix');
     });
     it('Enter url with auth as array and not valid', () => {
       localVue.router.push('/');
       localVue.router.push('/excludedarr');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
     });
   });
 });

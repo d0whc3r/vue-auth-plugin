@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { VueAuthLogin } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
@@ -31,7 +31,7 @@ export default class AuthVueHttp {
       data: loginInfo,
     });
     promise
-      .then(async (response) => {
+      .then(async (response: AxiosResponse) => {
         const { headers } = response;
         this.extractToken(headers);
         this.startRefresh();
@@ -43,7 +43,7 @@ export default class AuthVueHttp {
         }
         return response;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.warn('[vue-auth-plugin] Login error', error.message);
       });
     return promise;
@@ -99,7 +99,7 @@ export default class AuthVueHttp {
         Object.keys(request.headers)
           .forEach((head) => {
             const value: string = request.headers[head];
-            if (value && this.options.headerTokenReplace && value.includes(this.options.headerTokenReplace)) {
+            if (value && typeof value === 'string' && this.options.headerTokenReplace && value.includes(this.options.headerTokenReplace)) {
               request.headers[head] = value.replace(this.options.headerTokenReplace, this.storeManager.getToken());
             }
           });

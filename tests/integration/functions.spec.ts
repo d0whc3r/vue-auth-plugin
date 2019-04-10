@@ -1,8 +1,8 @@
 import plugin from '../../src/index';
-import { prepareVue } from '../helper/prepare';
+import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
 
-let localVue;
+let localVue: LocalVueType;
 
 describe('Functions', () => {
   const options = {
@@ -48,39 +48,37 @@ describe('Functions', () => {
   describe('Before Login', () => {
     it('Redirect before login', () => {
       localVue.router.push(options.authRedirect);
-      expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
       localVue.router.push('/');
-      expect(localVue.router.history.getCurrentLocation()).toEqual(options.authRedirect);
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     });
   });
   describe('Login cases', () => {
-    it('Login error', () => {
+    it('Login error', async () => {
       const mock = new MockAdapter(localVue.axios);
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(401,
           { response: false });
 
-      localVue.$auth.login({ username: 'test', password: 'test' })
-        .then(() => {
-          fail('Login is wrong');
-        })
-        .catch((err) => {
-          expect(err).toBeDefined();
-        });
+      try {
+        await localVue.$auth.login({ username: 'test', password: 'test' });
+        fail('Login is wrong');
+      } catch (err) {
+        expect(err).toBeDefined();
+      }
     });
-    it('Login success', () => {
+    it('Login success', async () => {
       const mock = new MockAdapter(localVue.axios);
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(200, { response: true }, loginHeaders);
 
-      localVue.$auth.login({ username: 'test', password: 'test' })
-        .then((response) => {
-          expect(response).toBeDefined();
-        })
-        .catch(() => {
-          fail('Login is good');
-        });
+      try {
+        const response = await localVue.$auth.login({ username: 'test', password: 'test' });
+        expect(response).toBeDefined();
+      } catch (_) {
+        fail('Login is good');
+      }
     });
   });
   describe('Login', () => {
@@ -92,7 +90,7 @@ describe('Functions', () => {
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(200, sampleUser);
       localVue.router.push('/login');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/login');
       await localVue.$auth.login({ username: 'test', password: 'test' });
     });
     it('Login result', () => {
@@ -106,9 +104,9 @@ describe('Functions', () => {
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toEqual(sampleUser);
       expect(localVue.$auth.roles()).toEqual(sampleUser.roles);
-      expect(localVue.router.history.getCurrentLocation()).toEqual(options.loginData.redirect);
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.loginData.redirect);
       localVue.router.push('/');
-      expect(localVue.router.history.getCurrentLocation()).toEqual('/');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
     });
     it('Info in localStorage', () => {
       expect(localStorage.getItem(options.tokenDefaultName)).toEqual(sampleToken);
@@ -120,9 +118,11 @@ describe('Functions', () => {
     });
     it('Info in cookies', () => {
       const matchToken = document.cookie.match(new RegExp(`(^| )${options.tokenDefaultName}=([^;]+)`));
-      expect(matchToken[2]).toEqual(`"${sampleToken}"`);
+      expect(matchToken).not.toBeNull();
+      expect(matchToken && matchToken[2]).toEqual(`"${sampleToken}"`);
       const matchUser = document.cookie.match(new RegExp(`(^| )${options.userDefaultName}=([^;]+)`));
-      expect(matchUser[2]).toEqual(JSON.stringify(sampleUser));
+      expect(matchUser).not.toBeNull();
+      expect(matchUser && matchUser[2]).toEqual(JSON.stringify(sampleUser));
     });
     it('Info in vuex', () => {
       expect(localVue.store.getters[`${options.vuexStoreSpace}/getToken`]).toEqual(sampleToken);
@@ -140,7 +140,7 @@ describe('Functions', () => {
       });
       it('Logout result', async () => {
         await localVue.$auth.logout();
-        expect(localVue.router.history.getCurrentLocation()).toEqual('/login');
+        expect((localVue.router as any).history.getCurrentLocation()).toEqual('/login');
         expect(localVue.$auth.check()).toBeFalsy();
         expect(localVue.$auth.check(sampleUser[options.rolesVar][0])).toBeFalsy();
         expect(localVue.$auth.token()).toBeNull();

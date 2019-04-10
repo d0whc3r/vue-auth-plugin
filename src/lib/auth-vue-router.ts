@@ -41,7 +41,7 @@ export default class AuthVueRouter {
     const token = this.storeManager.getToken();
     let isAuth = false;
     routes.forEach((route) => {
-      const auth = this.options.authMeta && !!route.meta[this.options.authMeta];
+      const auth = this.options.authMeta && route.meta[this.options.authMeta];
       if (typeof auth === 'boolean') {
         isAuth = !!token;
       } else if (typeof auth === 'string' || Array.isArray(auth)) {

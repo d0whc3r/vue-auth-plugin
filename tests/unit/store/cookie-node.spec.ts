@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 
+// @ts-ignore
 import Cookies from 'js-cookie';
 import StoreCookie from '../../../src/lib/store/store-cookie';
 import { createLocalVue } from '@vue/test-utils';

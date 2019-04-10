@@ -12,7 +12,7 @@ export default class StoreCookie extends VueAuthStore {
     try {
       if (this.Vue.cookie) {
         this.store = this.Vue.cookie;
-      } else {
+      } else if (typeof document.cookie === 'string') {
         this.documentCookie = true;
       }
     } catch (_) {
