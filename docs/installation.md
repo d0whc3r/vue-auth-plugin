@@ -45,7 +45,7 @@ Vue.use(VueAuth, options);
 To make this plugin working you need to explicit declare router to Vue object, this could be done when you define your routes
 
 Vue router config:
-```vue
+```js
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -63,7 +63,7 @@ export default router;
 If you want to use vuex as storage you need to explicit declare vuex store in Vue object, this could be done when you define your store
 
 Vuex config:
-```vue
+```js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
