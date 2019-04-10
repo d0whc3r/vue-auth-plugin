@@ -17,7 +17,9 @@ stages:
 
 before_script:
   - export GH_REPO=https://${GH_TOKEN}:x-oauth-basic@github.com/d0whc3r/vue-auth-plugin
+  - mkdir -p ~/.ssh/
   - echo "${DEPLOY_KEY}" > ~/.ssh/id_rsa
+  - chmod -R og-rw ~/.ssh
 after_script:
   - rm -fr ~/.ssh
 
