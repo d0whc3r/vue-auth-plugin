@@ -79,10 +79,11 @@ publish-npm-patch:
   script:
     - git config --global user.email "ghpages@gitlab"
     - git config --global user.name "Gitlab CI"
-    - git remote add github ${GH_REPO_SSH}
     - git remote set-url origin ${GH_REPO_SSH}
-    - yarn version --minor
-    - git push
+    - git remote -v
+    - git status
+    - yarn version --no-commit-hooks --patch
+    - git push origin HEAD:master
     - yarn build
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
     - npm publish
