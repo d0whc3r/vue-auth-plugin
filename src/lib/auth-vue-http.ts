@@ -78,7 +78,8 @@ export default class AuthVueHttp {
       });
       promise
         .then(({ data }) => {
-          this.storeManager.setUser(data.user || data);
+          const { fetchItem } = this.options;
+          this.storeManager.setUser(fetchItem ? data[fetchItem] : data);
           return data;
         })
         .catch((error) => {
