@@ -21,6 +21,7 @@ describe('Functions', () => {
       headerToken: 'Authorization',
       fetchUser: true,
     },
+    fetchItem: '',
     fetchData: {
       url: '/auth/user',
       method: 'GET',

@@ -20,6 +20,7 @@ export interface VueAuthOptions {
   headerTokenReplace?: string;
   tokenType?: TokenType;
   vuexStoreSpace?: string;
+  fetchItem?: string;
 
   authRedirect?: string;
 

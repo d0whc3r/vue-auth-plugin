@@ -27,6 +27,7 @@ const options = {
     redirect: '/login',
     makeRequest: false,
   },
+  fetchItem: '',
   fetchData: {
     url: '/auth/user',
     method: 'GET',
@@ -185,6 +186,11 @@ Configuration used when [$auth.logout](./methods.html#logout) function was calle
 - `method`: *Optional* Method to use in call for logout process. Only 'GET' or 'POST' supported
 - `redirect`: *Optional*, path to redirect when logout was success (using vue-router)
 - `makeRequest`: *Optional*, indicates if `url` need to be called at logout
+
+## fetchItem
+`string`
+
+Configure key in fetch object to identify user information
 
 ## fetchData
 `{ url?: string, method?: GET | POST, interval?: number, enabled?: boolean }`

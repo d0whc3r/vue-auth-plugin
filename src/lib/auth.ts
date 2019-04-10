@@ -34,6 +34,7 @@ export default class Auth {
       redirect: '/login',
       makeRequest: false,
     },
+    fetchItem: '',
     fetchData: {
       url: '/auth/user',
       method: 'GET',
