@@ -11,7 +11,7 @@ export default class StoreLocalStorage extends VueAuthStore {
 
   public getRoles(): string[] {
     const user = this.getUser();
-    return user && user[this.options.rolesVar];
+    return user && this.options.rolesVar && user[this.options.rolesVar];
   }
 
   public getToken(): string {
@@ -22,17 +22,17 @@ export default class StoreLocalStorage extends VueAuthStore {
     return JSON.parse(this.store.getItem(this.options.userDefaultName));
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string | null): void {
     if (token) {
-      this.store.setItem(this.options.tokenDefaultName, token);
+      this.store.setItem(this.options.tokenDefaultName as string, token);
     } else {
       this.store.removeItem(this.options.tokenDefaultName);
     }
   }
 
-  public setUser(user: AuthUser): void {
+  public setUser(user: AuthUser | null): void {
     if (user && Object.keys(user)) {
-      this.store.setItem(this.options.userDefaultName, JSON.stringify(user));
+      this.store.setItem(this.options.userDefaultName as string, JSON.stringify(user));
     } else {
       this.store.removeItem(this.options.userDefaultName);
     }

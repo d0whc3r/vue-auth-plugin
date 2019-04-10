@@ -1,7 +1,7 @@
 import plugin from '../../src/index';
-import { prepareVue } from '../helper/prepare';
+import { LocalVueType, prepareVue } from '../helper/prepare';
 
-let localVue;
+let localVue: LocalVueType;
 
 describe('Plugin', () => {
   beforeEach(() => {

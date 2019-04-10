@@ -1,15 +1,15 @@
 import { createLocalVue } from '@vue/test-utils';
 import plugin from '../../src/index';
-import { addAxios, addRouter, addVuex, prepareVue } from '../helper/prepare';
+import { addAxios, addRouter, addVuex, LocalVueType } from '../helper/prepare';
 
-let localVue;
+let localVue: LocalVueType;
 
 describe('Requirements', () => {
   const options = {
     tokenStore: ['vuex', 'localStorage', 'cookie'],
   };
   beforeEach(() => {
-    localVue = createLocalVue();
+    localVue = createLocalVue() as LocalVueType;
   });
   it('Do not include router', () => {
     localVue = addAxios(localVue);
