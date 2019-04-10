@@ -5,6 +5,7 @@ dist/
 coverage
 docs/.vuepress/dist
 .npmrc
+.yarn-cache
 
 # local env files
 .env.local
