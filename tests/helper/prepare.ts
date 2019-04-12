@@ -16,7 +16,8 @@ export type LocalVueType = typeof Vue & {
   store: Store<AuthVuexState>;
   $http: AxiosInstance;
   $auth: Auth;
-}
+};
+
 const localVue = createLocalVue() as LocalVueType;
 
 export function addVuex(localVue: LocalVueType) {
