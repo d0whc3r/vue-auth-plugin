@@ -33,9 +33,10 @@
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "test": "vue-cli-service test:unit",
     "test:coverage": "yarn test --coverage",
-    "test:codecovs": "yarn test:coverage && codecov -f coverage/*.json",
-    "test:coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
-    "postversion": "git push --follow-tags"
+    "test:send-coverages": "yarn coverage:codecovs && yarn coverage:coveralls && yarn coverage:codacy",
+    "coverage:codecovs": "codecov -f coverage/*.json -t ${CODECOVS_TOKEN}",
+    "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
+    "coverage:codacy": "cat ./coverage/lcov.info | codacy-coverage -p . --language typescript"
   },
   "dependencies": {
     "vue-router": "3.0.3"
@@ -54,6 +55,7 @@
     "axios-mock-adapter": "1.16.0",
     "babel-core": "7.0.0-bridge.0",
     "body-parser": "1.18.3",
+    "codacy-coverage": "3.4.0",
     "codecov": "3.3.0",
     "cors": "2.8.5",
     "coveralls": "3.0.3",
