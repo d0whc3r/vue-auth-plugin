@@ -36,7 +36,8 @@
     "test:send-coverages": "yarn coverage:codecovs && yarn coverage:coveralls && yarn coverage:codacy",
     "coverage:codecovs": "codecov -f coverage/*.json -t ${CODECOVS_TOKEN}",
     "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
-    "coverage:codacy": "cat ./coverage/lcov.info | codacy-coverage -p . --language typescript"
+    "coverage:codacy": "cat ./coverage/lcov.info | codacy-coverage -p . --language typescript",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "vue-router": "3.0.4"
