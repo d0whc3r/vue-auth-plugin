@@ -5,7 +5,7 @@ import { IVueAuthOptions } from '../auth';
 export type AuthVuexState = {
   token?: string;
   user?: AuthUser;
-}
+};
 
 export default class StoreVuex extends VueAuthStore {
   private readonly module?: string;

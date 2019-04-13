@@ -99,7 +99,10 @@ export default class AuthVueHttp {
         Object.keys(request.headers)
           .forEach((head) => {
             const value: string = request.headers[head];
-            if (value && typeof value === 'string' && this.options.headerTokenReplace && value.includes(this.options.headerTokenReplace)) {
+            if (value
+              && typeof value === 'string'
+              && this.options.headerTokenReplace
+              && value.includes(this.options.headerTokenReplace)) {
               request.headers[head] = value.replace(this.options.headerTokenReplace, this.storeManager.getToken());
             }
           });
