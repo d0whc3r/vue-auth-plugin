@@ -6233,10 +6233,10 @@ home-or-tmp@^2.0.0:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.1"
 
-hook-std@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-1.2.0.tgz#b37d533ea5f40068fe368cb4d022ee1992588c27"
-  integrity sha512-yntre2dbOAjgQ5yoRykyON0D9T96BfshR8IuiL/r3celeHD8I/76w4qo8m3z99houR4Z678jakV3uXrQdSvW/w==
+hook-std@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-2.0.0.tgz#ff9aafdebb6a989a354f729bb6445cf4a3a7077c"
+  integrity sha512-zZ6T5WcuBMIUVh49iPQS9t977t7C0l7OtHrpeMb5uk48JdflRX0NSFvCekfYNmGQETnLq9W/isMyHl69kxGi8g==
 
 hoopy@^0.1.2:
   version "0.1.4"
@@ -11725,10 +11725,10 @@ selfsigned@^1.10.4, selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.5"
 
-semantic-release@15.13.8:
-  version "15.13.8"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.8.tgz#3dcfa205b09b82b965fa5f1768d722d938d4b3ac"
-  integrity sha512-92c5Kfz+qfMIE4gAxhzUg/LY1uoW4R4fSsMqNpXx8YNpYsrTL+bY0AI1zYxPjSKfXO22Ld55jjPja62Dl5KgCg==
+semantic-release@15.13.9:
+  version "15.13.9"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.13.9.tgz#b116e9d2ef9832b9ca7f67c026c475dffab02935"
+  integrity sha512-EKm23KsIAfq1P9dMx8y7YmMHvWZRvmEEUE7z9FXQy2iY1k4jeeRYJTab1aykbYJ1Vj2p9mtkPo59Yi7YVsPUdw==
   dependencies:
     "@semantic-release/commit-analyzer" "^6.1.0"
     "@semantic-release/error" "^2.2.0"
@@ -11744,7 +11744,7 @@ semantic-release@15.13.8:
     find-versions "^3.0.0"
     get-stream "^5.0.0"
     git-log-parser "^1.2.0"
-    hook-std "^1.1.0"
+    hook-std "^2.0.0"
     hosted-git-info "^2.7.1"
     lodash "^4.17.4"
     marked "^0.6.0"
