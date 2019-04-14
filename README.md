@@ -57,4 +57,4 @@ yarn test
 
 # :bookmark: Keywords
 
-`vue`, `plugin`, `auth`, `authorization`, `autentication`, `login`, `roles`, `vuejs`, `vue2`, `typescript`
+`vue`, `plugin`, `auth`, `authorization`, `authentication`, `login`, `roles`, `vuejs`, `vue2`, `typescript`
