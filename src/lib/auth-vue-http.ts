@@ -22,7 +22,8 @@ export default class AuthVueHttp {
 
   public login(loginInfo: VueAuthLogin) {
     if (!this.options.loginData) {
-      return;
+      console.warn('[vue-auth-plugin] Login not configured, use "loginData" option');
+      return Promise.reject(false);
     }
     const { method, url, redirect, fetchUser } = this.options.loginData;
     const promise = this.http({
@@ -146,7 +147,7 @@ export default class AuthVueHttp {
 
   private getAuthHeader() {
     if (!this.options.loginData) {
-      return;
+      return {};
     }
     const { headerToken } = this.options.loginData;
     const { tokenType, headerTokenReplace } = this.options;
