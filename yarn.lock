@@ -1384,10 +1384,10 @@
     tslint "^5.15.0"
     webpack ">=4 < 4.29"
 
-"@vue/cli-plugin-unit-jest@3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.6.0.tgz#708acc017b75e833478ffb585d9e5350c0a52d80"
-  integrity sha512-4KcAlo2uomtioK49I5rRAx+4OLWGEJu2I+vKVW78crj/MXMBmLsEU4c5ponV2t17Kai3K9QFRld9pxZJP3JttA==
+"@vue/cli-plugin-unit-jest@3.6.3":
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.6.3.tgz#008a0fcf81e3a9345e9b9af84b69bd3cb4af45d1"
+  integrity sha512-w8RSDBzkYWe4yTjWy5kcPpAax6mlGSlPG21D5WKuYd00QbG7jh99sqTFF6sZ8RSunCnY0NrrtIXq3XtYJbs0vQ==
   dependencies:
     "@vue/cli-shared-utils" "^3.6.0"
     babel-jest "^23.6.0"
