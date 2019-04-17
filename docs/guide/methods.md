@@ -121,7 +121,7 @@ export default {
 </script>
 ```
 
-# FetchUser
+## FetchUser
 FetchUser method is used to force vue-auth-plugin to receive information from user using information in [fetchData](./#fetchdata) option
 
 ```vue{3}
@@ -137,7 +137,7 @@ export default {
 </script>
 ```
 
-# Refresh Token
+## Refresh Token
 Refresh method is used to force vue-auth-plugin to update token using information in [refreshData](./#refreshdata) option
 
 ```vue{3}
