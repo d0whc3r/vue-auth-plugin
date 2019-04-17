@@ -88,7 +88,7 @@ export default class AuthVueHttp {
           this.storeManager.setUser(fetchItem ? data[fetchItem] : data);
           return data;
         })
-        .catch((error) => {
+        .catch((error: Error) => {
           console.warn('[vue-auth-plugin] Fetching user error', error.message);
         });
       return promise;
@@ -112,7 +112,7 @@ export default class AuthVueHttp {
           this.extractToken(headers);
           return response;
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
           console.warn('[vue-auth-plugin] Refresh error', error.message);
         });
       return promise;
