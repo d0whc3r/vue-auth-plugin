@@ -29,11 +29,7 @@ export default class AuthStoreManager extends VueAuthStore {
         switch (store) {
           case 'cookie':
             const cookieStore = new StoreCookie(this.Vue, this.options);
-            if (cookieStore.enabled) {
-              return cookieStore;
-            } else {
-              return null;
-            }
+            return cookieStore.enabled ? cookieStore : null;
           case 'sessionStorage':
             return new StoreSessionStorage(this.Vue, this.options);
           case 'vuex':

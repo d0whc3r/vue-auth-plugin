@@ -189,10 +189,7 @@ export default class AuthVueHttp {
   }
 
   private getAuthHeader() {
-    if (!this.options.loginData) {
-      return {};
-    }
-    const { headerToken } = this.options.loginData;
+    const { headerToken } = this.options.loginData || { headerToken: 'Authorization' };
     const { tokenType, headerTokenReplace } = this.options;
 
     const token = `${tokenType} ${headerTokenReplace}`.trim();
