@@ -6,7 +6,9 @@ import { IVueAuthOptions } from './auth';
 
 export default class AuthVueHttp {
   private readonly http: AxiosInstance;
-  private interval: any;
+  private intervalFetchData = 0;
+  private intervalRefreshData = 0;
+  private readonly MINUTE_IN_MS = 60 * 1000;
 
   constructor(
     private readonly Vue: any,
@@ -35,7 +37,7 @@ export default class AuthVueHttp {
       .then(async (response: AxiosResponse) => {
         const { headers } = response;
         this.extractToken(headers);
-        this.startRefresh();
+        this.startIntervals();
         if (fetchUser) {
           await this.fetchData(true);
         }
@@ -61,8 +63,8 @@ export default class AuthVueHttp {
         headers: { ...this.getAuthHeader() },
       });
     }
-    if (this.interval) {
-      clearInterval(this.interval);
+    if (this.intervalFetchData) {
+      clearInterval(this.intervalFetchData);
     }
     this.storeManager.resetAll();
     if (redirect || forceRedirect) {
@@ -86,8 +88,32 @@ export default class AuthVueHttp {
           this.storeManager.setUser(fetchItem ? data[fetchItem] : data);
           return data;
         })
-        .catch((error) => {
+        .catch((error: Error) => {
           console.warn('[vue-auth-plugin] Fetching user error', error.message);
+        });
+      return promise;
+    }
+    return Promise.resolve(null);
+  }
+
+  public refresh(force = false) {
+    const refresh = this.options.refreshData && typeof this.options.refreshData === 'object' &&
+    Object.keys(this.options.refreshData).length ? this.options.refreshData : {};
+    const { enabled, method, url } = refresh;
+    if ((enabled || force) && url && method && this.storeManager.getToken()) {
+      const promise = this.http({
+        method,
+        url,
+        headers: { ...this.getAuthHeader() },
+      });
+      promise
+        .then(async (response: AxiosResponse) => {
+          const { headers } = response;
+          this.extractToken(headers);
+          return response;
+        })
+        .catch((error: Error) => {
+          console.warn('[vue-auth-plugin] Refresh error', error.message);
         });
       return promise;
     }
@@ -123,15 +149,32 @@ export default class AuthVueHttp {
     });
   }
 
-  private startRefresh(): void {
+  private startIntervals() {
+    this.startFetchDataInterval();
+    this.startRefreshDataInterval();
+  }
+
+  private startFetchDataInterval(): void {
     if (!this.options.fetchData) {
       return;
     }
     const { interval } = this.options.fetchData;
-    if (interval && !this.interval) {
-      this.interval = setInterval(() => {
+    if (interval && !this.intervalFetchData) {
+      this.intervalFetchData = setInterval(() => {
         this.fetchData();
-      }, interval * 60 * 1000);
+      }, interval * this.MINUTE_IN_MS);
+    }
+  }
+
+  private startRefreshDataInterval(): void {
+    if (!this.options.refreshData) {
+      return;
+    }
+    const { interval } = this.options.refreshData;
+    if (interval && !this.intervalRefreshData) {
+      this.intervalRefreshData = setInterval(() => {
+        this.refresh();
+      }, interval * this.MINUTE_IN_MS);
     }
   }
 
@@ -146,10 +189,7 @@ export default class AuthVueHttp {
   }
 
   private getAuthHeader() {
-    if (!this.options.loginData) {
-      return {};
-    }
-    const { headerToken } = this.options.loginData;
+    const { headerToken } = this.options.loginData || { headerToken: 'Authorization' };
     const { tokenType, headerTokenReplace } = this.options;
 
     const token = `${tokenType} ${headerTokenReplace}`.trim();

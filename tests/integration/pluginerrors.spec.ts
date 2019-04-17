@@ -16,7 +16,7 @@ describe('Requirements', () => {
     localVue = addVuex(localVue);
     try {
       localVue.use(plugin, options);
-      expect(false).toBeTruthy();
+      fail('Vue-router is missing');
     } catch (e) {
       expect(e.message).toBe('[vue-auth-plugin] vue-router is a required dependency');
     }
@@ -26,7 +26,7 @@ describe('Requirements', () => {
     localVue = addVuex(localVue);
     try {
       localVue.use(plugin, options);
-      expect(false).toBeTruthy();
+      fail('Vue-axios is missing');
     } catch (e) {
       expect(e.message).toBe('[vue-auth-plugin] vue-axios is a required dependency');
     }
@@ -36,7 +36,7 @@ describe('Requirements', () => {
     localVue = addAxios(localVue);
     try {
       localVue.use(plugin, options);
-      expect(false).toBeTruthy();
+      fail('Vuex is missing');
     } catch (e) {
       expect(e.message).toBe('[vue-auth-plugin] vuex is a required dependency if you want to use "vuex" as storage');
     }
@@ -48,7 +48,7 @@ describe('Requirements', () => {
       localVue.use(plugin, { ...options, tokenStore: ['localStorage', 'cookie'] });
       expect(localVue.$auth).toBeDefined();
     } catch (e) {
-      expect(false).toBeTruthy();
+      fail('Vuex is not used');
     }
   });
 });

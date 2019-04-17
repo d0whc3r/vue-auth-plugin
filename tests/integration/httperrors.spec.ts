@@ -3,37 +3,43 @@ import MockAdapter from 'axios-mock-adapter';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 
 let localVue: LocalVueType;
+const options = {
+  tokenDefaultName: 'auth_token',
+  userDefaultName: 'auth_user',
+  tokenType: 'Bearer',
+  rolesVar: 'roles',
+  vuexStoreSpace: 'vue-auth',
+  tokenStore: ['vuex', 'localStorage', 'sessionStorage', 'cookie'],
+  headerTokenReplace: '{auth_token}',
+  authRedirect: '/login',
+  loginData: {
+    url: '/auth/login',
+    method: 'POST',
+    redirect: '/',
+    headerToken: 'Authorization',
+    fetchUser: false,
+  },
+  fetchData: {
+    url: '/auth/user',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
+  logoutData: {
+    url: '/auth/logout',
+    method: 'POST',
+    redirect: '/login',
+    makeRequest: true,
+  },
+  refreshData: {
+    url: '/auth/refresh',
+    method: 'GET',
+    interval: 30,
+    enabled: true,
+  },
+};
 
 describe('Plugin', () => {
-  const options = {
-    tokenDefaultName: 'auth_token',
-    userDefaultName: 'auth_user',
-    tokenType: 'Bearer',
-    rolesVar: 'roles',
-    vuexStoreSpace: 'vue-auth',
-    tokenStore: ['vuex', 'localStorage', 'sessionStorage', 'cookie'],
-    headerTokenReplace: '{auth_token}',
-    authRedirect: '/login',
-    loginData: {
-      url: '/auth/login',
-      method: 'POST',
-      redirect: '/',
-      headerToken: 'Authorization',
-      fetchUser: false,
-    },
-    fetchData: {
-      url: '/auth/user',
-      method: 'GET',
-      interval: 30,
-      enabled: false,
-    },
-    logoutData: {
-      url: '/auth/logout',
-      method: 'POST',
-      redirect: '/login',
-      makeRequest: true,
-    },
-  };
   beforeAll(() => {
     localVue = prepareVue();
     localVue.use(plugin, options);
@@ -46,14 +52,14 @@ describe('Plugin', () => {
       .reply(500, { response: 'error' });
     try {
       await localVue.$auth.login({ username: 'test', password: 'test' });
-      expect(false).toBeTruthy();
+      fail('Login http petition must fail');
     } catch (e) {
       expect(e).toBeDefined();
     }
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
   });
-  describe('Fetch user error', () => {
+  describe('Fetch user and Refresh token error', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
       const mock = new MockAdapter(localVue.axios);
@@ -71,13 +77,26 @@ describe('Plugin', () => {
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toBeNull();
     });
+    it('Error in refresh token', async () => {
+      const previousToken = localVue.$auth.token();
+      const mock = new MockAdapter(localVue.axios);
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData.url}`)
+        .reply(500, { response: 'error' });
+      try {
+        await localVue.$auth.refresh();
+        fail('Refresh http petition must fail');
+      } catch (e) {
+        expect(e).toBeDefined();
+      }
+      expect(localVue.$auth.token()).toEqual(previousToken);
+    });
     it('Error in fetch user', async () => {
       const mock = new MockAdapter(localVue.axios);
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(500, { response: 'error' });
       try {
-        localVue.$auth.fetchUser();
-        expect(false).toBeTruthy();
+        await localVue.$auth.fetchUser();
+        fail('Fetch user http petition must fail');
       } catch (e) {
         expect(e).toBeDefined();
       }
@@ -92,7 +111,7 @@ describe('Plugin', () => {
         .reply(401, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();
-        expect(false).toBeTruthy();
+        fail('Fetch user http petition must fail');
       } catch (e) {
         expect(e).toBeDefined();
       }
@@ -101,5 +120,23 @@ describe('Plugin', () => {
       localVue.router.push('/');
       expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     });
+    it('Fetch data with no token', async () => {
+      const result = await localVue.$auth.fetchUser();
+      expect(result).toBeNull();
+    });
+  });
+});
+describe('Plugin without login', () => {
+  it('Configure plugin with loginData not set', async () => {
+    localVue = prepareVue();
+    const noLoginOptions = { ...options };
+    delete noLoginOptions.loginData;
+    localVue.use(plugin, noLoginOptions);
+    try {
+      await localVue.$auth.login({ username: 'test', password: 'test' });
+      fail('Login with no loginData must fail');
+    } catch (e) {
+      expect(e).toBeDefined();
+    }
   });
 });
