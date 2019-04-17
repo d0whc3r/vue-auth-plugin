@@ -34,8 +34,15 @@ describe('Functions', () => {
       redirect: '/login',
       makeRequest: true,
     },
+    refreshData: {
+      url: '/auth/refresh',
+      method: 'GET',
+      interval: 30,
+      enabled: false,
+    },
   };
   const sampleToken = '123456abcdef123456789';
+  const sampleToken2 = '987654abbbbccc1321';
   const sampleUser = {
     login: 'demo',
     [options.rolesVar]: ['role_1', 'role_2'],
@@ -85,10 +92,13 @@ describe('Functions', () => {
     beforeAll(async () => {
       const mock = new MockAdapter(localVue.axios);
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+      const refreshHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken2}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(200, { response: true }, loginHeaders);
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(200, sampleUser);
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData.url}`)
+        .reply(200, { response: true }, refreshHeaders);
       localVue.router.push('/login');
       expect((localVue.router as any).history.getCurrentLocation()).toEqual('/login');
       await localVue.$auth.login({ username: 'test', password: 'test' });
@@ -131,6 +141,11 @@ describe('Functions', () => {
     it('Fetch User', async () => {
       await localVue.$auth.fetchUser();
       expect(localVue.$auth.user()).toEqual(sampleUser);
+    });
+    it('Refresh data', async () => {
+      const previousToken = localVue.$auth.token();
+      await localVue.$auth.refresh();
+      expect(localVue.$auth.token()).not.toEqual(previousToken);
     });
     describe('Logout', () => {
       beforeAll(() => {

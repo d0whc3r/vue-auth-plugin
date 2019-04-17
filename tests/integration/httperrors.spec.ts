@@ -33,6 +33,12 @@ describe('Plugin', () => {
       redirect: '/login',
       makeRequest: true,
     },
+    refreshData: {
+      url: '/auth/refresh',
+      method: 'GET',
+      interval: 30,
+      enabled: false,
+    },
   };
   beforeAll(() => {
     localVue = prepareVue();
@@ -46,14 +52,14 @@ describe('Plugin', () => {
       .reply(500, { response: 'error' });
     try {
       await localVue.$auth.login({ username: 'test', password: 'test' });
-      expect(false).toBeTruthy();
+      fail('Login http petition must to fail');
     } catch (e) {
       expect(e).toBeDefined();
     }
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
   });
-  describe('Fetch user error', () => {
+  describe('Fetch user and Refresh token error', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
       const mock = new MockAdapter(localVue.axios);
@@ -77,7 +83,7 @@ describe('Plugin', () => {
         .reply(500, { response: 'error' });
       try {
         localVue.$auth.fetchUser();
-        expect(false).toBeTruthy();
+        fail('Fetch user http petition must to fail');
       } catch (e) {
         expect(e).toBeDefined();
       }
@@ -92,7 +98,7 @@ describe('Plugin', () => {
         .reply(401, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();
-        expect(false).toBeTruthy();
+        fail('Fetch user http petition must to fail');
       } catch (e) {
         expect(e).toBeDefined();
       }
@@ -100,6 +106,19 @@ describe('Plugin', () => {
       expect(localVue.$auth.user()).toBeNull();
       localVue.router.push('/');
       expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
+    });
+    it('Error in refresh token', async () => {
+      const previousToken = localVue.$auth.token();
+      const mock = new MockAdapter(localVue.axios);
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData.url}`)
+        .reply(500, { response: 'error' });
+      try {
+        localVue.$auth.refresh();
+        fail('Refresh http petition must to fail');
+      } catch (e) {
+        expect(e).toBeDefined();
+      }
+      expect(localVue.$auth.token()).toEqual(previousToken);
     });
   });
 });

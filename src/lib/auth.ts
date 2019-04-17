@@ -41,6 +41,12 @@ export default class Auth {
       interval: 30,
       enabled: false,
     },
+    refreshData: {
+      url: '/auth/refresh',
+      method: 'GET',
+      interval: 30,
+      enabled: false,
+    },
   };
   private readonly options = {} as IVueAuthOptions;
   private readonly http: AuthVueHttp;
@@ -90,6 +96,10 @@ export default class Auth {
 
   public fetchUser() {
     return this.http.fetchData(true);
+  }
+
+  public refresh() {
+    return this.http.refresh(true);
   }
 
 }

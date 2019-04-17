@@ -71,9 +71,9 @@ describe('Plugin', () => {
       expect((localVue.router as any).history.getCurrentLocation()).toEqual('/mix');
     });
     it('Enter url with auth as array and not valid', () => {
-      localVue.router.push('/');
+      localVue.router.push('/mix');
       localVue.router.push('/excludedarr');
-      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
+      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/mix');
     });
   });
 });

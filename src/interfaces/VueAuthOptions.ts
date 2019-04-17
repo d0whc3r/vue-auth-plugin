@@ -8,6 +8,7 @@ export type RedirectData = { redirect?: string; };
 export type LoginRedirectData = RedirectData & BasicRedirectData & { headerToken: string; fetchUser?: boolean; };
 export type LogoutRedirectData = RedirectData & OptionalRedirectData & { makeRequest?: boolean; };
 export type FetchData = BasicRedirectEnabledData & { interval?: number; };
+export type RefreshData = BasicRedirectEnabledData & { interval?: number; };
 
 export type AuthUser = { [key: string]: any };
 
@@ -27,4 +28,5 @@ export interface VueAuthOptions {
   loginData?: LoginRedirectData;
   logoutData?: LogoutRedirectData;
   fetchData?: FetchData;
+  refreshData?: RefreshData;
 }
