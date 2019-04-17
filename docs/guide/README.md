@@ -34,6 +34,12 @@ const options = {
     interval: 30,
     enabled: false,
   },
+  refreshData: {
+    url: '/auth/refresh',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
 };
 ```
 
@@ -201,3 +207,13 @@ Configuration to use when login process was success and/or every <`interval`> mi
 - `method`: *Optional* Method to use in call for fetch process. Only 'GET' or 'POST' supported
 - `interval`: *Optional*, minutes to repeat fetch process, if 401 is received in response petition, user will be logged out
 - `enabled`: *Optional*, indicates if fetch process is enabled
+
+## refreshData
+`{ url?: string, method?: GET | POST, interval?: number, enabled?: boolean }`
+
+Configuration to use when login process was success and/or every <`interval`> minutes to refresh token stored in application
+
+- `url`: *Optional* Url to call for refresh token process (using vue-axios)
+- `method`: *Optional* Method to use in call for refresh token process. Only 'GET' or 'POST' supported
+- `interval`: *Optional*, minutes to repeat refresh token process, if 401 is received in response petition, user will be logged out
+- `enabled`: *Optional*, indicates if refresh token process is enabled

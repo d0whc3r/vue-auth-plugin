@@ -136,3 +136,19 @@ export default {
 }
 </script>
 ```
+
+# Refresh Token
+Refresh method is used to force vue-auth-plugin to update token using information in [refreshData](./#refreshdata) option
+
+```vue{3}
+<template>
+  <div>
+    <button @click="$auth.refresh()">Refresh token</button>
+  </div>
+</template>
+<script>
+export default {
+  name: 'token-refresh',
+}
+</script>
+```
