@@ -6,8 +6,8 @@ import { IVueAuthOptions } from './auth';
 
 export default class AuthVueHttp {
   private readonly http: AxiosInstance;
-  private intervalFetchData = 0;
-  private intervalRefreshData = 0;
+  private intervalFetchData: any;
+  private intervalRefreshData: any;
   private readonly MINUTE_IN_MS = 60 * 1000;
 
   constructor(
