@@ -61,7 +61,7 @@
     "cors": "2.8.5",
     "coveralls": "3.0.3",
     "cross-env": "5.2.0",
-    "express": "4.17.0",
+    "express": "4.17.1",
     "express-jwt": "5.3.1",
     "gh-pages": "2.0.1",
     "jest-junit": "6.4.0",
