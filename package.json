@@ -40,7 +40,7 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "vue-router": "3.0.6"
+    "vue-router": "3.0.7"
   },
   "devDependencies": {
     "@types/express": "4.17.0",
