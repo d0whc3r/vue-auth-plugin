@@ -59,7 +59,7 @@
     "codacy-coverage": "3.4.0",
     "codecov": "3.5.0",
     "cors": "2.8.5",
-    "coveralls": "3.0.4",
+    "coveralls": "3.0.5",
     "cross-env": "5.2.0",
     "express": "4.17.1",
     "express-jwt": "5.3.1",
