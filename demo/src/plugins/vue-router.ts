@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '../Login.vue';
-import User from '../User.vue';
 import Logout from '../Logout.vue';
+import Info from '../Info.vue';
+import User from '../User.vue';
 import Admin from '../Admin.vue';
 // --------------------------------------------------------------------
 // vue-router CONFIGURATION
@@ -21,19 +22,26 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'user',
-      meta: {
-        auth: true,
-      },
+      name: 'main-user',
       component: User,
-    },
-    {
-      path: '/user',
-      name: 'user',
-      meta: {
-        auth: 'ROLE_ADMIN',
-      },
-      component: User,
+      children: [
+        {
+          path: '',
+          name: 'user1',
+          meta: {
+            auth: true,
+          },
+          component: Info,
+        },
+        {
+          path: 'user',
+          name: 'user2',
+          meta: {
+            auth: 'ROLE_ADMIN',
+          },
+          component: Info,
+        },
+      ],
     },
     {
       path: '/admin',
@@ -48,7 +56,7 @@ const router = new Router({
           meta: {
             auth: ['ROLE_ADMIN'],
           },
-          component: User,
+          component: Info,
         },
         {
           path: 'auth',
@@ -56,7 +64,7 @@ const router = new Router({
           meta: {
             auth: ['ROLE_UNKNOWN'],
           },
-          component: User,
+          component: Info,
         },
       ],
     },

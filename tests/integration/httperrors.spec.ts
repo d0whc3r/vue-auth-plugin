@@ -38,23 +38,25 @@ const options = {
     enabled: true,
   },
 };
+let mock: MockAdapter;
 
 describe('Plugin', () => {
   beforeAll(() => {
     localVue = prepareVue();
     localVue.use(plugin, options);
+    mock = new MockAdapter(localVue.axios);
   });
   it('Error in login', async () => {
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
-    const mock = new MockAdapter(localVue.axios);
+    mock.reset();
     mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
       .reply(500, { response: 'error' });
     try {
       await localVue.$auth.login({ username: 'test', password: 'test' });
       fail('Login http petition must fail');
     } catch (e) {
-      expect(e).toBeDefined();
+      expect(e).toBeTruthy();
     }
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
@@ -62,7 +64,7 @@ describe('Plugin', () => {
   describe('Fetch user and Refresh token error', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(200,
@@ -71,7 +73,7 @@ describe('Plugin', () => {
       await localVue.$auth.login({ username: 'test', password: 'test' });
     });
     it('Login ok with null user', () => {
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(500, { response: 'error' });
       expect(localVue.$auth.token()).toEqual(sampleToken);
@@ -79,26 +81,26 @@ describe('Plugin', () => {
     });
     it('Error in refresh token', async () => {
       const previousToken = localVue.$auth.token();
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData.url}`)
         .reply(500, { response: 'error' });
       try {
         await localVue.$auth.refresh();
         fail('Refresh http petition must fail');
       } catch (e) {
-        expect(e).toBeDefined();
+        expect(e).toBeTruthy();
       }
       expect(localVue.$auth.token()).toEqual(previousToken);
     });
     it('Error in fetch user', async () => {
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(500, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();
         fail('Fetch user http petition must fail');
       } catch (e) {
-        expect(e).toBeDefined();
+        expect(e).toBeTruthy();
       }
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toBeNull();
@@ -106,14 +108,14 @@ describe('Plugin', () => {
     it('Error in fetch user and logout', async () => {
       localVue.router.push('/');
       expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
         .reply(401, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();
         fail('Fetch user http petition must fail');
       } catch (e) {
-        expect(e).toBeDefined();
+        expect(e).toBeTruthy();
       }
       expect(localVue.$auth.token()).toBeNull();
       expect(localVue.$auth.user()).toBeNull();
@@ -136,7 +138,7 @@ describe('Plugin without login', () => {
       await localVue.$auth.login({ username: 'test', password: 'test' });
       fail('Login with no loginData must fail');
     } catch (e) {
-      expect(e).toBeDefined();
+      expect(e).toBeTruthy();
     }
   });
 });

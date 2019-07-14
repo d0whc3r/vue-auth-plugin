@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueAuth from '../../src/index';
+import VueAuth from '../../../src/index';
 
 // --------------------------------------------------------------------
 // PLUGIN CONFIGURATION

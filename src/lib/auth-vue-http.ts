@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { VueAuthLogin } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
@@ -35,8 +35,7 @@ export default class AuthVueHttp {
     });
     promise
       .then(async (response: AxiosResponse) => {
-        const { headers } = response;
-        this.extractToken(headers);
+        this.extractToken(response);
         this.startIntervals();
         if (fetchUser) {
           await this.fetchData(true);
@@ -83,7 +82,7 @@ export default class AuthVueHttp {
         headers: { ...this.getAuthHeader() },
       });
       promise
-        .then(({ data }) => {
+        .then(({ data }: AxiosResponse) => {
           const { fetchItem } = this.options;
           this.storeManager.setUser(fetchItem ? data[fetchItem] : data);
           return data;
@@ -108,8 +107,7 @@ export default class AuthVueHttp {
       });
       promise
         .then(async (response: AxiosResponse) => {
-          const { headers } = response;
-          this.extractToken(headers);
+          this.extractToken(response);
           return response;
         })
         .catch((error: Error) => {
@@ -121,7 +119,7 @@ export default class AuthVueHttp {
   }
 
   private configureHttp() {
-    this.http.interceptors.request.use((request) => {
+    this.http.interceptors.request.use((request: AxiosRequestConfig) => {
       if (request.headers) {
         Object.keys(request.headers)
           .forEach((head) => {
@@ -135,12 +133,12 @@ export default class AuthVueHttp {
           });
       }
       return request;
-    }, (error) => {
+    }, (error: any) => {
       return Promise.reject(error);
     });
-    this.http.interceptors.response.use((response) => {
+    this.http.interceptors.response.use((response: AxiosResponse) => {
       return response;
-    }, (error) => {
+    }, (error: any) => {
       const status = error && error.response && error.response.status;
       if (status === 401) {
         this.logout();
@@ -178,21 +176,32 @@ export default class AuthVueHttp {
     }
   }
 
-  private extractToken(headers: { [head: string]: string }) {
+  private extractToken(response: AxiosResponse) {
     if (!this.options.loginData) {
       return;
     }
-    const { headerToken } = this.options.loginData;
-    const head = (headers[headerToken.toLowerCase()] || '').split(' ');
-    const token = head[1] || head[0];
+    let token = '';
+    const { headerToken, customToken } = this.options.loginData;
+    if (customToken) {
+      token = customToken(response);
+    } else if (headerToken) {
+      const head = (response.headers[headerToken.toLowerCase()] || '').split(' ');
+      token = head[1] || head[0];
+    }
+    if (!token) {
+      console.error('[vue-auth-plugin] No token is obtained');
+    }
     this.storeManager.setToken(token.trim());
   }
 
   private getAuthHeader() {
     const { headerToken } = this.options.loginData || { headerToken: 'Authorization' };
     const { tokenType, headerTokenReplace } = this.options;
-
     const token = `${tokenType} ${headerTokenReplace}`.trim();
-    return { [headerToken]: token };
+    if (headerToken) {
+      return { [headerToken]: token };
+    }
+    console.error('[vue-auth-plugin] No "headerToken" is defined');
+    return {};
   }
 }

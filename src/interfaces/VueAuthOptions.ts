@@ -1,16 +1,48 @@
+import { AxiosResponse } from 'axios';
+
 export type TokenStore = 'localStorage' | 'sessionStorage' | 'cookie' | 'vuex';
 export type TokenType = 'Bearer' | 'Basic' | '';
 export type Method = 'GET' | 'POST';
-export type BasicRedirectData = { url: string; method: Method; };
-export type OptionalRedirectData = { url?: string; method?: Method; };
-export type BasicRedirectEnabledData = OptionalRedirectData & { enabled?: boolean; };
-export type RedirectData = { redirect?: string; };
-export type LoginRedirectData = RedirectData & BasicRedirectData & { headerToken: string; fetchUser?: boolean; };
-export type LogoutRedirectData = RedirectData & OptionalRedirectData & { makeRequest?: boolean; };
-export type FetchData = BasicRedirectEnabledData & { interval?: number; };
-export type RefreshData = BasicRedirectEnabledData & { interval?: number; };
 
-export type AuthUser = { [key: string]: any };
+export interface BasicRedirectData {
+  url: string;
+  method: Method;
+}
+
+export interface OptionalRedirectData {
+  url?: string;
+  method?: Method;
+}
+
+export interface BasicRedirectEnabledData extends OptionalRedirectData {
+  enabled?: boolean;
+}
+
+export interface RedirectData {
+  redirect?: string;
+}
+
+export interface LoginRedirectData extends RedirectData, BasicRedirectData {
+  headerToken?: string;
+  fetchUser?: boolean;
+  customToken?: (response: AxiosResponse) => string;
+}
+
+export interface LogoutRedirectData extends RedirectData, OptionalRedirectData {
+  makeRequest?: boolean;
+}
+
+export interface FetchData extends BasicRedirectEnabledData {
+  interval?: number;
+}
+
+export interface RefreshData extends FetchData {
+  interval?: number;
+}
+
+export interface AuthUser {
+  [key: string]: any;
+}
 
 export interface VueAuthOptions {
   authMeta?: string;

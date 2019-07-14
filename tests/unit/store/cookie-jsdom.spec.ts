@@ -56,7 +56,7 @@ describe('Cookie store', () => {
       expect(Cookies.get(options.userDefaultName)).toEqual(JSON.stringify(user));
       expect(Cookies.get(options.tokenDefaultName)).toBeUndefined();
       expect(storeCookie.getUser()).toEqual(user);
-      expect(options.rolesVar).toBeDefined();
+      expect(options.rolesVar).toBeTruthy();
       expect(storeCookie.getRoles()).toEqual(options.rolesVar && user[options.rolesVar]);
     });
     it('Set Token', () => {
@@ -89,7 +89,7 @@ describe('Cookie store', () => {
       expect(Cookies.get(options.userDefaultName)).toEqual(JSON.stringify(user));
       expect(Cookies.get(options.tokenDefaultName)).toBeUndefined();
       expect(storeCookie.getUser()).toEqual(user);
-      expect(options.rolesVar).toBeDefined();
+      expect(options.rolesVar).toBeTruthy();
       expect(storeCookie.getRoles()).toEqual(options.rolesVar && user[options.rolesVar]);
     });
     it('Set Token', () => {

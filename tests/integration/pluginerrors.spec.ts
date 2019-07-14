@@ -46,7 +46,7 @@ describe('Requirements', () => {
     localVue = addAxios(localVue);
     try {
       localVue.use(plugin, { ...options, tokenStore: ['localStorage', 'cookie'] });
-      expect(localVue.$auth).toBeDefined();
+      expect(localVue.$auth).toBeTruthy();
     } catch (e) {
       fail('Vuex is not used');
     }

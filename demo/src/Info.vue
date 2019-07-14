@@ -47,25 +47,25 @@
 
   const NAuth = namespace('vue-auth');
   @Component
-  export default class User extends Vue {
-    @NAuth.Getter('getToken') token: string[];
-    @NAuth.Getter('getUser') user: string[];
-    localStorage = window.localStorage;
-    cookieToken = document.cookie.match(new RegExp('(^| )default_auth_token=([^;]+)')) || [];
-    cookieUser = document.cookie.match(new RegExp('(^| )default_auth_user=([^;]+)')) || [];
+  export default class Info extends Vue {
+    @NAuth.Getter('getToken') public token!: string[];
+    @NAuth.Getter('getUser') public user!: string[];
+    public localStorage = window.localStorage;
+    public cookieToken = document.cookie.match(new RegExp('(^| )default_auth_token=([^;]+)')) || [];
+    public cookieUser = document.cookie.match(new RegExp('(^| )default_auth_user=([^;]+)')) || [];
 
-    dataResponse: any = null;
+    public dataResponse: any = null;
 
-    checkApi() {
+    public checkApi() {
       this.$http({
         url: '/api/check',
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer {auth_token}',
+          Authorization: 'Bearer {auth_token}',
         },
       })
         .then(({ data }) => {
-          console.log('Check response:', data);
+          console.warn('Check response:', data);
           this.dataResponse = data;
         })
         .catch((error) => {
