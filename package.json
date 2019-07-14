@@ -22,6 +22,7 @@
     "typescript"
   ],
   "scripts": {
+    "postinstall": "cd demo && yarn install",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
