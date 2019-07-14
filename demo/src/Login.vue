@@ -21,25 +21,25 @@
 
   @Component
   export default class Login extends Vue {
-    username = 'demo';
-    password = 'demo';
+    public username = 'demo';
+    public password = 'demo';
 
-    mounted() {
+    public mounted() {
       if (this.$auth.check()) {
         this.$router.push({ name: 'user' });
       }
     }
 
-    submit() {
+    public submit() {
       this.$auth.login({
         username: this.username,
         password: this.password,
       })
         .then((response) => {
-          console.log('SUCCESS', response);
+          console.warn('SUCCESS login', response);
         })
         .catch((err) => {
-          console.log('ERROR!', err);
+          console.error('ERROR! in login', err);
         });
     }
   }

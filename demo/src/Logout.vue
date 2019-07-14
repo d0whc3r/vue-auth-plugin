@@ -7,7 +7,7 @@
 
   @Component
   export default class Logout extends Vue {
-    mounted() {
+    public mounted() {
       this.$auth.logout();
     }
   }

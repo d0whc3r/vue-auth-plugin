@@ -3,9 +3,9 @@ import Vuex, { Store } from 'vuex';
 import Router from 'vue-router';
 import axios, { AxiosInstance } from 'axios';
 import VueAxios from 'vue-axios';
-import Login from '../../demo/Login.vue';
-import User from '../../demo/User.vue';
-import Logout from '../../demo/Logout.vue';
+import Login from '../../demo/src/Login.vue';
+import Info from '../../demo/src/Info.vue';
+import Logout from '../../demo/src/Logout.vue';
 import Vue from 'vue';
 import { VueRouter } from 'vue-router/types/router';
 import { AuthVuexState } from '../../src/lib/store/store-vuex';
@@ -44,7 +44,7 @@ export function addRouter(localVue: LocalVueType) {
         meta: {
           auth: true,
         },
-        component: User,
+        component: Info,
       },
       {
         path: '/admin',
@@ -52,7 +52,7 @@ export function addRouter(localVue: LocalVueType) {
         meta: {
           auth: 'ROLE_ADMIN',
         },
-        component: User,
+        component: Info,
       },
       {
         path: '/mix',
@@ -60,7 +60,7 @@ export function addRouter(localVue: LocalVueType) {
         meta: {
           auth: ['ROLE_ADMIN', 'ROLE_USER'],
         },
-        component: User,
+        component: Info,
       },
       {
         path: '/excluded',
@@ -68,7 +68,7 @@ export function addRouter(localVue: LocalVueType) {
         meta: {
           auth: 'ROLE_SUPERADMIN',
         },
-        component: User,
+        component: Info,
       },
       {
         path: '/excludedarr',
@@ -76,7 +76,7 @@ export function addRouter(localVue: LocalVueType) {
         meta: {
           auth: ['ROLE_SUPERADMIN'],
         },
-        component: User,
+        component: Info,
       },
       {
         path: '/logout',

@@ -1,10 +1,10 @@
 import plugin from '../../src/index';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
-
-let localVue: LocalVueType;
+import { AxiosResponse } from 'axios';
 
 describe('Functions', () => {
+  let localVue: LocalVueType;
   const options = {
     tokenDefaultName: 'auth_token',
     userDefaultName: 'auth_user',
@@ -48,9 +48,11 @@ describe('Functions', () => {
     [options.rolesVar]: ['role_1', 'role_2'],
     email: 'demo@demo',
   };
+  let mock: MockAdapter;
   beforeAll(() => {
     localVue = prepareVue();
     localVue.use(plugin, options);
+    mock = new MockAdapter(localVue.axios);
   });
   describe('Before Login', () => {
     it('Redirect before login', () => {
@@ -62,7 +64,6 @@ describe('Functions', () => {
   });
   describe('Login cases', () => {
     it('Login error', async () => {
-      const mock = new MockAdapter(localVue.axios);
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(401,
           { response: false });
@@ -71,18 +72,18 @@ describe('Functions', () => {
         await localVue.$auth.login({ username: 'test', password: 'test' });
         fail('Login is wrong');
       } catch (err) {
-        expect(err).toBeDefined();
+        expect(err).toBeTruthy();
       }
     });
-    it('Login success', async () => {
-      const mock = new MockAdapter(localVue.axios);
+    it('Login success using token header', async () => {
+      mock.reset();
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
         .reply(200, { response: true }, loginHeaders);
 
       try {
         const response = await localVue.$auth.login({ username: 'test', password: 'test' });
-        expect(response).toBeDefined();
+        expect(response).toBeTruthy();
       } catch (_) {
         fail('Login is good');
       }
@@ -90,7 +91,7 @@ describe('Functions', () => {
   });
   describe('Login', () => {
     beforeAll(async () => {
-      const mock = new MockAdapter(localVue.axios);
+      mock.reset();
       const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       const refreshHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken2}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
@@ -149,7 +150,7 @@ describe('Functions', () => {
     });
     describe('Logout', () => {
       beforeAll(() => {
-        const mock = new MockAdapter(localVue.axios);
+        mock.reset();
         mock.onPost(`${localVue.axios.defaults.baseURL}${options.logoutData.url}`)
           .reply(200, { response: true });
       });
