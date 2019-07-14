@@ -4,6 +4,7 @@ cache:
   key: "$CI_BUILD_REF_NAME"
   paths:
     - node_modules
+    - demo/node_modules
     - .yarn-cache
     - .scannerwork
     - /root/.sonar
