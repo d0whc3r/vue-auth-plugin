@@ -40,7 +40,9 @@ yarn add @d0whc3r/vue-auth-plugin
 git clone https://github.com/d0whc3r/vue-auth-plugin.git
 cd vue-auth-plugin
 yarn install
-yarn demo
+cd demo
+yarn install
+yarn start
 ```
 
 ## :bar_chart: Project tests

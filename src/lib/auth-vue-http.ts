@@ -60,7 +60,13 @@ export default class AuthVueHttp {
         method,
         url,
         headers: { ...this.getAuthHeader() },
-      });
+      })
+        .finally(() => {
+          this.storeManager.resetAll();
+          if (redirect || forceRedirect) {
+            this.router.push(redirect || '/');
+          }
+        });
     }
     if (this.intervalFetchData) {
       clearInterval(this.intervalFetchData);
@@ -190,18 +196,19 @@ export default class AuthVueHttp {
     }
     if (!token) {
       console.error('[vue-auth-plugin] No token is obtained');
+    } else {
+      this.storeManager.setToken(token.trim());
     }
-    this.storeManager.setToken(token.trim());
   }
 
   private getAuthHeader() {
-    const { headerToken } = this.options.loginData || { headerToken: 'Authorization' };
-    const { tokenType, headerTokenReplace } = this.options;
-    const token = `${tokenType} ${headerTokenReplace}`.trim();
-    if (headerToken) {
-      return { [headerToken]: token };
+    if (this.options.loginData) {
+      const { headerToken } = this.options.loginData;
+      const { tokenType, headerTokenReplace } = this.options;
+      const token = `${tokenType} ${headerTokenReplace}`.trim();
+      return { [headerToken as string]: token };
     }
-    console.error('[vue-auth-plugin] No "headerToken" is defined');
+    console.error('[vue-auth-plugin] No "loginData" is defined');
     return {};
   }
 }

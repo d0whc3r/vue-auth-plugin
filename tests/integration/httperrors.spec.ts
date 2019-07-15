@@ -61,6 +61,13 @@ describe('Plugin', () => {
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
   });
+  it('Login with no token in header', async () => {
+    mock.reset();
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+      .reply(200, { response: 'ok' }, {});
+    await localVue.$auth.login({ username: 'test', password: 'test' });
+    expect(localVue.$auth.token()).toBeNull();
+  });
   describe('Fetch user and Refresh token error', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
@@ -126,19 +133,5 @@ describe('Plugin', () => {
       const result = await localVue.$auth.fetchUser();
       expect(result).toBeNull();
     });
-  });
-});
-describe('Plugin without login', () => {
-  it('Configure plugin with loginData not set', async () => {
-    localVue = prepareVue();
-    const noLoginOptions = { ...options };
-    delete noLoginOptions.loginData;
-    localVue.use(plugin, noLoginOptions);
-    try {
-      await localVue.$auth.login({ username: 'test', password: 'test' });
-      fail('Login with no loginData must fail');
-    } catch (e) {
-      expect(e).toBeTruthy();
-    }
   });
 });
