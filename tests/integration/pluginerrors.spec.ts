@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import plugin from '../../src/index';
-import { addAxios, addRouter, addVuex, LocalVueType } from '../helper/prepare';
+import { addAxios, addRouter, addVuex, LocalVueType, prepareVue } from '../helper/prepare';
 
 let localVue: LocalVueType;
 
@@ -49,6 +49,16 @@ describe('Requirements', () => {
       expect(localVue.$auth).toBeTruthy();
     } catch (e) {
       fail('Vuex is not used');
+    }
+  });
+  it('Do not define loginData', async () => {
+    localVue = prepareVue();
+    localVue.use(plugin, { ...options, loginData: null });
+    try {
+      await localVue.$auth.login({ username: 'test', password: 'test' });
+      fail('loginData is missing in config options');
+    } catch (e) {
+      expect(e).toBeFalsy();
     }
   });
 });
