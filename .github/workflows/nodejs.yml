@@ -17,10 +17,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    - name: install
       run: |
-        npm install
-        npm run build --if-present
-        npm test
+        yarn install --cache-folder .yarn-cache
+        cd demo && yarn install --cache-folder ../.yarn-cache
+        yarn build
+    - name: test
+      run: |
+        yarn test:coverage
+        yarn test:send-coverages
+    - name: docs
+      run: |
+        yarn docs:build
+        yarn gh-pages -d docs/.vuepress/dist
       env:
         CI: true
