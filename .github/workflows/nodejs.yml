@@ -25,7 +25,6 @@ jobs:
     - name: test
       run: |
         yarn test:coverage
-        yarn test:send-coverages
     - name: docs
       run: |
         yarn docs:build
