@@ -64,7 +64,7 @@
     "ts-node": "8.4.1",
     "typescript": "3.6.3",
     "vue": "2.6.10",
-    "vue-axios": "2.1.4",
+    "vue-axios": "2.1.5",
     "vue-cli-plugin-p11n": "0.4.0",
     "vue-template-compiler": "2.6.10",
     "vuex": "3.1.1"
