@@ -62,7 +62,7 @@
     "sonar-scanner": "3.1.0",
     "ts-jest": "24.1.0",
     "ts-node": "8.4.1",
-    "typescript": "3.6.3",
+    "typescript": "3.6.4",
     "vue": "2.6.10",
     "vue-axios": "2.1.4",
     "vue-cli-plugin-p11n": "0.4.0",
