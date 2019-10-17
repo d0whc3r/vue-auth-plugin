@@ -125,6 +125,11 @@ export default class AuthVueHttp {
   }
 
   private configureHttp() {
+    const token = this.storeManager.getToken();
+    if (!!token) {
+      this.startIntervals();
+    }
+
     this.http.interceptors.request.use((request: AxiosRequestConfig) => {
       if (request.headers) {
         Object.keys(request.headers)
