@@ -1,9 +1,9 @@
-import plugin from '../../src/index';
+import plugin, { VueAuthOptions } from '../../src/index';
 import MockAdapter from 'axios-mock-adapter';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 
 let localVue: LocalVueType;
-const options = {
+const options: VueAuthOptions = {
   tokenDefaultName: 'auth_token',
   userDefaultName: 'auth_user',
   tokenType: 'Bearer',
@@ -50,7 +50,7 @@ describe('Plugin', () => {
     localVue.router.push('/');
     expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
     mock.reset();
-    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
       .reply(500, { response: 'error' });
     try {
       await localVue.$auth.login({ username: 'test', password: 'test' });
@@ -63,7 +63,7 @@ describe('Plugin', () => {
   });
   it('Login with no token in header', async () => {
     mock.reset();
-    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
       .reply(200, { response: 'ok' }, {});
     await localVue.$auth.login({ username: 'test', password: 'test' });
     expect(localVue.$auth.token()).toBeNull();
@@ -72,8 +72,8 @@ describe('Plugin', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
       mock.reset();
-      const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
-      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+      const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
         .reply(200,
           { response: true },
           loginHeaders);
@@ -81,7 +81,7 @@ describe('Plugin', () => {
     });
     it('Login ok with null user', () => {
       mock.reset();
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
         .reply(500, { response: 'error' });
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toBeNull();
@@ -89,7 +89,7 @@ describe('Plugin', () => {
     it('Error in refresh token', async () => {
       const previousToken = localVue.$auth.token();
       mock.reset();
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData.url}`)
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData!.url}`)
         .reply(500, { response: 'error' });
       try {
         await localVue.$auth.refresh();
@@ -101,7 +101,7 @@ describe('Plugin', () => {
     });
     it('Error in fetch user', async () => {
       mock.reset();
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
         .reply(500, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();
@@ -116,7 +116,7 @@ describe('Plugin', () => {
       localVue.router.push('/');
       expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
       mock.reset();
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
         .reply(401, { response: 'error' });
       try {
         await localVue.$auth.fetchUser();

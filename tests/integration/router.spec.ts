@@ -1,11 +1,11 @@
 import { LocalVueType, prepareVue } from '../helper/prepare';
-import plugin from '../../src';
+import plugin, { VueAuthOptions } from '../../src';
 import MockAdapter from 'axios-mock-adapter';
 
 let localVue: LocalVueType;
 
 describe('Plugin', () => {
-  const options = {
+  const options: VueAuthOptions = {
     tokenType: 'Bearer',
     rolesVar: 'roles',
     authRedirect: '/login',
@@ -25,7 +25,7 @@ describe('Plugin', () => {
   };
   const sampleUser = {
     login: 'demo',
-    [options.rolesVar]: ['ROLE_OTHER', 'ROLE_ADMIN'],
+    [options.rolesVar!]: ['ROLE_OTHER', 'ROLE_ADMIN'],
     email: 'demo@demo',
   };
   beforeAll(() => {
@@ -46,10 +46,10 @@ describe('Plugin', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
       const mock = new MockAdapter(localVue.axios);
-      const loginHeaders = { [options.loginData.headerToken.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
-      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+      const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
         .reply(200, { response: true }, loginHeaders);
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData.url}`)
+      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
         .reply(200, sampleUser);
       await localVue.$auth.login({ username: 'test', password: 'test' });
     });

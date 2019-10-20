@@ -9,6 +9,15 @@ const cors = require('cors');
 const PORT = 6001;
 const app = express();
 const JWTSecret = 'super-secret-password';
+
+const USER_INFO = {
+  username: 'demo',
+  firstName: 'User',
+  lastName: 'Test',
+  roles: ['ROLE_ADMIN', 'ROLE_USER'],
+  email: 'demo@demo',
+};
+
 function generateToken() {
   return jwt.sign({
     sub: 'demo',
@@ -33,6 +42,7 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         id_token: token,
+        userInfo: USER_INFO,
       });
   } else {
     res.statusCode = 401;
@@ -41,13 +51,7 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
 });
 
 app.get('/api/user', expressJwt({ secret: JWTSecret }), (req: Request, res: Response) => {
-  res.send({
-    username: 'demo',
-    firstName: 'User',
-    lastName: 'Test',
-    roles: ['ROLE_ADMIN', 'ROLE_USER'],
-    email: 'demo@demo',
-  });
+  res.send(USER_INFO);
 });
 
 app.get('/api/check', expressJwt({ secret: JWTSecret }), (req: Request, res: Response) => {

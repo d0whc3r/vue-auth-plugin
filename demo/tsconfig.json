@@ -24,7 +24,8 @@
       "scripthost"
     ],
     "typeRoots": [
-      "./types"
+      "./types",
+      "node_modules/@types"
     ]
   },
   "include": [
