@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node"
     ],
     "lib": [
       "esnext",
@@ -24,7 +25,8 @@
       "scripthost"
     ],
     "typeRoots": [
-      "./types"
+      "./types",
+      "node_modules/@types"
     ]
   },
   "include": [
