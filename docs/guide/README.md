@@ -174,7 +174,7 @@ If `vuex` is used as **tokenStore** this will be the key of namespaced module in
 Path to redirect using vue-router when login is required
 
 ## loginData
-`{ url: string, method: GET | POST, redirect?: string, headerToken: string, fetchUser?: boolean, customToken?: (response: AxiosResponse) => string }`
+`{ url: string, method: GET | POST, redirect?: string, headerToken: string, fetchUser?: boolean, customToken?: (response: AxiosResponse) => string, fetchData?: (response: AxiosResponse) => any }`
 
 Configuration used when [$auth.login](./methods.html#login) function was called
 
@@ -184,6 +184,7 @@ Configuration used when [$auth.login](./methods.html#login) function was called
 - `headerToken`: Name of the header with authorization code, usually *Authorization*
 - `fetchUser`: *Optional*, indicates if user information will be fetched once the login process was success
 - `customToken`: *Optional*, function to get token, it receives the response object from axios and must to return the string token
+- `fetchData`: *Optional*, function to get user info, it receives the response object from axios and must to return the object representing user info
 
 ## logoutData
 `{ url?: string, method?: GET | POST, redirect?: string, makeRequest?: string }`
