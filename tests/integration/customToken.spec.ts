@@ -1,11 +1,11 @@
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
 import { AxiosResponse } from 'axios';
-import plugin from '../../src';
+import plugin, { VueAuthOptions } from '../../src';
 
 describe('With customToken', () => {
   let localVue: LocalVueType;
-  const options = {
+  const options: VueAuthOptions = {
     tokenDefaultName: 'auth_token',
     userDefaultName: 'auth_user',
     tokenType: 'Bearer',
@@ -55,7 +55,7 @@ describe('With customToken', () => {
   it('Login success using customToken', async () => {
     mock.reset();
     const loginInfo = { loginToken: sampleToken };
-    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData.url}`)
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
       .reply(200, loginInfo, {});
 
     try {
