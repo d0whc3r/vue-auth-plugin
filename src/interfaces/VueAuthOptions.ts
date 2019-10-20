@@ -26,6 +26,7 @@ export interface LoginRedirectData extends RedirectData, BasicRedirectData {
   headerToken?: string;
   fetchUser?: boolean;
   customToken?: (response: AxiosResponse) => string;
+  fetchData?: (response: AxiosResponse) => any;
 }
 
 export interface LogoutRedirectData extends RedirectData, OptionalRedirectData {

@@ -27,7 +27,7 @@ export default class AuthVueHttp {
       console.warn('[vue-auth-plugin] Login not configured, use "loginData" option');
       return Promise.reject(false);
     }
-    const { method, url, redirect, fetchUser } = this.options.loginData;
+    const { method, url, redirect, fetchUser, fetchData } = this.options.loginData;
     const promise = this.http({
       method,
       url,
@@ -37,7 +37,9 @@ export default class AuthVueHttp {
       .then(async (response: AxiosResponse) => {
         this.extractToken(response);
         this.startIntervals();
-        if (fetchUser) {
+        if (fetchData) {
+          this.storeManager.setUser(fetchData.call({}, response));
+        } else if (fetchUser) {
           await this.fetchData(true);
         }
         if (redirect) {
