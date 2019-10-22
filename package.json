@@ -54,7 +54,7 @@
     "gh-pages": "2.1.1",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "jest-junit": "8.0.0",
+    "jest-junit": "9.0.0",
     "jest-sonar-reporter": "2.0.0",
     "js-cookie": "2.2.1",
     "sonar-scanner": "3.1.0",
