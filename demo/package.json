@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "core-js": "3.3.2",
+    "core-js": "3.3.6",
     "vue": "2.6.10",
     "vue-axios": "2.1.5",
     "vue-class-component": "7.1.0",
@@ -20,20 +20,20 @@
     "vuex-class": "0.3.2"
   },
   "devDependencies": {
-    "@types/express": "4.17.1",
+    "@types/express": "4.17.2",
     "@types/express-jwt": "0.0.42",
     "@types/jsonwebtoken": "8.3.5",
-    "@vue/cli-plugin-babel": "4.0.4",
-    "@vue/cli-plugin-pwa": "4.0.4",
-    "@vue/cli-plugin-typescript": "4.0.4",
-    "@vue/cli-service": "4.0.4",
+    "@vue/cli-plugin-babel": "4.0.5",
+    "@vue/cli-plugin-pwa": "4.0.5",
+    "@vue/cli-plugin-typescript": "4.0.5",
+    "@vue/cli-service": "4.0.5",
     "body-parser": "1.19.0",
     "cors": "2.8.5",
     "express": "4.17.1",
     "express-jwt": "5.3.1",
     "jsonwebtoken": "8.5.1",
     "npm-run-all": "4.1.5",
-    "typescript": "3.6.4",
+    "typescript": "3.7.2",
     "vue-template-compiler": "2.6.10"
   }
 }
