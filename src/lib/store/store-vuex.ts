@@ -80,5 +80,15 @@ export default class StoreVuex extends VueAuthStore {
     };
 
     this.store.registerModule(this.module, module);
+    // Listen for mutation from outside, e.g. with vuex-shared-mutations
+    this.store.subscribe((mutation: any, state: any) => {
+      if (mutation.type === `${this.module}/SET_TOKEN`
+        && mutation.payload !== this.options.Vue.$data.token) {
+        this.options.Vue.$data.token = mutation.payload
+      } else if (mutation.type === `${this.module}/SET_USER`
+        && mutation.payload !== this.options.Vue.$data.user) {
+        this.options.Vue.$data.user = mutation.payload
+      }
+    });
   }
 }
