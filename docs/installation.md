@@ -3,7 +3,7 @@
 ## Direct Download / CDN
 
 [unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/@d0whc3r/vue-auth-plugin@{{ $version }}/dist/vue-auth-plugin.umd.min.js
- 
+
 Include vue-auth-plugin after Vue and it will install itself automatically:
 
 ```html
@@ -36,7 +36,18 @@ const options = { ... };
 Vue.use(VueAuth, options);
 ```
 
-> Options could be consulted in [Options section](./guide/)
+Default options can be imported and merged with custom options from user
+
+```javascript
+import Vue from 'vue';
+import VueAuth, { DEFAULT_OPTIONS } from '@d0whc3r/vue-auth-plugin';
+
+const options = { ...DEFAULT_OPTIONS, ... };
+
+Vue.use(VueAuth, options);
+```
+
+> Options can be consulted in [Options section](./guide/)
 
 ## Use vue-router and vuex
 
