@@ -20,6 +20,17 @@ export default class AuthVueRouter {
     this.router.push(to);
   }
 
+  public afterLogin(redirect: RawLocation | string | undefined) {
+    if (redirect) {
+      this.router.push(redirect);
+    } else if (this.router.currentRoute.query.nextUrl) {
+      const nextUrl = this.router.currentRoute.query.nextUrl;
+      if (nextUrl instanceof String || typeof nextUrl === 'string') {
+        this.router.push(nextUrl as string);
+      }
+    }
+  }
+
   private configureRouter() {
     this.router.beforeEach((to, from, next) => {
       const { authRedirect } = this.options;
@@ -28,7 +39,9 @@ export default class AuthVueRouter {
         if (this.isAuthorized(routes)) {
           next();
         } else {
-          const nextPath = from.fullPath !== to.fullPath && this.storeManager.check() ? from.fullPath : authRedirect;
+          const nextPath = from.fullPath !== to.fullPath && this.storeManager.check()
+            ? from.fullPath
+            : { path: authRedirect, query: { nextUrl: to.fullPath } };
           next(nextPath);
         }
       } else {

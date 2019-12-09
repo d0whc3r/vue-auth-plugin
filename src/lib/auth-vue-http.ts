@@ -42,9 +42,7 @@ export default class AuthVueHttp {
         } else if (fetchUser) {
           await this.fetchData(true);
         }
-        if (redirect) {
-          this.router.push(redirect);
-        }
+        this.router.afterLogin(redirect);
         return response;
       })
       .catch((error: any) => {
