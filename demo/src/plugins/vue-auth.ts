@@ -19,7 +19,7 @@ Vue.use(VueAuth, {
   loginData: {
     url: '/api/authenticate',
     method: 'POST',
-    redirect: '/',
+    redirect: undefined,
     headerToken: 'Authorization',
     fetchUser: true,
     fetchData: (response) => response.data.userInfo,
