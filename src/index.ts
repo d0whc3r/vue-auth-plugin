@@ -37,6 +37,7 @@ const plugin: PluginObject<VueAuthOptions> = {
 };
 export default plugin;
 export * from './interfaces';
+export { DEFAULT_OPTIONS } from './lib/auth';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin, {});

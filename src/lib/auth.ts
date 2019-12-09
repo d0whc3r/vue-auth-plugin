@@ -8,53 +8,54 @@ export interface IVueAuthOptions extends VueAuthOptions {
   Vue: Vue;
 }
 
+export const DEFAULT_OPTIONS: VueAuthOptions = {
+  authMeta: 'auth',
+  rolesVar: 'roles',
+  tokenDefaultName: 'default_auth_token',
+  userDefaultName: 'default_auth_user',
+  tokenStore: ['vuex', 'localStorage', 'cookie'],
+  headerTokenReplace: '{auth_token}',
+  tokenType: 'Bearer',
+  vuexStoreSpace: 'vue-auth',
+
+  authRedirect: '/login',
+
+  loginData: {
+    url: '/auth/login',
+    method: 'POST',
+    redirect: '/',
+    headerToken: 'Authorization',
+    fetchUser: false,
+  },
+  logoutData: {
+    url: '/auth/logout',
+    method: 'POST',
+    redirect: '/login',
+    makeRequest: false,
+  },
+  fetchItem: '',
+  fetchData: {
+    url: '/auth/user',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
+  refreshData: {
+    url: '/auth/refresh',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
+};
+
 export default class Auth {
-  private readonly DEFAULT_OPTIONS: VueAuthOptions = {
-    authMeta: 'auth',
-    rolesVar: 'roles',
-    tokenDefaultName: 'default_auth_token',
-    userDefaultName: 'default_auth_user',
-    tokenStore: ['vuex', 'localStorage', 'cookie'],
-    headerTokenReplace: '{auth_token}',
-    tokenType: 'Bearer',
-    vuexStoreSpace: 'vue-auth',
-
-    authRedirect: '/login',
-
-    loginData: {
-      url: '/auth/login',
-      method: 'POST',
-      redirect: '/',
-      headerToken: 'Authorization',
-      fetchUser: false,
-    },
-    logoutData: {
-      url: '/auth/logout',
-      method: 'POST',
-      redirect: '/login',
-      makeRequest: false,
-    },
-    fetchItem: '',
-    fetchData: {
-      url: '/auth/user',
-      method: 'GET',
-      interval: 30,
-      enabled: false,
-    },
-    refreshData: {
-      url: '/auth/refresh',
-      method: 'GET',
-      interval: 30,
-      enabled: false,
-    },
-  };
   private readonly options = {} as IVueAuthOptions;
   private readonly http: AuthVueHttp;
   private readonly storeManager: AuthStoreManager;
 
   constructor(private readonly Vue: any, options: VueAuthOptions = {} as VueAuthOptions) {
     this.options = {
-      ...this.DEFAULT_OPTIONS,
+      ...DEFAULT_OPTIONS,
       ...options,
       Vue: new this.Vue({
         data() {
