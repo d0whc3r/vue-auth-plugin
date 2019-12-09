@@ -21,27 +21,36 @@ export default class AuthVueRouter {
   }
 
   public afterLogin(redirect: RawLocation | string | undefined) {
+    let promise = Promise.resolve(redirect);
     if (redirect) {
-      this.router.push(redirect);
+      promise = this.router.push(redirect);
     } else if (this.router.currentRoute.query.nextUrl) {
       const nextUrl = this.router.currentRoute.query.nextUrl;
-      if (nextUrl instanceof String || typeof nextUrl === 'string') {
-        this.router.push(nextUrl as string);
+      if (typeof nextUrl === 'string') {
+        promise = this.router.push(nextUrl);
       }
+    } else {
+      promise = this.router.push('/');
     }
+    promise.catch(() => {
+      const result = redirect || '/';
+      this.router.push(result);
+    });
   }
 
   private configureRouter() {
     this.router.beforeEach((to, from, next) => {
-      const { authRedirect } = this.options;
+      const { authRedirect, loginData } = this.options;
       const routes = this.metaRoutes(to);
       if (routes && routes.length) {
         if (this.isAuthorized(routes)) {
           next();
         } else {
-          const nextPath = from.fullPath !== to.fullPath && this.storeManager.check()
-            ? from.fullPath
-            : { path: authRedirect, query: { nextUrl: to.fullPath } };
+          const redirectPath: RawLocation = { path: authRedirect || '/' };
+          if (loginData && !loginData.redirect) {
+            redirectPath.query = { nextUrl: to.fullPath };
+          }
+          const nextPath = from.fullPath !== to.fullPath && this.storeManager.check() ? from.fullPath : redirectPath;
           next(nextPath);
         }
       } else {
