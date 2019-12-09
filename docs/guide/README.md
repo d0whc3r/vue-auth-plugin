@@ -44,6 +44,8 @@ const options = {
 };
 ```
 
+> The default options can be imported and merged with custom options [installation](../installation.md#usage)
+
 ## authMeta
 `string`
 
