@@ -182,7 +182,7 @@ Configuration used when [$auth.login](./methods.html#login) function was called
 
 - `url`: Url to call for login process (using vue-axios)
 - `method`: Method to use in call for login process. Only 'GET' or 'POST' supported
-- `redirect`: *Optional*, path to redirect when login was success (using vue-router)
+- `redirect`: *Optional*, path to redirect when login was success (using vue-router). If set to `null`, the previous path is recorded in a query parameter and restored after successful login.
 - `headerToken`: Name of the header with authorization code, usually *Authorization*
 - `fetchUser`: *Optional*, indicates if user information will be fetched once the login process was success
 - `customToken`: *Optional*, function to get token, it receives the response object from axios and must to return the string token
