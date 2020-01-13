@@ -59,7 +59,7 @@
     "js-cookie": "2.2.1",
     "sonar-scanner": "3.1.0",
     "ts-jest": "24.2.0",
-    "ts-node": "8.5.4",
+    "ts-node": "8.6.2",
     "typescript": "3.7.3",
     "vue": "2.6.10",
     "vue-axios": "2.1.5",
