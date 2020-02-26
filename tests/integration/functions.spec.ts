@@ -1,6 +1,7 @@
 import plugin, { VueAuthOptions } from '../../src';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
+import { wait } from '../helper/herlpers';
 
 describe('Functions', () => {
   let localVue: LocalVueType;
@@ -18,34 +19,34 @@ describe('Functions', () => {
       method: 'POST',
       redirect: '/',
       headerToken: 'Authorization',
-      fetchUser: true,
+      fetchUser: true
     },
     fetchItem: '',
     fetchData: {
       url: '/auth/user',
       method: 'GET',
       interval: 30,
-      enabled: false,
+      enabled: false
     },
     logoutData: {
       url: '/auth/logout',
       method: 'POST',
       redirect: '/login',
-      makeRequest: true,
+      makeRequest: true
     },
     refreshData: {
       url: '/auth/refresh',
       method: 'GET',
       interval: 30,
-      enabled: false,
-    },
+      enabled: false
+    }
   };
   const sampleToken = '123456abcdef123456789';
   const sampleToken2 = '987654abbbbccc1321';
   const sampleUser = {
     login: 'demo',
     [DEFAULT_OPTIONS.rolesVar!]: ['role_1', 'role_2', 'ROLE_ADMIN'],
-    email: 'demo@demo',
+    email: 'demo@demo'
   };
   let mock: MockAdapter;
   let options: VueAuthOptions;
@@ -197,26 +198,26 @@ describe('Functions', () => {
         expect(localVue.store.getters[`${options.vuexStoreSpace}/getUser`]).toBeNull();
       });
     });
-    // it('Login with fetch user data in login response', async () => {
-    //   const spyFetch = jest.fn();
-    //   const opts = { ...options };
-    //   opts.loginData!.fetchData = () => {
-    //     spyFetch();
-    //   };
-    //   reset(opts);
-    //
-    //   const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
-    //   mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
-    //     .reply(200, { response: true }, loginHeaders);
-    //
-    //   try {
-    //     const response = await localVue.$auth.login({ username: 'test', password: 'test' });
-    //     expect(response).toBeTruthy();
-    //     expect(spyFetch).toHaveBeenCalledTimes(1);
-    //   } catch (_) {
-    //     fail('Login is good');
-    //   }
-    // });
+  });
+  it('Login with fetch user data in login response', async () => {
+    const spyFetch = jest.fn();
+    const opts = { ...options };
+    opts.loginData!.fetchData = () => {
+      spyFetch();
+    };
+    reset(opts);
+
+    const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
+      .reply(200, { response: true }, loginHeaders);
+
+    try {
+      const response = await localVue.$auth.login({ username: 'test', password: 'test' });
+      expect(response).toBeTruthy();
+      expect(spyFetch).toHaveBeenCalledTimes(1);
+    } catch (_) {
+      fail('Login is good');
+    }
   });
 
   describe('Login with fetch user data', () => {
@@ -257,14 +258,14 @@ describe('Functions', () => {
       // const response = await localVue.$auth.login({ username: 'test', password: 'test' });
       // expect((localVue.router as any).history.getCurrentLocation()).toBe('/admin');
     });
-    it('Login and redirect', (done) => {
-      // localVue.$auth.logout();
-      localVue.router.push('/admin');
-      localVue.$auth.login({ username: 'test', password: 'test' }).then(() => {
-        expect((localVue.router as any).history.getCurrentLocation()).toBe('/admin');
-        done();
-      });
-      expect.assertions(1);
+    it('Login and redirect', async () => {
+      localVue.$auth.logout();
+      await localVue.router.push('/admin');
+      expect((localVue.router as any).history.getCurrentLocation()).toBe('/login?nextUrl=%2Fadmin');
+      await localVue.$auth.login({ username: 'test', password: 'test' });
+      await wait(5);
+      expect((localVue.router as any).history.getCurrentLocation()).toBe('/admin');
+      // expect.assertions(2);
       // expect((localVue.router as any).history.getCurrentLocation()).toBe('/admin');
     });
   });
