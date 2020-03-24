@@ -21,7 +21,7 @@ export default class AuthVueRouter {
   }
 
   public afterLogin(redirect: RawLocation | string | undefined) {
-    let promise = Promise.resolve(redirect);
+    let promise!: Promise<Route>;
     if (redirect) {
       promise = this.router.push(redirect);
     } else if (this.router.currentRoute.query.nextUrl) {
