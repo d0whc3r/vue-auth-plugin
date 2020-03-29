@@ -3,7 +3,7 @@ import AuthStoreManager from './auth-vue-store-manager';
 import { IVueAuthOptions } from './auth';
 
 export default class AuthVueRouter {
-  private readonly router: VueRouter;
+  public readonly router: VueRouter;
 
   constructor(
     private readonly Vue: any,
@@ -16,12 +16,12 @@ export default class AuthVueRouter {
     this.configureRouter();
   }
 
-  public push(to: RawLocation | string) {
-    this.router.push(to);
+  public async push(to: RawLocation | string) {
+    await this.router.push(to);
   }
 
-  public afterLogin(redirect: RawLocation | string | undefined) {
-    let promise = Promise.resolve(redirect);
+  public async afterLogin(redirect?: RawLocation | string | null) {
+    let promise: Promise<Route | undefined> = Promise.resolve(undefined);
     if (redirect) {
       promise = this.router.push(redirect);
     } else if (this.router.currentRoute.query.nextUrl) {
@@ -32,10 +32,13 @@ export default class AuthVueRouter {
     } else {
       promise = this.router.push('/');
     }
-    promise.catch(() => {
-      const result = redirect || '/';
-      this.router.push(result);
-    });
+    if (promise) {
+      promise.catch(async () => {
+        const result = redirect || '/';
+        await this.router.push(result);
+      });
+    }
+    return promise;
   }
 
   private configureRouter() {

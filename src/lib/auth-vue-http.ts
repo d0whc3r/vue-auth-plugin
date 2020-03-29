@@ -27,6 +27,8 @@ export default class AuthVueHttp {
       console.warn('[vue-auth-plugin] Login not configured, use "loginData" option');
       return Promise.reject(false);
     }
+    const nextUrls = this.router.router.currentRoute.query.nextUrl;
+    const nextUrl = Array.isArray(nextUrls) ? nextUrls[0] : nextUrls;
     const { method, url, redirect, fetchUser, fetchData } = this.options.loginData;
     const promise = this.http({
       method,
@@ -42,7 +44,7 @@ export default class AuthVueHttp {
         } else if (fetchUser) {
           await this.fetchData(true);
         }
-        this.router.afterLogin(redirect);
+        await this.router.afterLogin(redirect || nextUrl);
         return response;
       })
       .catch((error: any) => {
