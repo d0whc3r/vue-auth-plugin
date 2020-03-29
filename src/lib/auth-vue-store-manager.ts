@@ -62,26 +62,26 @@ export default class AuthStoreManager extends VueAuthStore {
   }
 
   public setToken(token: string | null): void {
+    this.options.Vue.$data.token = token;
     this.allStores
       .forEach((store) => {
         store.setToken(token);
       });
-    this.options.Vue.$data.token = token;
   }
 
   public setUser(user: AuthUser | null): void {
+    this.options.Vue.$data.user = user;
     this.allStores
       .forEach((store) => {
         store.setUser(user);
       });
-    this.options.Vue.$data.user = user;
   }
 
   public resetAll(): void {
-    this.setUser(null);
-    this.setToken(null);
     this.options.Vue.$data.user = null;
     this.options.Vue.$data.token = null;
+    this.setUser(null);
+    this.setToken(null);
   }
 
   public check(role?: string | string[]): boolean {
