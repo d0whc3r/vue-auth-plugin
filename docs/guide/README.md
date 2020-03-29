@@ -20,7 +20,7 @@ const options = {
     redirect: '/user',
     headerToken: 'Authorization',
     fetchUser: false,
-    customToken: (response) => response.data['token'],
+    (optional) customToken: (response) => response.data['token'],
   },
   logoutData: {
     url: '/auth/logout',

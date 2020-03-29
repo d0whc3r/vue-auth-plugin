@@ -1,62 +1,79 @@
-import plugin, { VueAuthOptions } from '../../src/index';
+import plugin, { VueAuthOptions } from '../../src';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
+import { wait } from '../helper/herlpers';
+
+let localVue: LocalVueType;
+const DEFAULT_OPTIONS: VueAuthOptions = {
+  tokenDefaultName: 'auth_token',
+  userDefaultName: 'auth_user',
+  tokenType: 'Bearer',
+  rolesVar: 'roles',
+  vuexStoreSpace: 'vue-auth',
+  tokenStore: ['vuex', 'localStorage', 'sessionStorage', 'cookie'],
+  headerTokenReplace: '{auth_token}',
+  authRedirect: '/login',
+  loginData: {
+    url: '/auth/login',
+    method: 'POST',
+    redirect: '/',
+    headerToken: 'Authorization',
+    fetchUser: true,
+  },
+  fetchItem: '',
+  fetchData: {
+    url: '/auth/user',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
+  logoutData: {
+    url: '/auth/logout',
+    method: 'POST',
+    redirect: '/login',
+    makeRequest: true,
+  },
+  refreshData: {
+    url: '/auth/refresh',
+    method: 'GET',
+    interval: 30,
+    enabled: false,
+  },
+};
+const sampleToken = '123456abcdef123456789';
+const sampleToken2 = '987654abbbbccc1321';
+const sampleUser = {
+  login: 'demo',
+  [DEFAULT_OPTIONS.rolesVar!]: ['role_1', 'role_2', 'ROLE_ADMIN'],
+  email: 'demo@demo',
+};
+let mock: MockAdapter;
+let options: VueAuthOptions;
+
+function reset(opts?: VueAuthOptions, resetMock = true) {
+  localVue = prepareVue();
+  options = { ...DEFAULT_OPTIONS, ...opts };
+  localVue.use(plugin, options);
+  mock = new MockAdapter(localVue.axios);
+  if (!resetMock) {
+    defaultMockLogin();
+  }
+}
+
+function defaultMockLogin() {
+  const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+  const refreshHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken2}` };
+  mock.onPost(`${localVue.axios.defaults.baseURL}${options.logoutData!.url}`)
+    .reply(200, { response: true });
+  mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
+    .reply(200, { response: true }, loginHeaders);
+  mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
+    .reply(200, sampleUser);
+  mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData!.url}`)
+    .reply(200, { response: true }, refreshHeaders);
+}
 
 describe('Functions', () => {
-  let localVue: LocalVueType;
-  const DEFAULT_OPTIONS: VueAuthOptions = {
-    tokenDefaultName: 'auth_token',
-    userDefaultName: 'auth_user',
-    tokenType: 'Bearer',
-    rolesVar: 'roles',
-    vuexStoreSpace: 'vue-auth',
-    tokenStore: ['vuex', 'localStorage', 'sessionStorage', 'cookie'],
-    headerTokenReplace: '{auth_token}',
-    authRedirect: '/login',
-    loginData: {
-      url: '/auth/login',
-      method: 'POST',
-      redirect: '/',
-      headerToken: 'Authorization',
-      fetchUser: true,
-    },
-    fetchItem: '',
-    fetchData: {
-      url: '/auth/user',
-      method: 'GET',
-      interval: 30,
-      enabled: false,
-    },
-    logoutData: {
-      url: '/auth/logout',
-      method: 'POST',
-      redirect: '/login',
-      makeRequest: true,
-    },
-    refreshData: {
-      url: '/auth/refresh',
-      method: 'GET',
-      interval: 30,
-      enabled: false,
-    },
-  };
-  const sampleToken = '123456abcdef123456789';
-  const sampleToken2 = '987654abbbbccc1321';
-  const sampleUser = {
-    login: 'demo',
-    [DEFAULT_OPTIONS.rolesVar!]: ['role_1', 'role_2'],
-    email: 'demo@demo',
-  };
-  let mock: MockAdapter;
-  let options: VueAuthOptions;
-
-  function reset(opts?: VueAuthOptions) {
-    localVue = prepareVue();
-    options = { ...DEFAULT_OPTIONS, ...opts };
-    localVue.use(plugin, options);
-    mock && mock.reset();
-  }
-
   beforeAll(() => {
     reset();
     mock = new MockAdapter(localVue.axios);
@@ -64,9 +81,9 @@ describe('Functions', () => {
   describe('Before Login', () => {
     it('Redirect before login', () => {
       localVue.router.push(options.authRedirect!);
-      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
+      expect(localVue.router.currentRoute.fullPath).toEqual(options.authRedirect);
       localVue.router.push('/');
-      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.authRedirect);
+      expect(localVue.router.currentRoute.fullPath).toEqual(options.authRedirect);
     });
   });
   describe('Login cases', () => {
@@ -98,15 +115,8 @@ describe('Functions', () => {
   });
   describe('Login', () => {
     beforeAll(async () => {
-      const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
-      const refreshHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken2}` };
-      mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
-        .reply(200, { response: true }, loginHeaders);
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.fetchData!.url}`)
-        .reply(200, sampleUser);
-      mock.onGet(`${localVue.axios.defaults.baseURL}${options.refreshData!.url}`)
-        .reply(200, { response: true }, refreshHeaders);
-      const currentLocation = (localVue.router as any).history.getCurrentLocation();
+      defaultMockLogin();
+      const currentLocation = localVue.router.currentRoute.fullPath;
       if (!currentLocation.includes('login')) {
         await localVue.router.push('/login');
       }
@@ -124,9 +134,9 @@ describe('Functions', () => {
       expect(localVue.$auth.token()).toEqual(sampleToken);
       expect(localVue.$auth.user()).toEqual(sampleUser);
       expect(localVue.$auth.roles()).toEqual(sampleUser.roles);
-      expect((localVue.router as any).history.getCurrentLocation()).toEqual(options.loginData!.redirect);
+      expect(localVue.router.currentRoute.fullPath).toEqual(options.loginData!.redirect);
       localVue.router.push('/');
-      expect((localVue.router as any).history.getCurrentLocation()).toEqual('/');
+      expect(localVue.router.currentRoute.fullPath).toEqual('/');
     });
     it('Info in localStorage', () => {
       expect(localStorage.getItem(options.tokenDefaultName!)).toEqual(sampleToken);
@@ -165,7 +175,7 @@ describe('Functions', () => {
       });
       it('Logout result', async () => {
         await localVue.$auth.logout();
-        expect((localVue.router as any).history.getCurrentLocation()).toEqual('/login');
+        expect(localVue.router.currentRoute.fullPath).toEqual('/login');
         expect(localVue.$auth.check()).toBeFalsy();
         expect(localVue.$auth.check(sampleUser[options.rolesVar!][0])).toBeFalsy();
         expect(localVue.$auth.token()).toBeNull();
@@ -191,6 +201,26 @@ describe('Functions', () => {
       });
     });
   });
+  it('Login with fetch user data in login response', async () => {
+    const spyFetch = jest.fn();
+    const opts = { ...options };
+    opts.loginData!.fetchData = () => {
+      spyFetch();
+    };
+    reset(opts);
+
+    const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
+    mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
+      .reply(200, { response: true }, loginHeaders);
+
+    try {
+      const response = await localVue.$auth.login({ username: 'test', password: 'test' });
+      expect(response).toBeTruthy();
+      expect(spyFetch).toHaveBeenCalledTimes(1);
+    } catch (_) {
+      fail('Login is good');
+    }
+  });
 
   describe('Login with fetch user data', () => {
     const spyFetch = jest.fn();
@@ -202,7 +232,6 @@ describe('Functions', () => {
       reset(opts);
     });
     it('Login with fetch user data in login response', async () => {
-      mock.reset();
       const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
         .reply(200, { response: true }, loginHeaders);
@@ -216,5 +245,35 @@ describe('Functions', () => {
       }
     });
   });
+});
+
+describe('Login without redirect defined', () => {
+  beforeAll(() => {
+    reset();
+    mock = new MockAdapter(localVue.axios);
+    const opts = { ...options };
+    delete opts.loginData!.redirect;
+    reset(opts, false);
+  });
+  beforeEach(() => {
+    localVue.$auth.logout();
+  });
+  it('Try to access an url without login', () => {
+    expect(localVue.router.currentRoute.fullPath).toBe('/login');
+    localVue.router.push('/admin');
+    expect(localVue.router.currentRoute.fullPath)
+      .toBe('/login?nextUrl=' + encodeURIComponent('/admin'));
+  });
+  xit('Login and redirect with nextUrl', (done) => {
+    expect.assertions(2);
+    localVue.router.push('/admin');
+    expect(localVue.router.currentRoute.fullPath).toBe('/login?nextUrl=%2Fadmin');
+    localVue.$auth.login({ username: 'test', password: 'test' })
+      .then(() => wait(2))
+      .then(() => {
+        expect(localVue.router.currentRoute.fullPath).toBe('/admin');
+        done();
+      });
+  }, 15000);
 });
 

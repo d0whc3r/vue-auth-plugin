@@ -18,7 +18,7 @@ export type LocalVueType = typeof Vue & {
   $auth: Auth;
 };
 
-const localVue = createLocalVue() as LocalVueType;
+let localVue: LocalVueType;
 
 export function addVuex(localVue: LocalVueType) {
   localVue.use(Vuex);
@@ -108,6 +108,8 @@ export function addAxios(localVue: LocalVueType) {
 }
 
 export function prepareVue(): LocalVueType {
+  localVue = createLocalVue() as LocalVueType;
+
   addVuex(localVue);
   addRouter(localVue);
   addAxios(localVue);
