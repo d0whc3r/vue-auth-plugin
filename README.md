@@ -20,6 +20,7 @@ Pull requests and issues are welcome
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=d0whc3r_vue-auth-plugin&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=d0whc3r_vue-auth-plugin)
 ![dependencies](https://img.shields.io/david/d0whc3r/vue-auth-plugin.svg)
 [![npm version](https://img.shields.io/npm/v/@d0whc3r%2Fvue-auth-plugin.svg)](https://www.npmjs.com/package/@d0whc3r/vue-auth-plugin)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd0whc3r%2Fvue-auth-plugin.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd0whc3r%2Fvue-auth-plugin?ref=badge_shield)
 
 
 # :rocket: Install
@@ -56,6 +57,9 @@ yarn test
 # :copyright: License
 
 [MIT](http://opensource.org/licenses/MIT)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fd0whc3r%2Fvue-auth-plugin.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fd0whc3r%2Fvue-auth-plugin?ref=badge_large)
 
 # :bookmark: Keywords
 
