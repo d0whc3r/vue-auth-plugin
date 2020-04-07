@@ -1,6 +1,6 @@
 {
   "name": "@d0whc3r/vue-auth-plugin",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "author": {
     "email": "d0whc3r@gmail.com",
     "name": "d0whc3r",
@@ -64,8 +64,8 @@
     "vue": "2.6.11",
     "vue-axios": "2.1.5",
     "vue-cli-plugin-p11n": "0.4.0",
-    "vue-template-compiler": "2.6.11",
     "vue-server-renderer": "2.6.11",
+    "vue-template-compiler": "2.6.11",
     "vuex": "3.1.3"
   },
   "homepage": "https://d0whc3r.github.io/vue-auth-plugin",
