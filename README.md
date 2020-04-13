@@ -9,7 +9,7 @@ Pull requests and issues are welcome
 # :eyes: Project status
 
 [![@d0whc3r/vue-auth-plugin Dev Token](https://badge.devtoken.rocks/@d0whc3r/vue-auth-plugin)](https://devtoken.rocks/package/@d0whc3r/vue-auth-plugin)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f40b0f7c-b2a8-4cd5-ba62-fe2da3dfa48c/deploy-status)](https://app.netlify.com/sites/vue-auth-plugin/deploys)
+[![Netlify Status](https://api.netlify.app/api/v1/badges/f40b0f7c-b2a8-4cd5-ba62-fe2da3dfa48c/deploy-status)](https://app.netlify.app/sites/vue-auth-plugin/deploys)
 [![pipeline status](https://gitlab.com/d0whc3r/vue-auth-plugin/badges/master/pipeline.svg)](https://github.com/d0whc3r/vue-auth-plugin)
 [![codecov](https://codecov.io/gh/d0whc3r/vue-auth-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/d0whc3r/vue-auth-plugin)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9883d853d9f5446b9722277327acc580)](https://www.codacy.com/app/d0whc3r/vue-auth-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=d0whc3r/vue-auth-plugin&amp;utm_campaign=Badge_Grade)
@@ -31,7 +31,7 @@ yarn add @d0whc3r/vue-auth-plugin
 
 # :notebook: Documentation and Usage
 
-[https://vue-auth-plugin.netlify.com](https://vue-auth-plugin.netlify.com)
+[https://vue-auth-plugin.netlify.app](https://vue-auth-plugin.netlify.app)
 
 [https://d0whc3r.github.io/vue-auth-plugin](https://d0whc3r.github.io/vue-auth-plugin)
 
