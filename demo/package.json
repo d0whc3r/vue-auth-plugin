@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/express": "4.17.4",
     "@types/express-jwt": "0.0.42",
-    "@types/jsonwebtoken": "8.3.9",
+    "@types/jsonwebtoken": "8.5.0",
     "@vue/cli-plugin-babel": "4.3.0",
     "@vue/cli-plugin-pwa": "4.3.0",
     "@vue/cli-plugin-typescript": "4.3.0",
