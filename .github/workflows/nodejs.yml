@@ -23,8 +23,7 @@ jobs:
         cd demo && yarn install --cache-folder ../.yarn-cache
         yarn build
     - name: test
-      run: |
-        yarn test:coverage
+      run: yarn test:coverage
       env:
         CI: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
