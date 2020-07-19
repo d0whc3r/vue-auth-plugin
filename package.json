@@ -101,7 +101,10 @@
     "typescript"
   ],
   "license": "MIT",
-  "repository": "https://github.com/d0whc3r/vue-auth-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d0whc3r/vue-auth-plugin.git"
+  },
   "sideeffects": false,
   "types": "types/index.d.ts",
   "publishConfig": {
