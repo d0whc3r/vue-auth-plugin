@@ -17,7 +17,9 @@ export default class AuthVueRouter {
   }
 
   public async push(to: RawLocation | string) {
-    await this.router.push(to);
+    if (this.router.currentRoute.path !== to) {
+      await this.router.push(to);
+    }
   }
 
   public async afterLogin(redirect?: RawLocation | string | null) {

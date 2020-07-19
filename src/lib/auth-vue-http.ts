@@ -172,7 +172,7 @@ export default class AuthVueHttp {
     const { interval } = this.options.fetchData;
     if (interval && !this.intervalFetchData) {
       this.intervalFetchData = setInterval(() => {
-        this.fetchData();
+        void this.fetchData();
       }, interval * this.MINUTE_IN_MS);
     }
   }
@@ -184,7 +184,7 @@ export default class AuthVueHttp {
     const { interval } = this.options.refreshData;
     if (interval && !this.intervalRefreshData) {
       this.intervalRefreshData = setInterval(() => {
-        this.refresh();
+        void this.refresh();
       }, interval * this.MINUTE_IN_MS);
     }
   }
