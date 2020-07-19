@@ -17,10 +17,12 @@
     "docs:build": "cross-env NODE_ENV=production vue-cli-service docs --mode build",
     "docs:deploy": "cross-env BASE_DOCS=/vue-auth-plugin/ yarn docs:build && gh-pages -d docs/.vuepress/dist",
     "docs:serve": "vue-cli-service docs --mode serve",
-    "postversion": "git push --follow-tags",
     "test": "vue-cli-service test:unit",
     "test:coverage": "yarn test --coverage",
-    "test:send-coverages": "yarn coverage:codecovs && yarn coverage:coveralls && yarn coverage:codacy"
+    "test:send-coverages": "yarn coverage:codecovs && yarn coverage:coveralls && yarn coverage:codacy",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "postversion": "git commit -am 'chore(bump): bump version [skip-ci]' && git push --follow-tags"
   },
   "main": "dist/vue-auth-plugin.common.js",
   "module": "dist/vue-auth-plugin.esm.js",
@@ -37,7 +39,13 @@
     "vue-router": "3.3.4"
   },
   "devDependencies": {
-    "@types/jest": "26.0.4",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/git": "9.0.0",
+    "@semantic-release/github": "7.0.7",
+    "@semantic-release/npm": "7.0.5",
+    "@semantic-release/release-notes-generator": "9.0.1",
+    "@types/jest": "26.0.5",
     "@vue/cli-plugin-babel": "4.4.6",
     "@vue/cli-plugin-typescript": "4.4.6",
     "@vue/cli-plugin-unit-jest": "4.4.6",
@@ -45,10 +53,11 @@
     "@vue/cli-service": "4.4.6",
     "@vue/test-utils": "1.0.3",
     "axios": "0.19.2",
-    "axios-mock-adapter": "1.18.1",
+    "axios-mock-adapter": "1.18.2",
     "babel-core": "7.0.0-bridge.0",
     "codacy-coverage": "3.4.0",
-    "codecov": "3.7.0",
+    "codecov": "3.7.1",
+    "commitizen": "^4.1.2",
     "coveralls": "3.1.0",
     "cross-env": "7.0.2",
     "gh-pages": "3.1.0",
@@ -57,10 +66,11 @@
     "jest-junit": "11.0.1",
     "jest-sonar-reporter": "2.0.0",
     "js-cookie": "2.2.1",
+    "semantic-release": "^17.1.1",
     "sonar-scanner": "3.1.0",
-    "ts-jest": "26.1.1",
+    "ts-jest": "26.1.3",
     "ts-node": "8.10.2",
-    "typescript": "3.9.6",
+    "typescript": "3.9.7",
     "vue": "2.6.11",
     "vue-axios": "2.1.5",
     "vue-cli-plugin-p11n": "0.4.0",
@@ -93,5 +103,12 @@
   "license": "MIT",
   "repository": "https://github.com/d0whc3r/vue-auth-plugin",
   "sideeffects": false,
-  "types": "types/index.d.ts"
+  "types": "types/index.d.ts",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
+  }
 }
