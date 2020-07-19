@@ -50,15 +50,15 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
   }
 });
 
-app.get('/api/user', expressJwt({ secret: JWTSecret }), (req: Request, res: Response) => {
+app.get('/api/user', expressJwt({ secret: JWTSecret, algorithms: ['RS256'] }), (req: Request, res: Response) => {
   res.send(USER_INFO);
 });
 
-app.get('/api/check', expressJwt({ secret: JWTSecret }), (req: Request, res: Response) => {
+app.get('/api/check', expressJwt({ secret: JWTSecret, algorithms: ['RS256'] }), (req: Request, res: Response) => {
   res.send('OK!');
 });
 
-app.get('/api/refresh', expressJwt({ secret: JWTSecret }), (req: Request, res: Response) => {
+app.get('/api/refresh', expressJwt({ secret: JWTSecret, algorithms: ['RS256'] }), (req: Request, res: Response) => {
   const token = generateToken();
   res
     .set('Authorization', `Bearer ${token}`)

@@ -24,7 +24,7 @@ Vue.use(VueAuth, {
     fetchUser: true,
     fetchData: (response) => response.data.userInfo,
   },
-  logoutData: { redirect: '/user' },
+  logoutData: { redirect: '/login' },
   fetchData: { url: '/api/user', method: 'GET', interval: 30, enabled: true },
   refreshData: { url: '/api/refresh', method: 'GET', interval: 30, enabled: true },
 });
