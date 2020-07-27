@@ -8,7 +8,7 @@ declare module 'vue/types/vue' {
   }
 
   interface VueConstructor {
-    auth: VueAuth;
+    $auth: VueAuth;
   }
 }
 
