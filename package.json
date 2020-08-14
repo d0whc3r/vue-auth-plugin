@@ -45,7 +45,7 @@
     "@semantic-release/github": "7.0.7",
     "@semantic-release/npm": "7.0.5",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "@types/jest": "26.0.5",
+    "@types/jest": "26.0.10",
     "@vue/cli-plugin-babel": "4.4.6",
     "@vue/cli-plugin-typescript": "4.4.6",
     "@vue/cli-plugin-unit-jest": "4.4.6",
