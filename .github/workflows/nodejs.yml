@@ -42,8 +42,7 @@ jobs:
       if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
       run: yarn semantic-release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 #    - name: release
