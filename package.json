@@ -6,6 +6,11 @@
     "name": "d0whc3r",
     "url": "https://github.com/d0whc3r"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d0whc3r/vue-auth-plugin.git"
+  },
+  "homepage": "https://d0whc3r.github.io/vue-auth-plugin",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -80,7 +85,6 @@
     "vue-template-compiler": "2.6.12",
     "vuex": "3.5.1"
   },
-  "homepage": "https://d0whc3r.github.io/vue-auth-plugin",
   "jest-junit": {
     "outputDirectory": "./coverage",
     "outputName": "./junit.xml"
@@ -103,10 +107,6 @@
     "typescript"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/d0whc3r/vue-auth-plugin.git"
-  },
   "sideeffects": false,
   "types": "types/index.d.ts",
   "publishConfig": {

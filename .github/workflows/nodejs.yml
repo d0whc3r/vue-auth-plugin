@@ -38,11 +38,19 @@ jobs:
         CODECOVS_TOKEN: ${{ secrets.CODECOVS_TOKEN }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    - name: release
+    - name: Release
       if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
-      uses: cycjimmy/semantic-release-action@v2.5.0
+      run: yarn semantic-release
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#    - name: release
+#      if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
+#      uses: cycjimmy/semantic-release-action@v2.5.0
+#      env:
+#        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
+#        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
