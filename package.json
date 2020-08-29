@@ -22,7 +22,7 @@
     "test:send-coverages": "yarn coverage:codecovs && yarn coverage:coveralls && yarn coverage:codacy",
     "commit": "git-cz",
     "semantic-release": "semantic-release",
-    "postversion": "git commit -am 'chore(bump): bump version [skip-ci]' && git push --follow-tags"
+    "postversion2": "git commit -am 'chore(bump): bump version [skip-ci]' && git push --follow-tags"
   },
   "main": "dist/vue-auth-plugin.common.js",
   "module": "dist/vue-auth-plugin.esm.js",
@@ -39,6 +39,7 @@
     "vue-router": "3.4.3"
   },
   "devDependencies": {
+    "@octokit/core": "3.1.2",
     "@octokit/plugin-paginate-rest": "2.3.1",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
