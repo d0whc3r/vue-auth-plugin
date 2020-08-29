@@ -42,5 +42,7 @@ jobs:
       if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
       uses: cycjimmy/semantic-release-action@v2.5.0
       env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
