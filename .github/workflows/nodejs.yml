@@ -31,6 +31,7 @@ jobs:
       if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
       run: yarn test:coverage
       env:
+        CI: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_DOCS: ${{ secrets.BASE_DOCS }}
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -39,7 +40,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: release
       if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
-      run: yarn semantic-release
+      uses: cycjimmy/semantic-release-action@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
