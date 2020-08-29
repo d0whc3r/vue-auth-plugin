@@ -62,7 +62,7 @@ describe('With customToken', () => {
       const response = await localVue.$auth.login({ username: 'test', password: 'test' });
       expect(response).toBeTruthy();
       expect(localVue.$auth.token()).toEqual(sampleToken);
-    } catch (_) {
+    } catch {
       fail('Login is good');
     }
   });

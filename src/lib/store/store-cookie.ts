@@ -15,7 +15,7 @@ export default class StoreCookie extends VueAuthStore {
       } else if (typeof document.cookie === 'string') {
         this.documentCookie = true;
       }
-    } catch (_) {
+    } catch {
       console.warn('[vue-auth-plugin]: Cookie store not enabled');
       this.enabled = false;
     }
@@ -62,15 +62,16 @@ export default class StoreCookie extends VueAuthStore {
       const cookiePair = document.cookie.replace(/;\s+/g, ';')
         .split(';')
         .map((str) => str.replace(/\s+=\s+/g, '=').split('='))
-        .filter((cookiePair) => cookiePair[0] === name)
+        .filter((cp) => cp[0] === name)
         .pop() || [];
       result = cookiePair[1] || null;
     }
     try {
       return JSON.parse(result);
-    } catch (_) {
-      return result;
+    } catch {
+      console.error('[vue-auth-plugin] Invalid cookie value');
     }
+    return result;
   }
 
   private setCookie(name: string | undefined, value: any) {

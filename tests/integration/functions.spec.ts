@@ -108,7 +108,7 @@ describe('Functions', () => {
       try {
         const response = await localVue.$auth.login({ username: 'test', password: 'test' });
         expect(response).toBeTruthy();
-      } catch (_) {
+      } catch {
         fail('Login is good');
       }
     });
@@ -217,7 +217,7 @@ describe('Functions', () => {
       const response = await localVue.$auth.login({ username: 'test', password: 'test' });
       expect(response).toBeTruthy();
       expect(spyFetch).toHaveBeenCalledTimes(1);
-    } catch (_) {
+    } catch {
       fail('Login is good');
     }
   });
@@ -240,7 +240,7 @@ describe('Functions', () => {
         const response = await localVue.$auth.login({ username: 'test', password: 'test' });
         expect(response).toBeTruthy();
         expect(spyFetch).toHaveBeenCalledTimes(1);
-      } catch (_) {
+      } catch {
         fail('Login is good');
       }
     });

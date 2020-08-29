@@ -53,11 +53,11 @@ export default class Auth {
   private readonly http: AuthVueHttp;
   private readonly storeManager: AuthStoreManager;
 
-  constructor(private readonly Vue: any, options: VueAuthOptions = {} as VueAuthOptions) {
+  constructor(private readonly VueInstance: any, options: VueAuthOptions = {} as VueAuthOptions) {
     this.options = {
       ...DEFAULT_OPTIONS,
       ...options,
-      Vue: new this.Vue({
+      Vue: new this.VueInstance({
         data() {
           return {
             user: null,
@@ -66,9 +66,9 @@ export default class Auth {
         },
       }),
     };
-    this.storeManager = new AuthStoreManager(this.Vue, this.options);
-    const router = new AuthVueRouter(this.Vue, this.options, this.storeManager);
-    this.http = new AuthVueHttp(this.Vue, this.options, this.storeManager, router);
+    this.storeManager = new AuthStoreManager(this.VueInstance, this.options);
+    const router = new AuthVueRouter(this.VueInstance, this.options, this.storeManager);
+    this.http = new AuthVueHttp(this.VueInstance, this.options, this.storeManager, router);
   }
 
   public login(loginInfo: VueAuthLogin) {

@@ -50,14 +50,14 @@ export default class AuthStoreManager extends VueAuthStore {
   public getToken(): string {
     const token = this.allStores
       .map((store) => store.getToken())
-      .filter((token) => !!token)[0];
+      .filter(Boolean)[0];
     return token || this.options.Vue.$data.token;
   }
 
   public getUser(): AuthUser {
     const user = this.allStores
       .map((store) => store.getUser())
-      .filter((user) => !!user)[0];
+      .filter(Boolean)[0];
     return user || this.options.Vue.$data.user;
   }
 
