@@ -1,10 +1,9 @@
 import { Request, Response } from 'express-serve-static-core';
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
+import expressJwt from 'express-jwt';
+import cors from 'cors';
 
 const PORT = 6001;
 const app = express();
