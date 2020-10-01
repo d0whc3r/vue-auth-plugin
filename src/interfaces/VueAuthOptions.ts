@@ -29,6 +29,13 @@ export interface LoginRedirectData extends RedirectData, BasicRedirectData {
   fetchData?: (response: AxiosResponse) => any;
 }
 
+export interface RegisterRedirectData extends RedirectData, BasicRedirectData {
+  headerToken?: string;
+  fetchUser?: boolean;
+  customToken?: (response: AxiosResponse) => string;
+  fetchData?: (response: AxiosResponse) => any;
+}
+
 export interface LogoutRedirectData extends RedirectData, OptionalRedirectData {
   makeRequest?: boolean;
 }
@@ -59,6 +66,7 @@ export interface VueAuthOptions {
   authRedirect?: string;
 
   loginData?: LoginRedirectData;
+  registerData?: RegisterRedirectData;
   logoutData?: LogoutRedirectData;
   fetchData?: FetchData;
   refreshData?: RefreshData;

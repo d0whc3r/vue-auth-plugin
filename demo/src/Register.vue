@@ -3,17 +3,17 @@
     <h1>Plugin Demo</h1>
     <form @submit.prevent="submit">
       <p>
-        <input placeholder="Login" type="text" v-model="username">
+        <input placeholder="Register" type="text" v-model="username">
       </p>
       <p>
         <input placeholder="Password" type="password" v-model="password">
       </p>
       <p>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </p>
     </form>
     <router-link :to="{ name: 'user' }">Go to private section</router-link> |
-    <router-link :to="{ name: 'register' }">Sign up</router-link>
+    <router-link :to="{ name: 'login' }">Already have an account? Log in</router-link>
   </div>
 </template>
 
@@ -32,15 +32,15 @@
     }
 
     public submit() {
-      this.$auth.login({
+      this.$auth.register({
         username: this.username,
         password: this.password,
       })
         .then((response) => {
-          console.warn('SUCCESS login', response);
+          console.warn('SUCCESS register', response);
         })
         .catch((err) => {
-          console.error('ERROR! in login', err);
+          console.error('ERROR! in register', err);
         });
     }
   }

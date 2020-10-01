@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { VueAuthLogin } from '../interfaces';
+import { VueAuthLogin, VueAuthRegister } from '../interfaces';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueRouter from './auth-vue-router';
 import { IVueAuthOptions } from './auth';
@@ -49,6 +49,37 @@ export default class AuthVueHttp {
       })
       .catch((error: any) => {
         console.warn('[vue-auth-plugin] Login error', error.message);
+      });
+    return promise;
+  }
+
+  public register(registerInfo: VueAuthRegister) {
+    if (!this.options.registerData) {
+      console.warn('[vue-auth-plugin] Register not configured, use "registerData" option');
+      return Promise.reject(false);
+    }
+    const nextUrls = this.router.router.currentRoute.query.nextUrl;
+    const nextUrl = Array.isArray(nextUrls) ? nextUrls[0] : nextUrls;
+    const { method, url, redirect, fetchUser, fetchData } = this.options.registerData;
+    const promise = this.http({
+      method,
+      url,
+      data: registerInfo,
+    });
+    promise
+      .then(async (response: AxiosResponse) => {
+        this.extractToken(response);
+        this.startIntervals();
+        if (fetchData) {
+          this.storeManager.setUser(fetchData.call({}, response));
+        } else if (fetchUser) {
+          await this.fetchData(true);
+        }
+        await this.router.afterLogin(redirect || nextUrl);
+        return response;
+      })
+      .catch((error: any) => {
+        console.warn('[vue-auth-plugin] Register error', error.message);
       });
     return promise;
   }

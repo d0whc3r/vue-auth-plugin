@@ -22,6 +22,14 @@ const options = {
     fetchUser: false,
     (optional) customToken: (response) => response.data['token'],
   },
+  registerData: {
+    url: '/auth/register',
+    method: 'POST',
+    redirect: '/user',
+    headerToken: 'Authorization',
+    fetchUser: false,
+    (optional) customToken: (response) => response.data['token'],
+  },
   logoutData: {
     url: '/auth/logout',
     method: 'POST',
@@ -183,6 +191,19 @@ Configuration used when [$auth.login](./methods.html#login) function was called
 - `url`: Url to call for login process (using vue-axios)
 - `method`: Method to use in call for login process. Only 'GET' or 'POST' supported
 - `redirect`: *Optional*, path to redirect when login was success (using vue-router). If set to `null`, the previous path is recorded in a query parameter and restored after successful login.
+- `headerToken`: Name of the header with authorization code, usually *Authorization*
+- `fetchUser`: *Optional*, indicates if user information will be fetched once the login process was success
+- `customToken`: *Optional*, function to get token, it receives the response object from axios and must to return the string token
+- `fetchData`: *Optional*, function to get user info, it receives the response object from axios and must to return the object representing user info
+
+## registerData
+`{ url: string, method: GET | POST, redirect?: string, headerToken: string, fetchUser?: boolean, customToken?: (response: AxiosResponse) => string, fetchData?: (response: AxiosResponse) => any }`
+
+Configuration used when [$auth.register](./methods.html#register) function was called
+
+- `url`: Url to call for register process (using vue-axios)
+- `method`: Method to use in call for register process. Only 'GET' or 'POST' supported
+- `redirect`: *Optional*, path to redirect when register was success (using vue-router). If set to `null`, the previous path is recorded in a query parameter and restored after successful register.
 - `headerToken`: Name of the header with authorization code, usually *Authorization*
 - `fetchUser`: *Optional*, indicates if user information will be fetched once the login process was success
 - `customToken`: *Optional*, function to get token, it receives the response object from axios and must to return the string token

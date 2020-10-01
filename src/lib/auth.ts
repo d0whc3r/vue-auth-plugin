@@ -1,4 +1,4 @@
-import { VueAuthLogin, VueAuthOptions } from '../interfaces';
+import { VueAuthLogin, VueAuthOptions, VueAuthRegister } from '../interfaces';
 import AuthVueRouter from './auth-vue-router';
 import AuthStoreManager from './auth-vue-store-manager';
 import AuthVueHttp from './auth-vue-http';
@@ -22,6 +22,13 @@ export const DEFAULT_OPTIONS: VueAuthOptions = {
 
   loginData: {
     url: '/auth/login',
+    method: 'POST',
+    redirect: '/',
+    headerToken: 'Authorization',
+    fetchUser: false,
+  },
+  registerData: {
+    url: '/auth/register',
     method: 'POST',
     redirect: '/',
     headerToken: 'Authorization',
@@ -73,6 +80,10 @@ export default class Auth {
 
   public login(loginInfo: VueAuthLogin) {
     return this.http.login(loginInfo);
+  }
+
+  public register(registerData: VueAuthRegister) {
+    return this.http.register(registerData);
   }
 
   public logout() {
