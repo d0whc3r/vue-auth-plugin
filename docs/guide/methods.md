@@ -35,6 +35,39 @@ export default {
 
 Object passed to `$auth.login` method will be the `data` request
 
+## Register
+Register method is used to register to server using information in [registerData](./#registerdata) option
+
+```vue{18-21}
+<template>
+  <div>
+      <h1>Register demo</h1>
+      <form @submit.prevent="submit">
+          <input placeholder="Register" type="text" v-model="username">
+          <input placeholder="Password" type="password" v-model="password">
+          <button type="submit">Register</button>
+      </form>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'register',
+  data () { return { username: null, password: null } },
+  methods: {
+    submit() {
+      this.$auth.register({
+        username: this.username,
+        password: this.password,
+      });
+    }
+  }
+}
+</script>
+```
+
+Object passed to `$auth.register` method will be the `data` request
+
 ## Logout
 Logout method is used to clean token and user information, it uses information in [logoutData](./#logoutdata) option
 

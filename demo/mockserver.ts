@@ -49,6 +49,22 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
   }
 });
 
+app.post('/api/register', (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  if (username === 'demo' && password === 'demo') {
+    const token = generateToken();
+    res
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        id_token: token,
+        userInfo: USER_INFO,
+      });
+  } else {
+    res.statusCode = 400;
+    res.send({ error: 'Not registered' });
+  }
+});
+
 app.get('/api/user', expressJwt({ secret: JWTSecret, algorithms: ['RS256'] }), (req: Request, res: Response) => {
   res.send(USER_INFO);
 });
