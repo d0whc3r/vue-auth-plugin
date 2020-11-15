@@ -1,6 +1,7 @@
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import plugin, { VueAuthOptions } from '../../src';
 import MockAdapter from 'axios-mock-adapter';
+import { AxiosInstance } from 'axios';
 
 let localVue: LocalVueType;
 
@@ -45,7 +46,7 @@ describe('Plugin', () => {
   describe('Logged routes', () => {
     const sampleToken = '123456abcdef123456789';
     beforeAll(async () => {
-      const mock = new MockAdapter(localVue.axios);
+      const mock = new MockAdapter(localVue.axios as AxiosInstance);
       const loginHeaders = { [options.loginData!.headerToken!.toLowerCase()]: `${options.tokenType} ${sampleToken}` };
       mock.onPost(`${localVue.axios.defaults.baseURL}${options.loginData!.url}`)
         .reply(200, { response: true }, loginHeaders);

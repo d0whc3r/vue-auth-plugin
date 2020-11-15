@@ -1,6 +1,7 @@
 import plugin, { VueAuthOptions } from '../../src/index';
 import MockAdapter from 'axios-mock-adapter';
 import { LocalVueType, prepareVue } from '../helper/prepare';
+import { AxiosInstance } from 'axios';
 
 let localVue: LocalVueType;
 const options: VueAuthOptions = {
@@ -44,7 +45,7 @@ describe('Plugin', () => {
   beforeAll(() => {
     localVue = prepareVue();
     localVue.use(plugin, options);
-    mock = new MockAdapter(localVue.axios);
+    mock = new MockAdapter(localVue.axios as AxiosInstance);
   });
   it('Error in login', async () => {
     localVue.router.push('/');

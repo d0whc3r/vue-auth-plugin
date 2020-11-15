@@ -2,6 +2,7 @@ import plugin, { VueAuthOptions } from '../../src';
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
 import { wait } from '../helper/herlpers';
+import { AxiosInstance } from 'axios';
 
 let localVue: LocalVueType;
 const DEFAULT_OPTIONS: VueAuthOptions = {
@@ -54,7 +55,7 @@ function reset(opts?: VueAuthOptions, resetMock = true) {
   localVue = prepareVue();
   options = { ...DEFAULT_OPTIONS, ...opts };
   localVue.use(plugin, options);
-  mock = new MockAdapter(localVue.axios);
+  mock = new MockAdapter(localVue.axios as AxiosInstance);
   if (!resetMock) {
     defaultMockLogin();
   }
@@ -76,7 +77,7 @@ function defaultMockLogin() {
 describe('Functions', () => {
   beforeAll(() => {
     reset();
-    mock = new MockAdapter(localVue.axios);
+    mock = new MockAdapter(localVue.axios as AxiosInstance);
   });
   describe('Before Login', () => {
     it('Redirect before login', () => {
@@ -250,7 +251,7 @@ describe('Functions', () => {
 describe('Login without redirect defined', () => {
   beforeAll(() => {
     reset();
-    mock = new MockAdapter(localVue.axios);
+    mock = new MockAdapter(localVue.axios as AxiosInstance);
     const opts = { ...options };
     delete opts.loginData!.redirect;
     reset(opts, false);

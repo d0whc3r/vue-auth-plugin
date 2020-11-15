@@ -1,6 +1,6 @@
 import { LocalVueType, prepareVue } from '../helper/prepare';
 import MockAdapter from 'axios-mock-adapter';
-import { AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import plugin, { VueAuthOptions } from '../../src';
 
 describe('With customToken', () => {
@@ -50,7 +50,7 @@ describe('With customToken', () => {
       loginData: { ...options.loginData, customToken: (response: AxiosResponse) => response.data.loginToken },
     };
     localVue.use(plugin, customOptions);
-    mock = new MockAdapter(localVue.axios);
+    mock = new MockAdapter(localVue.axios as AxiosInstance);
   });
   it('Login success using customToken', async () => {
     mock.reset();
