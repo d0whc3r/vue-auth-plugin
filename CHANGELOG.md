@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.9.0...v1.9.1) (2020-11-15)
+
+
+### Bug Fixes
+
+* bump version ([2d6cece](https://github.com/d0whc3r/vue-auth-plugin/commit/2d6cecec94739f5bd39299ab30db2ef5d70705f7))
+
 # [1.9.0](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.8.6...v1.9.0) (2020-11-15)
 
 
