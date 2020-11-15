@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.9.0](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.8.6...v1.9.0) (2020-11-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies ([9682a33](https://github.com/d0whc3r/vue-auth-plugin/commit/9682a3355e636dd460aa321ce7484b5b5c938048))
+
+
+### Features
+
+* add register ([#301](https://github.com/d0whc3r/vue-auth-plugin/issues/301)) ([0a460ce](https://github.com/d0whc3r/vue-auth-plugin/commit/0a460ce6fda87b37f195aefff3e18f00fc2b0937))
+
 ## [1.8.6](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.8.5...v1.8.6) (2020-08-29)
 
 
