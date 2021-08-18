@@ -15,17 +15,14 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node"
     ],
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
-    ],
-    "typeRoots": [
-      "./types",
-      "node_modules/@types"
     ]
   },
   "include": [

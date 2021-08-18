@@ -23,7 +23,7 @@ install-deps:
   stage: install
   script:
     - yarn install --cache-folder .yarn-cache
-    - cd demo && yarn install --cache-folder ../.yarn-cache
+    - (cd demo && yarn install --cache-folder ../.yarn-cache)
     - yarn build
 
 tests:
