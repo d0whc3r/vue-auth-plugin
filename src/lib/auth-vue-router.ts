@@ -18,26 +18,26 @@ export default class AuthVueRouter {
 
   public async push(to: RawLocation | string) {
     if (this.router.currentRoute.path !== to) {
-      await this.router.push(to);
+      return await this.router.push(to);
     }
   }
 
   public async afterLogin(redirect?: RawLocation | string | null) {
     let promise: Promise<Route | undefined> = Promise.resolve(undefined);
     if (redirect) {
-      promise = this.router.push(redirect);
+      promise = this.push(redirect);
     } else if (this.router.currentRoute.query.nextUrl) {
       const nextUrl = this.router.currentRoute.query.nextUrl;
       if (typeof nextUrl === 'string') {
-        promise = this.router.push(nextUrl);
+        promise = this.push(nextUrl);
       }
     } else {
-      promise = this.router.push('/');
+      promise = this.push('/');
     }
     if (promise) {
       promise.catch(async () => {
         const result = redirect || '/';
-        await this.router.push(result);
+        await this.push(result);
       });
     }
     return promise;
