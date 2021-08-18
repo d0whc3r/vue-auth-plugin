@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.2](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.9.1...v1.9.2) (2021-08-18)
+
+
+### Bug Fixes
+
+* update dependencies ([6f2cf9b](https://github.com/d0whc3r/vue-auth-plugin/commit/6f2cf9b48c61c2b75df438dbc0c12d6cd1e77872))
+
 ## [1.9.1](https://github.com/d0whc3r/vue-auth-plugin/compare/v1.9.0...v1.9.1) (2020-11-15)
 
 
