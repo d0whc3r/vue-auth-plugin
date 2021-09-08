@@ -179,7 +179,7 @@ export default class AuthVueHttp {
       return request;
     }, (error: any) => {
       return Promise.reject(error);
-    });
+    }, { synchronous: true });
     this.http.interceptors.response.use((response: AxiosResponse) => {
       return response;
     }, (error: any) => {
@@ -188,7 +188,7 @@ export default class AuthVueHttp {
         this.logout();
       }
       return Promise.reject(error);
-    });
+    }, { synchronous: true });
   }
 
   private startIntervals() {
