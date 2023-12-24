@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "core-js": "3.16.2",
-    "vue": "2.6.14",
+    "vue": "2.7.16",
     "vue-axios": "3.2.5",
     "vue-class-component": "7.2.6",
     "vue-property-decorator": "9.1.2",
@@ -37,6 +37,6 @@
     "npm-run-all": "4.1.5",
     "ts-node": "10.2.0",
     "typescript": "4.3.5",
-    "vue-template-compiler": "2.6.14"
+    "vue-template-compiler": "2.7.16"
   }
 }
