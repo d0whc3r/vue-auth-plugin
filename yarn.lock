@@ -14929,10 +14929,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-axios@3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.2.5.tgz#b3bd0c82a44cc9164aeca0efa071ac103e15767f"
-  integrity sha512-V7XUzu0v3WOzd8PEF9m/ZoVivap+ToBPOXrhI8AsnczD93YXvGG+HkeQhJHAF/jeav8CsPDF3X/Z2vCqBbjsMQ==
+vue-axios@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.6.0.tgz#d9f7168b36d1b78dd34798afd975e87c7c5825c7"
+  integrity sha512-fgCDdHzujSdZzhP45Ob20P3UymD45/y98ZeB9xlLTwvFkU7Y69OB9QENNUcG20pXAnT8WhT+bLWO9f95Pc1rYg==
 
 vue-cli-plugin-p11n@0.4.0:
   version "0.4.0"
